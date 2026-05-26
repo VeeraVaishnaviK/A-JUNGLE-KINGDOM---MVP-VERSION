@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Magical Ghibli Adventure — Rejo's 20th Birthday</title>
+  <!-- Inline Ghibli Magic Glitch Diagnostic Console (Displays errors on page if any occur) -->
+  <script>
+    window.addEventListener('error', function(e) {
+      const errDiv = document.getElementById('ghibli-error-overlay') || document.createElement('div');
+      if (!errDiv.parentNode) {
+        errDiv.id = 'ghibli-error-overlay';
+        errDiv.style = "position: fixed; top: 15px; left: 15px; z-index: 99999; background: #ffebee; color: #c62828; border: 4px solid #ffcdd2; padding: 18px; border-radius: 12px; font-family: sans-serif; font-size: 14px; max-width: 90%; box-shadow: 0 8px 24px rgba(0,0,0,0.3); line-height: 1.4;";
+        document.body.appendChild(errDiv);
+      }
+      errDiv.innerHTML = "<strong>⚠️ Ghibli Magic Glitch Captured:</strong><br>" + e.message + "<br><small style='color:#757575;'>File: " + (e.filename ? e.filename.split('/').pop() : 'inline') + " | Line: " + e.lineno + "</small>";
+    });
+  </script>
+  <!-- Google Fonts for Ghibli-style bubbly, handwritten-style title cards -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=1.0.4">
+</head>
+<body>
+
+  <!-- Global Shared SVG Defs (ensures filters and gradients render even when scenes are hidden) -->
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+    <defs>
+      <!-- Soft drop shadow for characters -->
+      <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5a422d" flood-opacity="0.15" />
+      </filter>
+      <!-- Panda body gradient -->
+      <radialGradient id="panda-body-grad" cx="50%" cy="40%" r="50%">
+        <stop offset="0%" stop-color="#ffffff" />
+        <stop offset="85%" stop-color="#fffcf0" />
+        <stop offset="100%" stop-color="#ebdcb9" />
+      </radialGradient>
+      <!-- Gorilla body gradient -->
+      <radialGradient id="gorilla-body-grad" cx="50%" cy="40%" r="50%">
+        <stop offset="0%" stop-color="#5a6473" />
+        <stop offset="85%" stop-color="#464e5c" />
+        <stop offset="100%" stop-color="#323742" />
+      </radialGradient>
+      <!-- Gorilla chest gradient -->
+      <radialGradient id="gorilla-chest-grad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#8ba1b8" />
+        <stop offset="100%" stop-color="#73889c" />
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <!-- Seamless Watercolor Texture Overlay (covers entire page for a tactile feel) -->
+  <div class="watercolor-texture-overlay"></div>
+
+  <!-- Soft Vignette for dramatic, warm lighting -->
+  <div class="warm-vignette"></div>
+
+  <!-- Giant Ancient Bamboo Gates (parts open on password success in Step 2) -->
+  <div id="bamboo-gates" class="giant-bamboo-gates hidden-gates">
+    <div class="gate gate-left">
+      <svg viewBox="0 0 100 200" preserveAspectRatio="none" width="100%" height="100%">
+        <rect x="0" y="0" width="30" height="200" fill="#2d421e" stroke="#1d2d13" stroke-width="2" />
+        <rect x="30" y="0" width="30" height="200" fill="#3b522a" stroke="#1d2d13" stroke-width="2" />
+        <rect x="60" y="0" width="30" height="200" fill="#2d421e" stroke="#1d2d13" stroke-width="2" />
+        <rect x="90" y="0" width="10" height="200" fill="#1e2e13" />
+        <line x1="0" y1="40" x2="100" y2="40" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="80" x2="100" y2="80" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="120" x2="100" y2="120" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="160" x2="100" y2="160" stroke="#1d2d13" stroke-width="3" />
+        <path d="M 0,20 Q 40,60 20,100 T 80,180" fill="none" stroke="#689e47" stroke-width="4" stroke-linecap="round" />
+        <path d="M 22,60 Q 30,50 35,58 Z" fill="#8bc34a" />
+        <path d="M 28,100 Q 36,92 41,100 Z" fill="#8bc34a" />
+        <path d="M 52,145 Q 60,135 65,143 Z" fill="#8bc34a" />
+      </svg>
+    </div>
+    <div class="gate gate-right">
+      <svg viewBox="0 0 100 200" preserveAspectRatio="none" width="100%" height="100%">
+        <rect x="70" y="0" width="30" height="200" fill="#2d421e" stroke="#1d2d13" stroke-width="2" />
+        <rect x="40" y="0" width="30" height="200" fill="#3b522a" stroke="#1d2d13" stroke-width="2" />
+        <rect x="10" y="0" width="30" height="200" fill="#2d421e" stroke="#1d2d13" stroke-width="2" />
+        <rect x="0" y="0" width="10" height="200" fill="#1e2e13" />
+        <line x1="0" y1="40" x2="100" y2="40" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="80" x2="100" y2="80" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="120" x2="100" y2="120" stroke="#1d2d13" stroke-width="3" />
+        <line x1="0" y1="160" x2="100" y2="160" stroke="#1d2d13" stroke-width="3" />
+        <path d="M 100,20 Q 60,60 80,100 T 20,180" fill="none" stroke="#689e47" stroke-width="4" stroke-linecap="round" />
+        <path d="M 78,60 Q 70,50 65,58 Z" fill="#8bc34a" />
+        <path d="M 72,100 Q 64,92 59,100 Z" fill="#8bc34a" />
+        <path d="M 48,145 Q 40,135 35,143 Z" fill="#8bc34a" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SCENE 1: OPENING FOREST (Dawn)
+       ======================================================================== -->
+  <section id="scene-opening" class="scene-container active-scene">
+    <main class="story-canvas">
+      
+      <!-- Golden Dawn Rays filtering through the canopy -->
+      <div class="sunbeam-container">
+        <div class="sunbeam ray-1"></div>
+        <div class="sunbeam ray-2"></div>
+        <div class="sunbeam ray-3"></div>
+      </div>
+
+      <!-- Butterflies fluttering randomly -->
+      <div class="butterfly butterfly-1">
+        <svg viewBox="0 0 40 40">
+          <path class="wing wing-left" d="M 20,20 Q 5,5 10,25 Q 15,35 20,20" fill="#ffb4b4" opacity="0.9" />
+          <path class="wing wing-right" d="M 20,20 Q 35,5 30,25 Q 25,35 20,20" fill="#ffe0b4" opacity="0.9" />
+          <path d="M 20,10 L 20,30" stroke="#724d35" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="butterfly butterfly-2">
+        <svg viewBox="0 0 40 40">
+          <path class="wing wing-left" d="M 20,20 Q 5,5 10,25 Q 15,35 20,20" fill="#b4e6ff" opacity="0.8" />
+          <path class="wing wing-right" d="M 20,20 Q 35,5 30,25 Q 25,35 20,20" fill="#d2b4ff" opacity="0.8" />
+          <path d="M 20,10 L 20,30" stroke="#724d35" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+
+      <!-- Cozy Scroll Title Box with Typewriter Effect -->
+      <header class="story-header-scroll">
+        <div class="scroll-wood-ends"></div>
+        <div class="scroll-paper">
+          <h1 id="typewriter-text" class="typewriter"></h1>
+        </div>
+      </header>
+
+      <!-- The Ghibli Forest elements -->
+      <section class="scene-elements">
+        
+        <!-- Tiny Chirping Bird 1 sitting on a branch -->
+        <div class="bird bird-1">
+          <span class="chirp-bubble">Chirp ♪</span>
+          <svg viewBox="0 0 50 40" width="50" height="40">
+            <ellipse cx="25" cy="22" rx="14" ry="12" fill="#88d8b0" />
+            <circle cx="34" cy="16" r="8" fill="#88d8b0" />
+            <path d="M 40,15 L 45,17 L 40,19 Z" fill="#ffcc5c" />
+            <circle cx="34" cy="14" r="1.5" fill="#2d5a27" />
+            <path d="M 12,22 Q 5,22 8,16" stroke="#88d8b0" stroke-width="3" fill="none" stroke-linecap="round" />
+            <path d="M 23,28 L 21,34 M 27,28 L 29,34" stroke="#724d35" stroke-width="2" stroke-linecap="round" />
+            <path class="bird-wing" d="M 20,22 Q 12,22 18,27 Z" fill="#69c497" />
+          </svg>
+        </div>
+
+        <!-- Cozy Bamboo Cottage -->
+        <div class="bamboo-house">
+          <svg viewBox="0 0 240 200" width="240" height="200">
+            <rect x="40" y="70" width="160" height="110" rx="15" ry="15" fill="#f5eedc" stroke="#826649" stroke-width="5" />
+            <line x1="72" y1="73" x2="72" y2="177" stroke="#e3d6bc" stroke-width="3" />
+            <line x1="120" y1="73" x2="120" y2="177" stroke="#e3d6bc" stroke-width="3" />
+            <line x1="168" y1="73" x2="168" y2="177" stroke="#e3d6bc" stroke-width="3" />
+            <rect x="55" y="90" width="45" height="45" rx="8" ry="8" fill="#ffd15c" stroke="#826649" stroke-width="4" class="house-window" />
+            <line x1="77" y1="90" x2="77" y2="135" stroke="#826649" stroke-width="3" />
+            <line x1="55" y1="112" x2="100" y2="112" stroke="#826649" stroke-width="3" />
+            <path d="M 130,180 L 130,115 A 25,25 0 0,1 180,115 L 180,180 Z" fill="#b0855a" stroke="#826649" stroke-width="4" />
+            <circle cx="142" cy="148" r="4.5" fill="#4d321d" />
+            <path d="M 20,75 C 60,35 180,35 220,75 C 230,85 210,95 200,85 C 160,50 80,50 40,85 C 30,95 10,85 20,75 Z" fill="#699238" stroke="#3d5e1f" stroke-width="5" />
+            <path d="M 30,73 L 210,73" stroke="#4a7024" stroke-width="5" stroke-linecap="round" />
+            <path d="M 80,45 Q 75,30 85,25 Q 95,30 90,45 Z" fill="#88b04b" opacity="0.9" />
+            <path d="M 140,43 Q 135,28 145,23 Q 155,28 150,43 Z" fill="#88b04b" opacity="0.9" />
+          </svg>
+        </div>
+
+        <!-- The Magical Glowing Letter -->
+        <div id="glowing-letter" class="glowing-letter-wrapper hidden">
+          <div class="letter-glow-halo"></div>
+          <div class="envelope">
+            <div class="envelope-back"></div>
+            <div class="letter-paper">
+              <div class="letter-content">
+                <h3>Dear Traveler...</h3>
+                <p>Today is</p>
+                <h2>Rejo's 20th</h2>
+                <h2>Birthday! 🎉</h2>
+              </div>
+            </div>
+            <div class="envelope-front"></div>
+            <div class="envelope-top"></div>
+          </div>
+        </div>
+
+        <!-- Cozy Panda Sitting (Scene 1) -->
+        <div id="baby-panda" class="panda-container state-sleeping">
+          <div class="zzz-container">
+            <span class="zzz z-1">z</span>
+            <span class="zzz z-2">Z</span>
+            <span class="zzz z-3">Z</span>
+          </div>
+          <svg viewBox="0 0 160 160" width="160" height="160" class="panda-svg">
+            <defs>
+              <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#5a422d" flood-opacity="0.15" />
+              </filter>
+              <radialGradient id="panda-body-grad" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="85%" stop-color="#fffcf0" />
+                <stop offset="100%" stop-color="#ebdcb9" />
+              </radialGradient>
+            </defs>
+            <g id="panda-body-group" filter="url(#soft-shadow)">
+              <ellipse cx="80" cy="148" rx="55" ry="10" fill="#4d3b2c" opacity="0.2" />
+              <ellipse id="panda-leg-left" cx="42" cy="138" rx="18" ry="16" fill="#36291b" />
+              <ellipse id="panda-leg-right" cx="118" cy="138" rx="18" ry="16" fill="#36291b" />
+              <circle cx="42" cy="138" r="10" fill="#473827" />
+              <circle cx="34" cy="126" r="3" fill="#473827" />
+              <circle cx="42" cy="123" r="3" fill="#473827" />
+              <circle cx="50" cy="126" r="3" fill="#473827" />
+              <circle cx="118" cy="138" r="10" fill="#473827" />
+              <circle cx="110" cy="126" r="3" fill="#473827" />
+              <circle cx="118" cy="123" r="3" fill="#473827" />
+              <circle cx="126" cy="126" r="3" fill="#473827" />
+              <circle cx="80" cy="112" r="38" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              <path d="M 72,112 Q 80,118 88,112" stroke="#ebdcb9" stroke-width="2" fill="none" stroke-linecap="round" />
+              <circle id="panda-ear-left" cx="44" cy="46" r="15" fill="#36291b" />
+              <circle id="panda-ear-right" cx="116" cy="46" r="15" fill="#36291b" />
+              <circle cx="44" cy="46" r="9" fill="#291e12" />
+              <circle cx="116" cy="46" r="9" fill="#291e12" />
+              <circle id="panda-head" cx="80" cy="78" r="36" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              <ellipse cx="56" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+              <ellipse cx="104" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+              <path d="M 52,68 C 45,72 45,86 52,90 C 59,94 65,80 60,72 C 57,68 54,68 52,68 Z" fill="#36291b" />
+              <path d="M 108,68 C 115,72 115,86 108,90 C 101,94 95,80 100,72 C 103,68 106,68 108,68 Z" fill="#36291b" />
+              <g id="panda-eyes-group">
+                <g class="eyes-sleeping">
+                  <path d="M 52,78 Q 56,84 60,78" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                  <path d="M 100,78 Q 104,84 108,78" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                </g>
+                <g class="eyes-yawning hidden">
+                  <path d="M 51,76 L 59,82 L 51,84" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <path d="M 109,76 L 101,82 L 109,84" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" />
+                </g>
+                <g class="eyes-happy hidden">
+                  <circle cx="56" cy="79" r="6" fill="#ffffff" />
+                  <circle cx="56" cy="79" r="4.5" fill="#1b120c" />
+                  <circle cx="54.5" cy="77" r="1.8" fill="#ffffff" />
+                  <circle cx="57.5" cy="80.5" r="0.8" fill="#ffffff" />
+                  <circle cx="104" cy="79" r="6" fill="#ffffff" />
+                  <circle cx="104" cy="79" r="4.5" fill="#1b120c" />
+                  <circle cx="102.5" cy="77" r="1.8" fill="#ffffff" />
+                  <circle cx="105.5" cy="80.5" r="0.8" fill="#ffffff" />
+                </g>
+              </g>
+              <path d="M 78,80 L 82,80 L 80,82 Z" fill="#24190e" stroke="#24190e" stroke-width="1" stroke-linejoin="round" />
+              <g id="panda-mouth-group">
+                <path class="mouth-sleeping" d="M 77,87 Q 80,89 83,87" stroke="#36291b" stroke-width="2" stroke-linecap="round" fill="none" />
+                <ellipse class="mouth-yawning hidden" cx="80" cy="91" rx="4.5" ry="6.5" fill="#f07878" stroke="#36291b" stroke-width="2" />
+                <path class="mouth-happy hidden" d="M 75,85 Q 78,88 80,85 Q 82,88 85,85" stroke="#36291b" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              </g>
+              <path id="panda-arm-left" class="panda-arm" d="M 48,92 C 34,95 24,106 32,118 C 38,126 48,118 48,112 Z" fill="#36291b" />
+              <path id="panda-arm-right" class="panda-arm" d="M 112,92 C 126,95 136,106 128,118 C 122,126 112,118 112,112 Z" fill="#36291b" />
+            </g>
+          </svg>
+        </div>
+
+      </section>
+
+      <!-- Hanging Wooden-Carved Sign Board -->
+      <div id="adventure-sign" class="wooden-sign-container hidden">
+        <div class="vine vine-left"></div>
+        <div class="vine vine-right"></div>
+        <div class="wooden-board">
+          <div class="wood-rings"></div>
+          <button id="start-btn" class="wooden-sign-btn">
+            <span class="btn-leaf">🌿</span>
+            <span class="btn-text">Start Adventure</span>
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 2: PASSWORD ENTRY (Night Treehouse)
+       ======================================================================== -->
+  <section id="scene-password" class="scene-container hidden">
+    <main class="story-canvas treehouse-night-canvas">
+      
+      <!-- Twinkling starry elements and glowing lantern layers -->
+      <div class="starry-sky">
+        <div class="star star-1"></div>
+        <div class="star star-2"></div>
+        <div class="star star-3"></div>
+      </div>
+
+      <!-- Falling Leaves spawner container -->
+      <div id="falling-leaves-container" class="falling-leaves-container"></div>
+
+      <!-- Hanging glowing paper lanterns -->
+      <div class="paper-lantern lantern-left">
+        <div class="lantern-cable"></div>
+        <div class="lantern-glow"></div>
+        <svg viewBox="0 0 40 50" width="40" height="50">
+          <path d="M 10,10 Q 5,25 10,40 Q 20,45 30,40 Q 35,25 30,10 Z" fill="#ff7e42" stroke="#4d321d" stroke-width="2" />
+          <rect x="13" y="5" width="14" height="5" fill="#a67c52" rx="2" />
+          <rect x="13" y="40" width="14" height="5" fill="#a67c52" rx="2" />
+          <line x1="20" y1="10" x2="20" y2="40" stroke="#7d3012" opacity="0.3" stroke-width="1.5" />
+          <line x1="15" y1="12" x2="15" y2="38" stroke="#7d3012" opacity="0.3" stroke-width="1" />
+          <line x1="25" y1="12" x2="25" y2="38" stroke="#7d3012" opacity="0.3" stroke-width="1" />
+        </svg>
+      </div>
+
+      <div class="paper-lantern lantern-right">
+        <div class="lantern-cable"></div>
+        <div class="lantern-glow"></div>
+        <svg viewBox="0 0 40 50" width="40" height="50">
+          <path d="M 10,10 Q 5,25 10,40 Q 20,45 30,40 Q 35,25 30,10 Z" fill="#ffd15c" stroke="#4d321d" stroke-width="2" />
+          <rect x="13" y="5" width="14" height="5" fill="#a67c52" rx="2" />
+          <rect x="13" y="40" width="14" height="5" fill="#a67c52" rx="2" />
+          <line x1="20" y1="10" x2="20" y2="40" stroke="#a3760a" opacity="0.4" stroke-width="1.5" />
+        </svg>
+      </div>
+
+      <!-- Wooden Carved Password Signboard in center -->
+      <div id="password-signboard" class="password-wooden-signboard">
+        <div class="wood-rings"></div>
+        
+        <h2 class="signboard-header">Only Rejo Can Enter The Kingdom 🐼</h2>
+        
+        <form id="password-form" class="password-form-box">
+          <div class="input-container">
+            <input 
+              type="text" 
+              id="password-input" 
+              placeholder="DD/MM/YYYY" 
+              maxlength="10" 
+              autocomplete="off" 
+              required 
+            />
+            <div class="wood-input-inset"></div>
+          </div>
+          <button type="submit" class="enter-btn">
+            <span class="btn-leaf">🌿</span> Enter Kingdom
+          </button>
+        </form>
+
+        <div class="attempts-box">
+          Attempts left: <span id="attempt-counter">3</span>
+        </div>
+      </div>
+
+      <!-- Watchdog Panda and Speech Bubble Layout (Scene 2) -->
+      <div class="watchdog-panda-wrapper">
+        
+        <!-- Speech Bubble typing dialogue above head -->
+        <div id="panda-speech-bubble" class="panda-speech-bubble hidden">
+          <div class="bubble-tail"></div>
+          <span id="speech-text" class="speech-text"></span>
+        </div>
+
+        <!-- Watchdog Panda Container -->
+        <div id="watchdog-panda" class="panda-container state-watchdog">
+          
+          <!-- Crying Teardrop Spray overlays (particles shoot from left/right eye locations) -->
+          <div class="crying-tears-spray hidden">
+            <div class="tear-droplet tear-l1">💧</div>
+            <div class="tear-droplet tear-l2">💧</div>
+            <div class="tear-droplet tear-r1">💧</div>
+            <div class="tear-droplet tear-r2">💧</div>
+          </div>
+
+          <svg viewBox="0 0 160 160" width="160" height="160" class="panda-svg">
+            <g filter="url(#soft-shadow)">
+              <ellipse cx="80" cy="148" rx="55" ry="10" fill="#4d3b2c" opacity="0.25" />
+              
+              <ellipse id="watchdog-leg-left" cx="42" cy="138" rx="18" ry="16" fill="#36291b" />
+              <ellipse id="watchdog-leg-right" cx="118" cy="138" rx="18" ry="16" fill="#36291b" />
+              <circle cx="42" cy="138" r="10" fill="#473827" />
+              <circle cx="34" cy="126" r="3" fill="#473827" />
+              <circle cx="42" cy="123" r="3" fill="#473827" />
+              <circle cx="50" cy="126" r="3" fill="#473827" />
+              <circle cx="118" cy="138" r="10" fill="#473827" />
+              <circle cx="110" cy="126" r="3" fill="#473827" />
+              <circle cx="118" cy="123" r="3" fill="#473827" />
+              <circle cx="126" cy="126" r="3" fill="#473827" />
+
+              <circle cx="80" cy="112" r="38" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              
+              <circle id="watchdog-ear-left" cx="44" cy="46" r="15" fill="#36291b" class="watchdog-ear" />
+              <circle id="watchdog-ear-right" cx="116" cy="46" r="15" fill="#36291b" class="watchdog-ear" />
+              <circle cx="44" cy="46" r="9" fill="#291e12" />
+              <circle cx="116" cy="46" r="9" fill="#291e12" />
+
+              <circle id="watchdog-head" cx="80" cy="78" r="36" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+
+              <ellipse id="watchdog-cheek-left" cx="56" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+              <ellipse id="watchdog-cheek-right" cx="104" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+
+              <path d="M 52,68 C 45,72 45,86 52,90 C 59,94 65,80 60,72 C 57,68 54,68 52,68 Z" fill="#36291b" />
+              <path d="M 108,68 C 115,72 115,86 108,90 C 101,94 95,80 100,72 C 103,68 106,68 108,68 Z" fill="#36291b" />
+
+              <g id="watchdog-eyes">
+                <g class="eyes-standard">
+                  <circle cx="56" cy="79" r="4" fill="#ffffff" />
+                  <circle cx="104" cy="79" r="4" fill="#ffffff" />
+                  <circle cx="55.5" cy="78" r="1.5" fill="#1b120c" />
+                  <circle cx="103.5" cy="78" r="1.5" fill="#1b120c" />
+                </g>
+                <g class="eyes-sad hidden">
+                  <path d="M 50,81 Q 56,76 62,81" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <path d="M 98,81 Q 104,76 110,81" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <circle cx="60" cy="82" r="2.2" fill="#8ad3ff" opacity="0.9" />
+                  <circle cx="100" cy="82" r="2.2" fill="#8ad3ff" opacity="0.9" />
+                </g>
+                <g class="eyes-sniffle hidden">
+                  <path d="M 50,77 L 60,82" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                  <path d="M 50,83 L 60,78" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                  <path d="M 110,77 L 100,82" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                  <path d="M 110,83 L 100,78" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                </g>
+                <g class="eyes-crying hidden">
+                  <path d="M 50,80 Q 56,84 62,80 M 50,80 Q 56,76 62,80" fill="#2d5a27" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                  <path d="M 98,80 Q 104,84 110,80 M 98,80 Q 104,76 110,80" fill="#2d5a27" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                </g>
+                <g class="eyes-success hidden">
+                  <circle cx="56" cy="79" r="6" fill="#ffffff" />
+                  <circle cx="56" cy="79" r="4.5" fill="#1b120c" />
+                  <circle cx="54.5" cy="77" r="1.8" fill="#ffffff" />
+                  <circle cx="104" cy="79" r="6" fill="#ffffff" />
+                  <circle cx="104" cy="79" r="4.5" fill="#1b120c" />
+                  <circle cx="102.5" cy="77" r="1.8" fill="#ffffff" />
+                </g>
+              </g>
+
+              <path d="M 78,80 L 82,80 L 80,82 Z" fill="#24190e" stroke="#24190e" stroke-width="1" />
+
+              <g id="watchdog-mouths">
+                <path class="mouth-standard" d="M 77,86 Q 80,88 83,86" stroke="#36291b" stroke-width="2" stroke-linecap="round" fill="none" />
+                <path class="mouth-sad hidden" d="M 75,89 Q 80,84 85,89" stroke="#36291b" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path class="mouth-sniffle hidden" d="M 75,88 Q 77.5,86 80,88 Q 82.5,86 85,88" stroke="#36291b" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path class="mouth-crying hidden" d="M 74,86 C 74,95 86,95 86,86 Z" fill="#e57373" stroke="#36291b" stroke-width="2" />
+                <path class="mouth-success hidden" d="M 74,85 Q 80,94 86,85" fill="none" stroke="#36291b" stroke-width="3" stroke-linecap="round" />
+              </g>
+              <path id="watchdog-arm-left" class="watchdog-arm" d="M 48,92 C 34,95 24,106 32,118 C 38,126 48,118 48,112 Z" fill="#36291b" />
+              <path id="watchdog-arm-right" class="watchdog-arm" d="M 112,92 C 126,95 136,106 128,118 C 122,126 112,118 112,112 Z" fill="#36291b" />
+
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div id="blooming-flowers-garden" class="blooming-flowers-garden"></div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 3: GORILLA GATEKEEPER (Magical Forest Gate)
+       ======================================================================== -->
+  <section id="scene-gorilla" class="scene-container hidden">
+    <main class="story-canvas forest-gate-canvas">
+
+      <!-- The Mystical Stone Gate Structure -->
+      <div class="stone-gate-container">
+        <div class="gate-portal-glow"></div>
+        <svg viewBox="0 0 320 240" width="320" height="240" class="stone-gate-svg">
+          <path d="M 30,240 L 60,60 L 95,60 L 85,240 Z" fill="#7a8594" stroke="#4d5561" stroke-width="4" />
+          <path d="M 40,180 L 78,180" stroke="#4d5561" stroke-width="3" />
+          <path d="M 50,110 L 85,110" stroke="#4d5561" stroke-width="3" />
+          <path d="M 290,240 L 260,60 L 225,60 L 235,240 Z" fill="#7a8594" stroke="#4d5561" stroke-width="4" />
+          <path d="M 280,180 L 242,180" stroke="#4d5561" stroke-width="3" />
+          <path d="M 270,110 L 235,110" stroke="#4d5561" stroke-width="3" />
+          <path d="M 45,70 Q 160,10 275,70 Q 285,82 270,85 Q 160,35 50,85 Q 35,82 45,70 Z" fill="#697380" stroke="#4d5561" stroke-width="4" />
+          <path d="M 120,60 Q 125,90 120,100 M 180,55 Q 175,95 185,105" fill="none" stroke="#6b8e23" stroke-width="3" stroke-linecap="round" />
+          <path d="M 115,85 Q 120,80 122,85 Z M 182,88 Q 186,83 188,88 Z" fill="#8caa46" />
+        </svg>
+      </div>
+
+      <!-- Path-Blocking Vines Overlay -->
+      <div id="gorilla-blocking-vines" class="blocking-vines-overlay">
+        <div class="vine-branch vine-branch-left">
+          <svg viewBox="0 0 100 200" width="100%" height="100%">
+            <path d="M 0,20 Q 70,80 10,130 T 100,200" fill="none" stroke="#25471d" stroke-width="12" stroke-linecap="round" />
+            <path d="M 0,40 Q 60,95 15,140" fill="none" stroke="#467a35" stroke-width="6" stroke-linecap="round" />
+            <path d="M 35,50 Q 55,30 45,25 Z M 55,90 Q 75,75 65,70 Z M 50,135 Q 70,120 62,115 Z" fill="#7ca844" />
+          </svg>
+        </div>
+        <div class="vine-branch vine-branch-right">
+          <svg viewBox="0 0 100 200" width="100%" height="100%">
+            <path d="M 100,20 Q 30,80 90,130 T 0,200" fill="none" stroke="#25471d" stroke-width="12" stroke-linecap="round" />
+            <path d="M 100,40 Q 40,95 85,140" fill="none" stroke="#467a35" stroke-width="6" stroke-linecap="round" />
+            <path d="M 65,50 Q 45,30 55,25 Z M 45,90 Q 25,75 35,70 Z M 50,135 Q 30,120 38,115 Z" fill="#7ca844" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Dialogue bubble for Gorilla Gatekeeper -->
+      <div id="gorilla-speech-wrapper" class="gorilla-speech-wrapper">
+        <div class="bubble-wood-board">
+          <span id="gorilla-speech-text" class="speech-text">State Your Identity! 🦍</span>
+        </div>
+        <div class="bubble-wood-tail"></div>
+      </div>
+
+      <!-- The Giant Friendly Gorilla SVG Rig -->
+      <div id="gorilla-container" class="gorilla-character-container state-idle">
+        <svg viewBox="0 0 200 200" width="200" height="200" class="gorilla-svg">
+          <defs>
+            <radialGradient id="gorilla-body-grad" cx="50%" cy="40%" r="50%">
+              <stop offset="0%" stop-color="#5a6473" />
+              <stop offset="85%" stop-color="#464e5c" />
+              <stop offset="100%" stop-color="#323742" />
+            </radialGradient>
+            <radialGradient id="gorilla-chest-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#8ba1b8" />
+              <stop offset="100%" stop-color="#73889c" />
+            </radialGradient>
+          </defs>
+          <g id="gorilla-full-body" filter="url(#soft-shadow)">
+            <ellipse cx="100" cy="188" rx="65" ry="10" fill="#2d333d" opacity="0.3" />
+            <ellipse cx="60" cy="178" rx="16" ry="14" fill="#323742" />
+            <ellipse cx="140" cy="178" rx="16" ry="14" fill="#323742" />
+            <circle cx="60" cy="178" r="8" fill="#242830" />
+            <circle cx="140" cy="178" r="8" fill="#242830" />
+            <path d="M 50,110 C 30,170 60,188 100,188 C 140,188 170,170 150,110 C 140,80 125,50 100,50 C 75,50 60,80 50,110 Z" fill="url(#gorilla-body-grad)" stroke="#242830" stroke-width="2.5" />
+            <ellipse cx="100" cy="132" rx="35" ry="28" fill="url(#gorilla-chest-grad)" stroke="#464e5c" stroke-width="1.5" />
+            <circle cx="50" cy="80" r="11" fill="#323742" />
+            <circle cx="150" cy="80" r="11" fill="#323742" />
+            <circle cx="50" cy="80" r="6" fill="#242830" />
+            <circle cx="150" cy="80" r="6" fill="#242830" />
+            <path d="M 68,90 C 68,68 82,60 100,60 C 118,60 132,68 132,90 C 132,108 118,114 100,114 C 82,114 68,108 68,90 Z" fill="#8ba1b8" stroke="#323742" stroke-width="2" />
+            <ellipse cx="78" cy="98" rx="7" ry="4" fill="#ffa4a4" opacity="0.6" />
+            <ellipse cx="122" cy="98" rx="7" ry="4" fill="#ffa4a4" opacity="0.6" />
+            <g id="gorilla-eyes">
+              <g class="gor-eyes-standard">
+                <circle cx="85" cy="86" r="4.5" fill="#ffffff" />
+                <circle cx="85" cy="86" r="3" fill="#242830" />
+                <circle cx="84" cy="85" r="1" fill="#ffffff" />
+                <circle cx="115" cy="86" r="4.5" fill="#ffffff" />
+                <circle cx="115" cy="86" r="3" fill="#242830" />
+                <circle cx="114" cy="85" r="1" fill="#ffffff" />
+              </g>
+              <g class="gor-eyes-stubborn hidden">
+                <path d="M 78,88 L 88,83 M 122,88 L 112,83" stroke="#242830" stroke-width="3.5" stroke-linecap="round" />
+                <circle cx="85" cy="89" r="2.5" fill="#242830" />
+                <circle cx="115" cy="89" r="2.5" fill="#242830" />
+              </g>
+              <g class="gor-eyes-happy hidden">
+                <path d="M 78,88 Q 85,80 92,88" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+                <path d="M 108,88 Q 115,80 122,88" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" />
+              </g>
+            </g>
+            <path d="M 94,96 Q 97,94 100,96 Q 103,94 106,96" fill="none" stroke="#323742" stroke-width="2" stroke-linecap="round" />
+            <g id="gorilla-mouths">
+              <path class="gor-mouth-standard" d="M 92,104 Q 100,108 108,104" fill="none" stroke="#242830" stroke-width="2.5" stroke-linecap="round" />
+              <path class="gor-mouth-stubborn hidden" d="M 92,106 Q 100,100 108,106" fill="none" stroke="#242830" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              <path class="gor-mouth-happy hidden" d="M 90,102 Q 100,116 110,102 Z" fill="#e57373" stroke="#242830" stroke-width="2" />
+            </g>
+            <path d="M 94,51 Q 100,32 104,36 Q 108,40 102,51 Z" fill="#464e5c" stroke="#242830" stroke-width="1.5" />
+            <g id="gorilla-arm-left" class="gorilla-arm">
+              <path d="M 44,110 C 26,114 10,132 20,146 C 26,154 44,142 44,130 Z" fill="#323742" stroke="#242830" stroke-width="2" />
+              <g id="bamboo-spear">
+                <line x1="32" y1="50" x2="-8" y2="185" stroke="#7ca844" stroke-width="5" stroke-linecap="round" />
+                <line x1="22" y1="84" x2="27" y2="82" stroke="#4e6d23" stroke-width="3" />
+                <line x1="12" y1="118" x2="17" y2="116" stroke="#4e6d23" stroke-width="3" />
+                <line x1="2" y1="152" x2="7" y2="150" stroke="#4e6d23" stroke-width="3" />
+                <path d="M 30,52 L 36,30 L 44,48 Z" fill="#7a8594" stroke="#4d5561" stroke-width="1.5" />
+                <path d="M 8,132 Q 0,118 6,114 Z M 20,95 Q 12,85 18,80 Z" fill="#8caa46" />
+                <path d="M 28,52 C 24,56 38,56 34,52 Z" fill="#b88b5c" />
+              </g>
+            </g>
+            <g id="gorilla-arm-right" class="gorilla-arm">
+              <path d="M 156,110 C 174,114 190,132 180,146 C 174,154 156,142 156,130 Z" fill="#323742" stroke="#242830" stroke-width="2" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Wooden Carved Identity Tablets choice board -->
+      <div id="gorilla-tablets-board" class="gorilla-tablets-container">
+        <button id="iam-rejo-btn" class="wooden-tablet-btn">
+          <span class="tablet-wood-rings"></span>
+          <span class="tablet-emoji">😎</span>
+          <span class="tablet-text">I AM REJO</span>
+        </button>
+        <button id="not-rejo-btn" class="wooden-tablet-btn">
+          <span class="tablet-wood-rings"></span>
+          <span class="tablet-emoji">😶</span>
+          <span class="tablet-text">NOT REJO</span>
+        </button>
+        <button id="gorilla-retry-btn" class="wooden-tablet-btn hidden retry-btn-absolute">
+          <span class="tablet-wood-rings"></span>
+          <span class="tablet-emoji">🌿</span>
+          <span class="tablet-text">Try Again</span>
+        </button>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 4: SURPRISE SCREEN & BANISHMENT (Magical Clearing)
+       ======================================================================== -->
+  <section id="scene-surprise" class="scene-container hidden">
+    <main class="story-canvas forest-clearing-canvas">
+      
+      <!-- Golden Spotlights clearing warm glow -->
+      <div class="golden-spotlight"></div>
+
+      <!-- 3D Storybook Question Card (page turns on transition) -->
+      <div id="story-book-page" class="storybook-page-turn">
+        <div class="page-side page-left">
+          <!-- A premium Ghibli-style Red and Black Gift Box popping out -->
+          <div class="gift-box-container">
+            <svg viewBox="0 0 100 100" class="gift-box-svg" width="100%" height="100%">
+              <defs>
+                <!-- Soft shadow specifically for the gift box -->
+                <filter id="gift-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#5a422d" flood-opacity="0.22" />
+                </filter>
+                <!-- Plump Ghibli Red Gradient -->
+                <radialGradient id="red-gift-grad" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#ff6b6b" />
+                  <stop offset="65%" stop-color="#e53935" />
+                  <stop offset="100%" stop-color="#b71c1c" />
+                </radialGradient>
+                <!-- Plump Black Ribbon Linear Gradient -->
+                <linearGradient id="black-ribbon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#4a4a4a" />
+                  <stop offset="50%" stop-color="#2d2d2d" />
+                  <stop offset="100%" stop-color="#1a1a1a" />
+                </linearGradient>
+              </defs>
+              
+              <!-- Gift container group with filter and pop animation -->
+              <g filter="url(#gift-shadow)">
+                <!-- Main Red Box Body (Super rounded & cute) -->
+                <rect x="25" y="46" width="50" height="42" rx="10" ry="10" fill="url(#red-gift-grad)" stroke="#4a1518" stroke-width="2.5" />
+                
+                <!-- Vertical Black Ribbon -->
+                <rect x="44" y="46" width="12" height="42" fill="url(#black-ribbon-grad)" stroke="#1a1a1a" stroke-width="1.5" />
+                
+                <!-- Red Box Lid (Super rounded & plump) -->
+                <rect x="21" y="34" width="58" height="14" rx="6" ry="6" fill="url(#red-gift-grad)" stroke="#4a1518" stroke-width="2.5" />
+                
+                <!-- Horizontal Ribbon on Lid -->
+                <rect x="44" y="34" width="12" height="14" fill="url(#black-ribbon-grad)" stroke="#1a1a1a" stroke-width="1.5" />
+                
+                <!-- Chubby, Fluffy Ghibli Bow Loops (Big, round, extremely cute) -->
+                <!-- Left Loop -->
+                <path d="M 50,34 C 36,16 22,28 44,34 Z" fill="url(#black-ribbon-grad)" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round" />
+                <path d="M 46,31 C 38,22 30,28 44,33" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-linecap="round" /> <!-- Loop highlight -->
+                
+                <!-- Right Loop -->
+                <path d="M 50,34 C 64,16 78,28 56,34 Z" fill="url(#black-ribbon-grad)" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round" />
+                <path d="M 54,31 C 62,22 70,28 56,33" fill="none" stroke="#5a5a5a" stroke-width="1.5" stroke-linecap="round" /> <!-- Loop highlight -->
+                
+                <!-- Plump Bow Center Knot -->
+                <rect x="42" y="30" width="16" height="10" rx="4" ry="4" fill="#2d2d2d" stroke="#1a1a1a" stroke-width="2" />
+                
+                <!-- Ribbon Tails flowing down gracefully -->
+                <path d="M 44,42 Q 32,54 36,68" fill="none" stroke="url(#black-ribbon-grad)" stroke-width="3" stroke-linecap="round" />
+                <path d="M 56,42 Q 68,54 64,68" fill="none" stroke="url(#black-ribbon-grad)" stroke-width="3" stroke-linecap="round" />
+                
+                <!-- Sweet little green Ghibli leaf tilted gracefully to the side -->
+                <path d="M 50,30 Q 64,16 58,10 Q 48,12 50,30 Z" fill="#8caa46" stroke="#2d5a27" stroke-width="1.5" />
+                <path d="M 51,25 Q 56,18 55,14" fill="none" stroke="#2d5a27" stroke-width="1" stroke-linecap="round" />
+              </g>
+              
+              <!-- Magic Ghibli Sparkles and Twinkling dots -->
+              <g class="gift-sparkles">
+                <path class="sparkle sp-1" d="M 16,24 L 18,19 L 23,17 L 18,15 L 16,10 L 14,15 L 9,17 L 14,19 Z" fill="#ffd15c" />
+                <path class="sparkle sp-2" d="M 84,26 L 86,22 L 91,20 L 86,18 L 84,13 L 82,18 L 77,20 L 82,22 Z" fill="#ffd15c" />
+                <circle class="sparkle-dot sd-1" cx="20" cy="50" r="2.5" fill="#fff5cc" />
+                <circle class="sparkle-dot sd-2" cx="80" cy="62" r="3" fill="#fff5cc" />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="page-side page-right">
+          <h2 class="surprise-question">Ready for your birthday surprise? 🎁</h2>
+        </div>
+      </div>
+
+      <!-- Interactive choice buttons YES and leaf-hidden NO -->
+      <div class="surprise-buttons-wrapper">
+        <button id="surprise-yes-btn" class="surprise-yes-btn glowing-bouncy">
+          YES! 🌟
+        </button>
+        
+        <div id="no-btn-leaf-container" class="no-btn-leaf-wrapper">
+          <button id="surprise-no-btn" class="surprise-no-btn">
+            NO 😶
+          </button>
+          <!-- Leaf overlay hiding the NO button -->
+          <div class="hiding-leaf">
+            <svg viewBox="0 0 50 60" width="100%" height="100%">
+              <defs>
+                <!-- Soft green gradient for Ghibli hand-painted leaf look -->
+                <linearGradient id="leaf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#8caa46" />
+                  <stop offset="100%" stop-color="#5b842a" />
+                </linearGradient>
+              </defs>
+              <!-- Chubby, plump organic leaf body -->
+              <path d="M 25,56 C 8,50 3,18 25,4 C 47,18 42,50 25,56 Z" fill="url(#leaf-grad)" stroke="#2d5a27" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Main central vein -->
+              <path d="M 25,56 C 25,40 25,20 25,8" fill="none" stroke="#2d5a27" stroke-width="1.5" stroke-linecap="round" />
+              <!-- Subtle side veins -->
+              <path d="M 25,40 Q 15,34 16,30" fill="none" stroke="#2d5a27" stroke-width="1" stroke-linecap="round" />
+              <path d="M 25,40 Q 35,34 34,30" fill="none" stroke="#2d5a27" stroke-width="1" stroke-linecap="round" />
+              <path d="M 25,28 Q 17,22 18,18" fill="none" stroke="#2d5a27" stroke-width="1" stroke-linecap="round" />
+              <path d="M 25,28 Q 33,22 32,18" fill="none" stroke="#2d5a27" stroke-width="1" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parade of Guilt-tripping Ghibli Characters (appear one by one) -->
+      <div class="guilt-characters-parade">
+        
+        <!-- 1. Baby Panda Crying with red bow tie -->
+        <div id="guilt-panda" class="guilt-char hidden-char">
+          <div class="char-speech-bubble">
+            <div class="speech-tail-char"></div>
+            <span>I wore my birthday bow tie 🎀</span>
+          </div>
+          <!-- Tiny wailing tears spray inside panda container -->
+          <div class="crying-tears-spray">
+            <div class="tear-droplet tear-l1">💧</div>
+            <div class="tear-droplet tear-l2">💧</div>
+            <div class="tear-droplet tear-r1">💧</div>
+            <div class="tear-droplet tear-r2">💧</div>
+          </div>
+          <!-- Crying Panda Rig with Red Bow Tie -->
+          <svg viewBox="0 0 160 160" width="120" height="120" class="panda-svg">
+            <g filter="url(#soft-shadow)">
+              <ellipse cx="80" cy="148" rx="55" ry="10" fill="#4d3b2c" opacity="0.2" />
+              <ellipse cx="42" cy="138" rx="18" ry="16" fill="#36291b" />
+              <ellipse cx="118" cy="138" rx="18" ry="16" fill="#36291b" />
+              <circle cx="80" cy="112" r="38" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              
+              <!-- Red Bow Tie -->
+              <g id="panda-bow-tie">
+                <!-- Left knot -->
+                <path d="M 68,96 L 56,88 L 56,104 Z" fill="#e53935" stroke="#9a0007" stroke-width="1.5" />
+                <!-- Right knot -->
+                <path d="M 92,96 L 104,88 L 104,104 Z" fill="#e53935" stroke="#9a0007" stroke-width="1.5" />
+                <!-- Center circle -->
+                <circle cx="80" cy="96" r="6.5" fill="#d32f2f" stroke="#9a0007" stroke-width="1.5" />
+              </g>
+
+              <circle cx="44" cy="46" r="15" fill="#36291b" />
+              <circle cx="116" cy="46" r="15" fill="#36291b" />
+              <circle cx="80" cy="78" r="36" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              <ellipse cx="56" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+              <ellipse cx="104" cy="88" rx="8" ry="5" fill="#ffa4a4" opacity="0.6" />
+              <path d="M 52,68 C 45,72 45,86 52,90 C 59,94 65,80 60,72 Z" fill="#36291b" />
+              <path d="M 108,68 C 115,72 115,86 108,90 C 101,94 95,80 100,72 Z" fill="#36291b" />
+              <!-- Crying Watery Eyes -->
+              <g>
+                <path d="M 50,80 Q 56,84 62,80 M 50,80 Q 56,76 62,80" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+                <path d="M 98,80 Q 104,84 110,80 M 98,80 Q 104,76 110,80" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              </g>
+              <path d="M 78,80 L 82,80 L 80,82 Z" fill="#24190e" stroke="#24190e" stroke-width="1" />
+              <!-- Wailing mouth -->
+              <path d="M 74,86 C 74,95 86,95 86,86 Z" fill="#e57373" stroke="#36291b" stroke-width="2" />
+              <path d="M 48,92 C 34,95 24,106 32,118 C 38,126 48,118 48,112 Z" fill="#36291b" />
+              <path d="M 112,92 C 126,95 136,106 128,118 C 122,126 112,118 112,112 Z" fill="#36291b" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- 2. Baby Gorilla doing Pullups -->
+        <div id="guilt-gorilla" class="guilt-char hidden-char">
+          <div class="char-speech-bubble">
+            <div class="speech-tail-char"></div>
+            <span>I skipped my jungle workout 💪</span>
+          </div>
+          <!-- Bamboo Pullup Bar (above gorilla) -->
+          <div class="pullup-bar-bamboo">
+            <div class="bamboo-joint-bar"></div>
+          </div>
+          <!-- Baby Gorilla Rig -->
+          <div class="pullup-baby-gorilla">
+            <svg viewBox="0 0 200 200" width="110" height="110" class="gorilla-svg">
+              <g filter="url(#soft-shadow)">
+                <!-- Back Leg tucks -->
+                <ellipse cx="70" cy="168" rx="12" ry="10" fill="#323742" />
+                <ellipse cx="130" cy="168" rx="12" ry="10" fill="#323742" />
+                <path d="M 60,110 C 40,160 60,178 100,178 C 140,178 160,160 140,110 C 130,80 120,60 100,60 C 80,60 70,80 60,110 Z" fill="url(#gorilla-body-grad)" stroke="#242830" stroke-width="2" />
+                <ellipse cx="100" cy="132" rx="28" ry="22" fill="url(#gorilla-chest-grad)" />
+                <circle cx="60" cy="90" r="8" fill="#323742" />
+                <circle cx="140" cy="90" r="8" fill="#323742" />
+                <path d="M 72,98 C 72,82 82,75 100,75 C 118,75 128,82 128,98 C 128,112 118,118 100,118 C 82,118 72,112 72,98 Z" fill="#8ba1b8" stroke="#323742" stroke-width="1.5" />
+                <!-- Watery cute squinting workout eyes -->
+                <g>
+                  <path d="M 82,92 Q 86,88 90,92 M 110,92 Q 114,88 118,92" fill="none" stroke="#242830" stroke-width="2.5" stroke-linecap="round" />
+                </g>
+                <!-- Happy grin -->
+                <path d="M 92,106 Q 100,112 108,106" fill="none" stroke="#242830" stroke-width="2" stroke-linecap="round" />
+                <path d="M 94,57 Q 100,42 104,45 Z" fill="#464e5c" />
+                
+                <!-- Raised Arms holding pullup bar (fixed upwards) -->
+                <!-- Left Arm: Pivot up at (55, 60) -->
+                <path d="M 64,80 Q 45,30 55,20 Q 65,22 68,55 Z" fill="#323742" stroke="#242830" stroke-width="1.5" />
+                <!-- Right Arm: Pivot up at (145, 60) -->
+                <path d="M 136,80 Q 155,30 145,20 Q 135,22 132,55 Z" fill="#323742" stroke="#242830" stroke-width="1.5" />
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 3. Buffalo Village Buffalo walking -->
+        <div id="guilt-buffalo" class="guilt-char hidden-char">
+          <div class="char-speech-bubble">
+            <div class="speech-tail-char"></div>
+            <span>I travelled all the way from Buffalo Village 🐃</span>
+          </div>
+          <!-- Dust puff trail clouds -->
+          <div class="dust-cloud d-1"></div>
+          <div class="dust-cloud d-2"></div>
+          <!-- Cute Village Buffalo Rig -->
+          <div class="trotting-buffalo">
+            <svg viewBox="0 0 160 140" width="120" height="105" class="buffalo-svg">
+              <defs>
+                <radialGradient id="buf-body" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#6d5843" />
+                  <stop offset="100%" stop-color="#4d3b2a" />
+                </radialGradient>
+              </defs>
+              <g filter="url(#soft-shadow)">
+                <ellipse cx="80" cy="125" rx="45" ry="8" fill="#2d2216" opacity="0.3" />
+                
+                <!-- Trotting Short Legs -->
+                <rect id="buf-leg-1" x="42" y="100" width="10" height="22" rx="4" fill="#36281b" />
+                <rect id="buf-leg-2" x="62" y="100" width="10" height="22" rx="4" fill="#36281b" />
+                <rect id="buf-leg-3" x="88" y="100" width="10" height="22" rx="4" fill="#36281b" />
+                <rect id="buf-leg-4" x="108" y="100" width="10" height="22" rx="4" fill="#36281b" />
+
+                <!-- Chubby Body -->
+                <ellipse cx="80" cy="85" rx="40" ry="30" fill="url(#buf-body)" stroke="#36281b" stroke-width="2" />
+                <ellipse cx="78" cy="80" rx="20" ry="12" fill="#806954" opacity="0.25" />
+
+                <!-- Horns on Head -->
+                <path d="M 32,55 Q 22,25 38,35" fill="none" stroke="#e0d0c0" stroke-width="5" stroke-linecap="round" />
+                <path d="M 128,55 Q 138,25 122,35" fill="none" stroke="#e0d0c0" stroke-width="5" stroke-linecap="round" />
+
+                <!-- Chubby Head -->
+                <circle cx="80" cy="62" r="26" fill="url(#buf-body)" stroke="#36281b" stroke-width="2" />
+                <ellipse cx="80" cy="72" rx="18" ry="10" fill="#806954" /> <!-- Snout -->
+                
+                <!-- Nostrils -->
+                <circle cx="75" cy="72" r="2" fill="#36281b" />
+                <circle cx="85" cy="72" r="2" fill="#36281b" />
+
+                <!-- Rosy Cheeks -->
+                <circle cx="62" cy="65" r="4.5" fill="#ffa4a4" opacity="0.5" />
+                <circle cx="98" cy="65" r="4.5" fill="#ffa4a4" opacity="0.5" />
+
+                <!-- Watery Cute Eyes -->
+                <g>
+                  <circle cx="66" cy="54" r="5" fill="#ffffff" />
+                  <circle cx="66" cy="54" r="3.5" fill="#36281b" />
+                  <circle cx="64.5" cy="52.5" r="1.5" fill="#ffffff" />
+
+                  <circle cx="94" cy="54" r="5" fill="#ffffff" />
+                  <circle cx="94" cy="54" r="3.5" fill="#36281b" />
+                  <circle cx="92.5" cy="52.5" r="1.5" fill="#ffffff" />
+                </g>
+                <!-- Stubborn cute quivering tail -->
+                <path id="buf-tail" d="M 120,80 Q 132,70 128,90" fill="none" stroke="#36291b" stroke-width="3.5" stroke-linecap="round" />
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 4. Goluk Boluk crying with cake -->
+        <div id="guilt-boy" class="guilt-char hidden-char">
+          <div class="char-speech-bubble">
+            <div class="speech-tail-char"></div>
+            <span>Machan... at least see the surprise 😭</span>
+          </div>
+          <!-- Speech Crying tear droplets spawner -->
+          <div class="crying-tears-spray">
+            <div class="tear-droplet tear-l1">💧</div>
+            <div class="tear-droplet tear-l2">💧</div>
+            <div class="tear-droplet tear-r1">💧</div>
+            <div class="tear-droplet tear-r2">💧</div>
+          </div>
+          <!-- Cute Chubby Boy holding a double-layer pink Cake -->
+          <div class="boy-holding-cake">
+            <svg viewBox="0 0 160 170" width="130" height="138" class="boy-svg">
+              <g filter="url(#soft-shadow)">
+                <ellipse cx="80" cy="155" rx="42" ry="8" fill="#47321e" opacity="0.25" />
+
+                <!-- Body (Green Shirt/Dungarees) -->
+                <rect x="58" y="105" width="44" height="42" rx="10" fill="#7ba844" stroke="#25471d" stroke-width="2" />
+                
+                <!-- Chubby round head -->
+                <circle cx="80" cy="78" r="30" fill="#fbdcb4" stroke="#4a321d" stroke-width="2" />
+                <ellipse cx="54" cy="85" rx="5" ry="4" fill="#ffa4a4" opacity="0.6" />
+                <ellipse cx="106" cy="85" rx="5" ry="4" fill="#ffa4a4" opacity="0.6" />
+
+                <!-- Crying Eyes -->
+                <g>
+                  <path d="M 68,76 Q 74,80 80,76" fill="none" stroke="#24190e" stroke-width="3" stroke-linecap="round" />
+                  <path d="M 88,76 Q 94,80 100,76" fill="none" stroke="#24190e" stroke-width="3" stroke-linecap="round" />
+                </g>
+                <!-- Tiny quivering frown mouth -->
+                <path d="M 75,90 Q 80,84 85,90" fill="none" stroke="#24190e" stroke-width="2.5" stroke-linecap="round" />
+
+                <!-- Ghibli Straw Hat -->
+                <path d="M 40,60 C 50,40 110,40 120,60 Z" fill="#ffd15c" stroke="#a67c52" stroke-width="2" />
+                <ellipse cx="80" cy="58" rx="45" ry="6" fill="#ffd15c" stroke="#a67c52" stroke-width="2" />
+                <rect x="55" y="52" width="50" height="4" fill="#ff7e42" />
+
+                <!-- Chubby Arms holding cake (rotated in front of body) -->
+                <!-- Double Layer Cake -->
+                <g id="boy-cake">
+                  <!-- Bottom layer -->
+                  <rect x="55" y="112" width="50" height="20" rx="4" fill="#ff9eaf" stroke="#7d3012" stroke-width="1.5" />
+                  <path d="M 55,116 Q 60,122 65,116 Q 70,122 75,116 Q 80,122 85,116 Q 90,122 95,116 Q 100,122 105,116" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" />
+                  <!-- Top layer -->
+                  <rect x="62" y="96" width="36" height="17" rx="3" fill="#ffaec0" stroke="#7d3012" stroke-width="1.5" />
+                  <!-- Glowing Candle -->
+                  <rect x="78" y="86" width="4" height="11" fill="#fff5cc" stroke="#7d3012" stroke-width="1" />
+                  <!-- Candle Flame (Pulsing) -->
+                  <path class="candle-flame" d="M 80,85 Q 77,78 80,74 Q 83,78 80,85 Z" fill="#ffd15c" filter="drop-shadow(0 0 5px #ff9800)" />
+                </g>
+
+                <!-- Left Arm: Pivot at (58, 110) -->
+                <path d="M 58,110 C 48,112 42,122 48,130 C 54,136 62,128 62,120 Z" fill="#fbdcb4" stroke="#4a321d" stroke-width="1.5" />
+                <!-- Right Arm: Pivot at (102, 110) -->
+                <path d="M 102,110 C 112,112 118,122 112,130 C 106,136 98,128 98,120 Z" fill="#fbdcb4" stroke="#4a321d" stroke-width="1.5" />
+
+              </g>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 5: CHAPTER 1: BABY REJO (Nursery Photo Gallery)
+       ======================================================================== -->
+  <section id="scene-baby-rejo" class="scene-container hidden">
+    <main class="story-canvas nursery-canvas">
+      
+      <!-- Atmosphere Sunbeams overlay -->
+      <div class="sunbeam-container">
+        <div class="sunbeam ray-1"></div>
+        <div class="sunbeam ray-2"></div>
+      </div>
+
+      <!-- Floating Toy Alphabet Blocks (A, B, C) -->
+      <div class="alphabet-block block-a">
+        <svg viewBox="0 0 60 60" width="100%" height="100%">
+          <rect x="3" y="3" width="54" height="54" rx="12" ry="12" fill="#8cbd52" stroke="#2d5a27" stroke-width="3" />
+          <rect x="8" y="8" width="44" height="44" rx="8" ry="8" fill="#a4d169" />
+          <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="28" font-weight="900" fill="#2d5a27">A</text>
+        </svg>
+      </div>
+
+      <div class="alphabet-block block-b">
+        <svg viewBox="0 0 60 60" width="100%" height="100%">
+          <rect x="3" y="3" width="54" height="54" rx="12" ry="12" fill="#ffd15c" stroke="#a67c52" stroke-width="3" />
+          <rect x="8" y="8" width="44" height="44" rx="8" ry="8" fill="#ffe18c" />
+          <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="28" font-weight="900" fill="#8a5a22">B</text>
+        </svg>
+      </div>
+
+      <div class="alphabet-block block-c">
+        <svg viewBox="0 0 60 60" width="100%" height="100%">
+          <rect x="3" y="3" width="54" height="54" rx="12" ry="12" fill="#ff8a80" stroke="#b71c1c" stroke-width="3" />
+          <rect x="8" y="8" width="44" height="44" rx="8" ry="8" fill="#ffab91" />
+          <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="'Fredoka', sans-serif" font-size="28" font-weight="900" fill="#b71c1c">C</text>
+        </svg>
+      </div>
+
+      <!-- 3D Storybook Intro Card (page turns on transition) -->
+      <div id="nursery-book-page" class="storybook-page-turn">
+        <div class="page-side page-left">
+          <!-- Plump Teddy Bear Illustration -->
+          <div class="nursery-page-illustration">
+            <svg viewBox="0 0 100 100" width="90" height="90">
+              <g filter="url(#soft-shadow)">
+                <circle cx="50" cy="58" r="22" fill="#d7ccc8" stroke="#5d4037" stroke-width="2" />
+                <circle cx="50" cy="34" r="16" fill="#d7ccc8" stroke="#5d4037" stroke-width="2" />
+                <circle cx="36" cy="24" r="6" fill="#a1887f" stroke="#5d4037" stroke-width="1.5" />
+                <circle cx="64" cy="24" r="6" fill="#a1887f" stroke="#5d4037" stroke-width="1.5" />
+                <circle cx="44" cy="32" r="2.2" fill="#3e2723" />
+                <circle cx="56" cy="32" r="2.2" fill="#3e2723" />
+                <ellipse cx="50" cy="38" rx="5" ry="4" fill="#a1887f" />
+                <path d="M 50,38 L 50,40 M 48,41 Q 50,43 52,41" stroke="#3e2723" stroke-width="1.2" fill="none" />
+                <path d="M 32,52 Q 20,54 26,62 Q 32,70 38,62 Z" fill="#d7ccc8" stroke="#5d4037" stroke-width="1.5" />
+                <path d="M 68,52 Q 80,54 74,62 Q 68,70 62,62 Z" fill="#d7ccc8" stroke="#5d4037" stroke-width="1.5" />
+                <circle cx="40" cy="36" r="2.5" fill="#ffa4a4" opacity="0.6" />
+                <circle cx="60" cy="36" r="2.5" fill="#ffa4a4" opacity="0.6" />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="page-side page-right">
+          <h2 class="nursery-intro-text">
+            <span class="story-line">Before Eruma Maadu...</span>
+            <span class="story-line">Before Goluk Boluk...</span>
+            <span class="story-line">There Was Baby Rejo 👶</span>
+          </h2>
+        </div>
+      </div>
+
+      <!-- Illustrated Hanging Polaroid Shelf Gallery -->
+      <div class="polaroids-shelf">
+        
+        <!-- Polaroid 1 -->
+        <div class="polaroid-item item-1">
+          <!-- String -->
+          <svg class="hanging-line" viewBox="0 0 10 100" preserveAspectRatio="none">
+            <line x1="5" y1="0" x2="5" y2="100" stroke="#6d4c41" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <div class="polaroid-frame">
+            <div class="polaroid-picture">
+              <!-- Cradle Baby Doodle Sketch -->
+              <svg class="baby-doodle-svg" viewBox="0 0 120 120" width="100%" height="100%">
+                <g opacity="0.85">
+                  <path d="M 25,85 C 25,95 95,95 95,85" fill="none" stroke="#90a4ae" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M 15,82 L 105,82" stroke="#78909c" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="60" cy="55" r="20" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <path d="M 40,52 C 40,32 80,32 80,52 Z" fill="#b3e5fc" stroke="#5d4037" stroke-width="2" />
+                  <circle cx="60" cy="32" r="4.5" fill="#fff" stroke="#5d4037" stroke-width="1.5" />
+                  <path d="M 50,56 Q 54,60 58,56 M 62,56 Q 66,60 70,56" fill="none" stroke="#3e2723" stroke-width="2" stroke-linecap="round" />
+                  <circle cx="60" cy="65" r="5.5" fill="#ff8a80" stroke="#5d4037" stroke-width="1.5" />
+                  <rect x="58" y="62" width="4" height="6" fill="#fff" />
+                </g>
+              </svg>
+            </div>
+            <!-- Luggage tag caption -->
+            <div class="luggage-tag tag-red">
+              <div class="tag-string-loop"></div>
+              <div class="tag-label">Factory Settings Rejo ⚙️</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaroid 2 -->
+        <div class="polaroid-item item-2">
+          <svg class="hanging-line" viewBox="0 0 10 100" preserveAspectRatio="none">
+            <line x1="5" y1="0" x2="5" y2="100" stroke="#6d4c41" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <div class="polaroid-frame">
+            <div class="polaroid-picture">
+              <!-- Rolling Diaper Baby Doodle Sketch -->
+              <svg class="baby-doodle-svg" viewBox="0 0 120 120" width="100%" height="100%">
+                <g opacity="0.85">
+                  <circle cx="60" cy="60" r="22" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <path d="M 60,38 Q 63,30 60,25 Q 57,30 60,38 Z" fill="#5d4037" />
+                  <circle cx="50" cy="54" r="3.5" fill="#3e2723" />
+                  <circle cx="50.5" cy="52.5" r="1.2" fill="#fff" />
+                  <circle cx="70" cy="54" r="3.5" fill="#3e2723" />
+                  <circle cx="70.5" cy="54.5" r="1.2" fill="#fff" />
+                  <path d="M 54,64 Q 60,70 66,64" fill="none" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M 38,72 Q 60,88 82,72 Z" fill="#fff" stroke="#5d4037" stroke-width="2" />
+                  <line x1="60" y1="72" x2="60" y2="82" stroke="#cfd8dc" stroke-width="1.5" />
+                </g>
+              </svg>
+            </div>
+            <div class="luggage-tag tag-blue">
+              <div class="tag-string-loop"></div>
+              <div class="tag-label">Future Chaos Loading... 🔄</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaroid 3 -->
+        <div class="polaroid-item item-3">
+          <svg class="hanging-line" viewBox="0 0 10 100" preserveAspectRatio="none">
+            <line x1="5" y1="0" x2="5" y2="100" stroke="#6d4c41" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <div class="polaroid-frame">
+            <div class="polaroid-picture">
+              <!-- Chubby Eating Baby Doodle Sketch -->
+              <svg class="baby-doodle-svg" viewBox="0 0 120 120" width="100%" height="100%">
+                <g opacity="0.85">
+                  <circle cx="60" cy="62" r="24" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <ellipse cx="40" cy="62" rx="5" ry="6" fill="#ffa4a4" opacity="0.5" />
+                  <ellipse cx="80" cy="62" rx="5" ry="6" fill="#ffa4a4" opacity="0.5" />
+                  <path d="M 46,54 L 54,58 M 74,54 L 66,58" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
+                  <path d="M 52,68 Q 60,76 68,68 Z" fill="#ff8a80" stroke="#5d4037" stroke-width="2" />
+                  <g transform="translate(10, 2)">
+                    <path d="M 40,70 Q 50,60 60,70 Z" fill="#ffd15c" stroke="#5d4037" stroke-width="1.5" />
+                    <rect x="36" y="70" width="28" height="3" fill="#ff5252" />
+                    <path d="M 35,73 Q 50,78 65,73" fill="none" stroke="#8caa46" stroke-width="2" />
+                    <rect x="38" y="75" width="24" height="4" fill="#7c5c3e" />
+                    <path d="M 40,79 Q 50,84 60,79 Z" fill="#ffd15c" stroke="#5d4037" stroke-width="1.5" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <div class="luggage-tag tag-green">
+              <div class="tag-string-loop"></div>
+              <div class="tag-label">Prototype Goluk Boluk 🍔</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Polaroid 4 -->
+        <div class="polaroid-item item-4">
+          <svg class="hanging-line" viewBox="0 0 10 100" preserveAspectRatio="none">
+            <line x1="5" y1="0" x2="5" y2="100" stroke="#6d4c41" stroke-width="2.5" stroke-linecap="round" />
+          </svg>
+          <div class="polaroid-frame">
+            <div class="polaroid-picture">
+              <!-- Crown Baby Doodle Sketch -->
+              <svg class="baby-doodle-svg" viewBox="0 0 120 120" width="100%" height="100%">
+                <g opacity="0.85">
+                  <circle cx="60" cy="62" r="22" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <circle cx="50" cy="56" r="3.5" fill="#3e2723" />
+                  <circle cx="50.5" cy="54.5" r="1.2" fill="#fff" />
+                  <circle cx="70" cy="56" r="3.5" fill="#3e2723" />
+                  <circle cx="70.5" cy="54.5" r="1.2" fill="#fff" />
+                  <circle cx="42" cy="62" r="3" fill="#ffa4a4" opacity="0.6" />
+                  <circle cx="78" cy="62" r="3" fill="#ffa4a4" opacity="0.6" />
+                  <path d="M 52,66 C 52,73 68,73 68,66 Z" fill="#ff8a80" stroke="#5d4037" stroke-width="1.8" />
+                  <path d="M 44,38 L 40,24 L 52,30 L 60,18 L 68,30 L 80,24 L 76,38 Z" fill="#ffd15c" stroke="#5d4037" stroke-width="2" stroke-linejoin="round" />
+                  <circle cx="40" cy="22" r="2.5" fill="#fff" stroke="#5d4037" stroke-width="1" />
+                  <circle cx="60" cy="16" r="2.5" fill="#fff" stroke="#5d4037" stroke-width="1" />
+                  <circle cx="80" cy="22" r="2.5" fill="#fff" stroke="#5d4037" stroke-width="1" />
+                </g>
+              </svg>
+            </div>
+            <div class="luggage-tag tag-yellow">
+              <div class="tag-string-loop"></div>
+              <div class="tag-label">Tiny Legend Detected 🌟</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Giant Wooden-Carved Proceed Button at Bottom Right -->
+      <div id="nursery-navigation-sign" class="wooden-sign-container hidden-sign-btn">
+        <div class="vine vine-left" style="height: 60px;"></div>
+        <div class="vine vine-right" style="height: 60px;"></div>
+        <div class="wooden-board" style="top: 50px; padding: 8px;">
+          <div class="wood-rings"></div>
+          <button id="next-chapter-btn" class="wooden-sign-btn" style="font-size: 1.15rem; padding: 8px 18px;">
+            <span class="btn-leaf">🌿</span>
+            <span class="btn-text">Happy Birthday Rejo! 🎉</span>
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 6: CHAPTER 2: GROWING UP (Gorilla Mountain Scroll Adventure)
+       ======================================================================== -->
+  <section id="scene-mountain" class="scene-container hidden">
+    
+    <!-- Floating scroll helper tip at startup -->
+    <div id="mountain-scroll-tip" class="scroll-down-tip">
+      <span class="tip-mouse">🖱️</span> Scroll Up to Climb Mountain! 🌿
+    </div>
+
+    <!-- Winding progress status leaf bar (top-fixed) -->
+    <div class="mountain-progress-bar">
+      <div class="progress-leaf-track">
+        <div id="progress-leaf-fill" class="progress-leaf-fill"></div>
+        <span class="progress-icon">🧗‍♂️</span>
+      </div>
+      <div class="progress-text">Climbing progress: <span id="climb-percent-text">0</span>%</div>
+    </div>
+
+    <main class="mountain-scroll-container" id="mountain-scroller">
+      <div class="mountain-scroll-height">
+        
+        <!-- Fixed canvas backdrop -->
+        <div class="mountain-fixed-bg"></div>
+
+        <!-- Atmospheric clouds drifting in background -->
+        <div class="mountain-cloud cloud-top">☁️</div>
+        <div class="mountain-cloud cloud-mid">☁️</div>
+        <div class="mountain-cloud cloud-bottom">☁️</div>
+
+        <!-- Ambient sunbeams -->
+        <div class="sunbeam-container">
+          <div class="sunbeam ray-1"></div>
+          <div class="sunbeam ray-2"></div>
+        </div>
+
+        <!-- Center-aligned coordinate harness for winding path, climber, footprints, checkpoints, and peeking critters -->
+        <div class="mountain-track-harness">
+
+          <!-- Organic Winding path SVG layers -->
+          <svg class="mountain-svg-overlay" viewBox="0 0 1000 3000" preserveAspectRatio="none">
+            <!-- Background rustic soil path -->
+            <path id="mountain-trek-bg" d="M 500,2800 C 500,2500 200,2400 250,2100 C 300,1800 800,1700 750,1400 C 700,1100 200,1000 250,700 C 300,400 500,350 500,200" fill="none" stroke="#6e553a" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- Inner trail overlay -->
+            <path id="mountain-trek-trail" d="M 500,2800 C 500,2500 200,2400 250,2100 C 300,1800 800,1700 750,1400 C 700,1100 200,1000 250,700 C 300,400 500,350 500,200" fill="none" stroke="#ebdcb9" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10, 12" />
+            <!-- Foreground active drawn path progress (starts empty, drawn dynamically) -->
+            <path id="mountain-trek-fill" d="M 500,2800 C 500,2500 200,2400 250,2100 C 300,1800 800,1700 750,1400 C 700,1100 200,1000 250,700 C 300,400 500,350 500,200" fill="none" stroke="#8cbe53" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+
+          <!-- Dynamic footprint markings (faded in as climber progresses) -->
+          <div id="footprint-1" class="trek-footprint" style="left: 49%; top: 88.5%;">🐾</div>
+          <div id="footprint-2" class="trek-footprint" style="left: 45%; top: 84.5%;">🐾</div>
+          <div id="footprint-3" class="trek-footprint" style="left: 36%; top: 80.5%;">🐾</div>
+          <div id="footprint-4" class="trek-footprint" style="left: 26%; top: 76.5%;">🐾</div>
+          <div id="footprint-5" class="trek-footprint" style="left: 23%; top: 72.5%;">🐾</div>
+          <div id="footprint-6" class="trek-footprint" style="left: 28%; top: 68.5%;">🐾</div>
+          <div id="footprint-7" class="trek-footprint" style="left: 38%; top: 64.5%;">🐾</div>
+          <div id="footprint-8" class="trek-footprint" style="left: 51%; top: 60.5%;">🐾</div>
+          <div id="footprint-9" class="trek-footprint" style="left: 64%; top: 56.5%;">🐾</div>
+          <div id="footprint-10" class="trek-footprint" style="left: 73%; top: 52.5%;">🐾</div>
+          <div id="footprint-11" class="trek-footprint" style="left: 72%; top: 48.5%;">🐾</div>
+          <div id="footprint-12" class="trek-footprint" style="left: 65%; top: 44.5%;">🐾</div>
+          <div id="footprint-13" class="trek-footprint" style="left: 50%; top: 40.5%;">🐾</div>
+          <div id="footprint-14" class="trek-footprint" style="left: 35%; top: 36.5%;">🐾</div>
+          <div id="footprint-15" class="trek-footprint" style="left: 23%; top: 32.5%;">🐾</div>
+          <div id="footprint-16" class="trek-footprint" style="left: 22%; top: 26.5%;">🐾</div>
+          <div id="footprint-17" class="trek-footprint" style="left: 30%; top: 20.5%;">🐾</div>
+          <div id="footprint-18" class="trek-footprint" style="left: 41%; top: 15.5%;">🐾</div>
+          <div id="footprint-19" class="trek-footprint" style="left: 49%; top: 10.5%;">🐾</div>
+
+          <!-- Peeking background forest spirits / animals -->
+          <!-- Peeking Critter 1: Forest Bluebird -->
+          <div id="peeking-critter-1" class="peeking-critter critter-bird" style="left: 14%; top: 73%;">
+            <svg viewBox="0 0 40 30" width="35" height="26">
+              <ellipse cx="20" cy="15" rx="12" ry="10" fill="#64b5f6" />
+              <circle cx="28" cy="10" r="6.5" fill="#64b5f6" />
+              <path d="M 33,9 L 37,11 L 33,13 Z" fill="#ffd54f" />
+              <circle cx="27" cy="8.5" r="1.2" fill="#1b120c" />
+              <path d="M 12,15 Q 6,15 9,10" stroke="#64b5f6" stroke-width="2.5" fill="none" />
+            </svg>
+          </div>
+
+          <!-- Peeking Critter 2: Cute peeking Gorilla -->
+          <div id="peeking-critter-2" class="peeking-critter critter-gorilla" style="right: 12%; top: 51%;">
+            <svg viewBox="0 0 60 50" width="55" height="46">
+              <circle cx="30" cy="30" r="20" fill="#464e5c" stroke="#242830" stroke-width="2" />
+              <ellipse cx="30" cy="33" rx="14" ry="11" fill="#8ba1b8" stroke="#242830" stroke-width="1.5" />
+              <circle cx="23" cy="22" r="3.5" fill="#ffffff" />
+              <circle cx="23" cy="22" r="2" fill="#242830" />
+              <circle cx="37" cy="22" r="3.5" fill="#ffffff" />
+              <circle cx="37" cy="22" r="2" fill="#242830" />
+              <circle cx="26" cy="31" r="1.5" fill="#ffa4a4" opacity="0.6" />
+              <circle cx="34" cy="31" r="1.5" fill="#ffa4a4" opacity="0.6" />
+              <path d="M 27,37 Q 30,35 33,37" fill="none" stroke="#242830" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M 23,8 Q 30,-3 37,8" stroke="#464e5c" stroke-width="3" stroke-linecap="round" fill="none" />
+            </svg>
+          </div>
+
+          <!-- Peeking Critter 3: Soot Sprite (forest dust bunny) -->
+          <div id="peeking-critter-3" class="peeking-critter critter-soot" style="left: 15%; top: 29%;">
+            <div class="soot-sprite-body">
+              <div class="soot-eye soot-left"><div class="pupil"></div></div>
+              <div class="soot-eye soot-right"><div class="pupil"></div></div>
+            </div>
+          </div>
+
+          <!-- Tiny Climbing Hiker (Chubby Panda Climber Avatar) -->
+          <div id="mountain-climber" class="mountain-climber-avatar">
+            <div class="climber-dust">💨</div>
+            <!-- Plump baby panda climber -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <ellipse cx="50" cy="148" rx="55" ry="10" fill="#4d3b2c" opacity="0.2" />
+              <circle cx="50" cy="50" r="30" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              <circle cx="28" cy="24" r="11" fill="#36291b" />
+              <circle cx="72" cy="24" r="11" fill="#36291b" />
+              <circle cx="50" cy="32" r="20" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2" />
+              <circle cx="43" cy="28" r="2.5" fill="#1b120c" />
+              <circle cx="57" cy="28" r="2.5" fill="#1b120c" />
+              <ellipse cx="43" cy="34" rx="5" ry="3" fill="#ffa4a4" opacity="0.6" />
+              <ellipse cx="57" cy="34" rx="5" ry="3" fill="#ffa4a4" opacity="0.6" />
+              <path d="M 48,34 Q 50,36 52,34" stroke="#36291b" stroke-width="1.5" stroke-linecap="round" fill="none" />
+              <!-- Tiny back backpack -->
+              <rect x="36" y="58" width="28" height="24" rx="6" fill="#ff7e42" stroke="#a67c52" stroke-width="2" />
+              <path d="M 44,58 C 42,54 58,54 56,58" fill="none" stroke="#a67c52" stroke-width="2" />
+            </svg>
+          </div>
+
+          <!-- ==========================================
+               ADVENTURE CHECKPOINTS (Swaying frames & stamps)
+               ========================================== -->
+
+          <!-- CHECKPOINT 1: Snack Hunter (y = 2100) -->
+          <div id="chk-1" class="mountain-checkpoint checkpoint-left locked-chk" style="top: 2100px; left: 100px;">
+            <div class="polaroid-frame chk-sway-1">
+              <div class="polaroid-picture">
+                <!-- Panda Eating Pizza Doodle -->
+                <svg viewBox="0 0 120 120" width="100%" height="100%">
+                  <circle cx="60" cy="65" r="22" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <circle cx="46" cy="46" r="8" fill="#3e2723" />
+                  <circle cx="74" cy="46" r="8" fill="#3e2723" />
+                  <circle cx="60" cy="42" r="18" fill="#fff" stroke="#5d4037" stroke-width="2" />
+                  <!-- Pizza slice -->
+                  <path d="M 60,65 L 42,95 L 78,95 Z" fill="#ffd15c" stroke="#5d4037" stroke-width="1.5" />
+                  <circle cx="52" cy="85" r="2.5" fill="#e53935" />
+                  <circle cx="66" cy="80" r="2.2" fill="#e53935" />
+                  <circle cx="60" cy="90" r="2" fill="#e53935" />
+                  <ellipse cx="60" cy="96" rx="20" ry="3.5" fill="#ff7e42" />
+                  <circle cx="48" cy="40" r="3.2" fill="#ff8a80" opacity="0.6" />
+                  <circle cx="72" cy="40" r="3.2" fill="#ff8a80" opacity="0.6" />
+                  <path d="M 56,46 Q 60,50 64,46" stroke="#5d4037" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+              </div>
+              <div class="chk-label">🍕 Snack Hunter Unlocked</div>
+            </div>
+            <!-- Inked Stamp Achievement Overlay -->
+            <div class="ink-stamp stamp-pizza">
+              <div class="stamp-inner">
+                <span class="stamp-emoji">🍕</span>
+                <span class="stamp-text">SNACK HUNTER</span>
+                <span class="stamp-verified">APPROVED</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHECKPOINT 2: Professional Sleeper (y = 1400) -->
+          <div id="chk-2" class="mountain-checkpoint checkpoint-right locked-chk" style="top: 1400px; right: 100px;">
+            <div class="polaroid-frame chk-sway-2">
+              <div class="polaroid-picture">
+                <!-- Sleeping Panda on branch -->
+                <svg viewBox="0 0 120 120" width="100%" height="100%">
+                  <!-- Branch -->
+                  <path d="M 10,75 C 40,75 80,75 110,65" fill="none" stroke="#7c5c3e" stroke-width="6" stroke-linecap="round" />
+                  <path d="M 75,70 Q 82,55 92,60" fill="none" stroke="#7c5c3e" stroke-width="4.5" stroke-linecap="round" />
+                  <path d="M 85,58 C 75,55 85,45 88,48 Z" fill="#8caa46" stroke="#2d5a27" stroke-width="1" />
+                  <!-- Sleeping baby panda -->
+                  <circle cx="60" cy="55" r="20" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2" />
+                  <circle cx="48" cy="38" r="8" fill="#36291b" />
+                  <circle cx="72" cy="38" r="8" fill="#36291b" />
+                  <circle cx="60" cy="55" r="14" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
+                  <path d="M 52,53 Q 55,56 58,53 M 62,53 Q 65,56 68,53" fill="none" stroke="#36291b" stroke-width="2" stroke-linecap="round" fill="none" />
+                  <!-- Zzzs -->
+                  <text x="75" y="32" font-family="'Fredoka', sans-serif" font-size="12" font-weight="bold" fill="#ff7e42" class="zzz-text">z</text>
+                  <text x="83" y="24" font-family="'Fredoka', sans-serif" font-size="16" font-weight="bold" fill="#ff7e42" class="zzz-text">Z</text>
+                </svg>
+              </div>
+              <div class="chk-label">😴 Level 99 Sleeper</div>
+            </div>
+            <div class="ink-stamp stamp-sleep">
+              <div class="stamp-inner">
+                <span class="stamp-emoji">😴</span>
+                <span class="stamp-text">PRO SLEEPER</span>
+                <span class="stamp-verified">LEVEL 99</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHECKPOINT 3: Drama Creator (y = 700) -->
+          <div id="chk-3" class="mountain-checkpoint checkpoint-left locked-chk" style="top: 700px; left: 100px;">
+            <div class="polaroid-frame chk-sway-1">
+              <div class="polaroid-picture">
+                <!-- Dramatic wailing baby panda doodle -->
+                <svg viewBox="0 0 120 120" width="100%" height="100%">
+                  <circle cx="60" cy="62" r="22" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                  <circle cx="46" cy="42" r="8" fill="#3e2723" />
+                  <circle cx="74" cy="42" r="8" fill="#3e2723" />
+                  <circle cx="60" cy="62" r="16" fill="#ffe0b2" stroke="#5d4037" stroke-width="1.5" />
+                  <!-- Watery drama crying eyes -->
+                  <path d="M 47,56 C 42,59 42,70 47,73 Z M 73,56 C 78,59 78,70 73,73 Z" fill="#64b5f6" stroke="#5d4037" stroke-width="1.5" />
+                  <ellipse cx="60" cy="64" rx="4.5" ry="6.5" fill="#ff8a80" stroke="#5d4037" stroke-width="1.5" />
+                  <circle cx="41" cy="64" r="4.5" fill="#ffa4a4" opacity="0.6" />
+                  <circle cx="79" cy="64" r="4.5" fill="#ffa4a4" opacity="0.6" />
+                  <!-- Theatrical comedy/tragedy mask crown -->
+                  <path d="M 44,38 L 40,24 L 52,30 L 60,18 L 68,30 L 80,24 L 76,38 Z" fill="#ff7e42" stroke="#5d4037" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="chk-label">🎭 Drama Creator Certified</div>
+            </div>
+            <div class="ink-stamp stamp-drama">
+              <div class="stamp-inner">
+                <span class="stamp-emoji">🎭</span>
+                <span class="stamp-text">DRAMA QUEEN</span>
+                <span class="stamp-verified">CERTIFIED</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHECKPOINT 4: Certified Goluk Boluk (y = 350) -->
+          <div id="chk-4" class="mountain-checkpoint checkpoint-right locked-chk" style="top: 350px; right: 120px;">
+            <div class="polaroid-frame chk-sway-2">
+              <div class="polaroid-picture">
+                <!-- Plump boy eating massive burger -->
+                <svg viewBox="0 0 120 120" width="100%" height="100%">
+                  <circle cx="60" cy="65" r="23" fill="#fbdcb4" stroke="#4a321d" stroke-width="2" />
+                  <circle cx="60" cy="65" r="16" fill="#fbdcb4" stroke="#4a321d" stroke-width="1.5" />
+                  <path d="M 48,60 Q 54,64 60,60 M 60,60 Q 66,64 72,60" fill="none" stroke="#24190e" stroke-width="2.5" stroke-linecap="round" />
+                  <!-- Straw hat -->
+                  <path d="M 32,50 C 40,30 80,30 88,50 Z" fill="#ffd15c" stroke="#a67c52" stroke-width="1.5" />
+                  <ellipse cx="60" cy="48" rx="35" ry="5.5" fill="#ffd15c" stroke="#a67c52" stroke-width="1.5" />
+                  <!-- Giant Burger being held -->
+                  <rect x="42" y="76" width="36" height="8" rx="2" fill="#ffd15c" stroke="#4a321d" stroke-width="1.5" /> <!-- Bun top -->
+                  <rect x="40" y="84" width="40" height="4" fill="#ff5252" /> <!-- Tomato -->
+                  <rect x="41" y="88" width="38" height="5" fill="#7c5c3e" stroke="#4a321d" stroke-width="1.5" /> <!-- Patty -->
+                  <rect x="42" y="93" width="36" height="6" rx="2" fill="#ffd15c" stroke="#4a321d" stroke-width="1.5" /> <!-- Bun bottom -->
+                  <path d="M 39,83 Q 50,88 61,83 Q 72,88 81,83" fill="none" stroke="#8caa46" stroke-width="2" stroke-linecap="round" /> <!-- Lettuce -->
+                </svg>
+              </div>
+              <div class="chk-label">🍔 Certified Goluk Boluk</div>
+            </div>
+            <div class="ink-stamp stamp-burger">
+              <div class="stamp-inner">
+                <span class="stamp-emoji">🍔</span>
+                <span class="stamp-text">GOLUK BOLUK</span>
+                <span class="stamp-verified">APPROVED</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               SUMMIT / MOUNTAIN PEAK PROCEED BUTTON
+               ========================================== -->
+          <div id="mountain-navigation-sign" class="wooden-sign-container hidden-sign-btn" style="top: 100px; left: calc(50% - 150px); width: 300px; position: absolute; z-index: 100;">
+            <div class="wooden-board" style="padding: 10px; transform: rotate(-1.5deg);">
+              <div class="wood-rings"></div>
+              <button id="peak-proceed-btn" class="wooden-sign-btn" style="font-size: 1.18rem; padding: 10px 24px; width: 100%;">
+                <span class="btn-leaf">🌿</span>
+                <span class="btn-text">Unravel Final Surprise! 🎁</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 7: CHAPTER 3: FRIENDSHIP FOREST (Memory Garden at Golden Hour)
+       ======================================================================== -->
+  <section id="scene-friendship" class="scene-container hidden">
+    
+    <!-- Parallax Fixed Backdrop -->
+    <div class="friendship-fixed-bg"></div>
+
+    <!-- Drifting fireflies overlay -->
+    <div class="fireflies-spawner">
+      <div class="firefly ff-1"></div>
+      <div class="firefly ff-2"></div>
+      <div class="firefly ff-3"></div>
+      <div class="firefly ff-4"></div>
+      <div class="firefly ff-5"></div>
+      <div class="firefly ff-6"></div>
+      <div class="firefly ff-7"></div>
+      <div class="firefly ff-8"></div>
+    </div>
+
+    <!-- Glowing hanging forest lanterns -->
+    <div class="hanging-lantern hl-1">
+      <div class="lantern-cable" style="height: 45px;"></div>
+      <div class="lantern-glow"></div>
+      <svg viewBox="0 0 40 50" width="30" height="38">
+        <path d="M 10,10 Q 5,25 10,40 Q 20,45 30,40 Q 35,25 30,10 Z" fill="#ffd15c" stroke="#4d321d" stroke-width="2" />
+        <line x1="20" y1="10" x2="20" y2="40" stroke="#a3760a" opacity="0.4" stroke-width="1.5" />
+      </svg>
+    </div>
+
+    <div class="hanging-lantern hl-2">
+      <div class="lantern-cable" style="height: 60px;"></div>
+      <div class="lantern-glow"></div>
+      <svg viewBox="0 0 40 50" width="32" height="40">
+        <path d="M 10,10 Q 5,25 10,40 Q 20,45 30,40 Q 35,25 30,10 Z" fill="#ff7e42" stroke="#4d321d" stroke-width="2" />
+        <line x1="20" y1="10" x2="20" y2="40" stroke="#7d3012" opacity="0.3" stroke-width="1.5" />
+      </svg>
+    </div>
+
+    <!-- Cozy floating header scroll (fixed at top) -->
+    <header class="story-header-scroll" style="top: 25px; z-index: 100;">
+      <div class="scroll-wood-ends"></div>
+      <div class="scroll-paper" style="padding: 6px 30px;">
+        <h2 style="font-family: var(--font-storybook); font-size: 1.45rem; color: var(--color-text-brown); text-shadow: 1px 1px 0 #fff; text-align: center; font-weight: 800; line-height: 1.2;">
+          🎋 Chapter 3: Our Friendship Garden
+        </h2>
+      </div>
+    </header>
+
+    <!-- Side Bamboo poles (fixed on left and right borders) -->
+    <div class="bamboo-pole pole-left" style="z-index: 90;"></div>
+    <div class="bamboo-pole pole-right" style="z-index: 90;"></div>
+
+    <!-- Scrollable viewport overlay for Chapter 3 content -->
+    <div class="friendship-scroll-viewport">
+      <div class="friendship-scroll-content">
+        
+        <!-- Height spacer to clear the fixed top header -->
+        <div style="height: 120px; width: 100%;"></div>
+
+        <!-- ==========================================
+             ROPE 1: UPPER MEMORIES
+             ========================================== -->
+        <div class="rope-section">
+          <!-- Hanging Rope Line SVG -->
+          <div class="rope-hanging-harness">
+            <svg class="rope-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" width="100%" height="100%">
+              <path d="M -10,35 Q 500,165 1010,35" fill="none" stroke="#5d4630" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M -10,36 Q 500,166 1010,36" fill="none" stroke="#ebdcb9" stroke-width="1.8" stroke-dasharray="4, 4" stroke-linecap="round" />
+            </svg>
+          </div>
+
+          <!-- Hanging tilted photo memories -->
+          <div class="hanging-memories-shelf">
+            <!-- Photo 1: Study -->
+            <div class="hanging-polaroid item-1 memory-trigger" data-memory="study" style="left: 15%; top: 75px; transform: rotate(-4deg);">
+              <div class="rope-connector" style="height: 52px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- Desk & crossed books doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <rect x="25" y="80" width="70" height="15" rx="3" fill="#a67c52" stroke="#5d4037" stroke-width="2" />
+                    <rect x="35" y="48" width="22" height="32" fill="#b3e5fc" stroke="#5d4037" stroke-width="1.8" rx="2" transform="rotate(-15 46 64)" />
+                    <rect x="62" y="48" width="22" height="32" fill="#ffab91" stroke="#5d4037" stroke-width="1.8" rx="2" transform="rotate(12 73 64)" />
+                    <line x1="28" y1="40" x2="92" y2="104" stroke="#ff5252" stroke-width="6" stroke-linecap="round" />
+                    <line x1="92" y1="40" x2="28" y2="104" stroke="#ff5252" stroke-width="6" stroke-linecap="round" />
+                    <circle cx="60" cy="72" r="3.5" fill="#ffd15c" />
+                  </svg>
+                </div>
+                <div class="chk-label">📚 Study Memory</div>
+              </div>
+            </div>
+
+            <!-- Photo 2: Partners in Crime -->
+            <div class="hanging-polaroid item-2 memory-trigger" data-memory="crime" style="left: 48%; top: 118px; transform: rotate(3deg); margin-left: -65px;">
+              <div class="rope-connector" style="height: 58px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- High five baby pandas doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <circle cx="42" cy="70" r="14" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
+                    <circle cx="78" cy="70" r="14" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
+                    <circle cx="42" cy="50" r="10" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
+                    <circle cx="78" cy="50" r="10" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
+                    <circle cx="37" cy="42" r="4.5" fill="#36291b" />
+                    <circle cx="83" cy="42" r="4.5" fill="#36291b" />
+                    <circle cx="47" cy="42" r="4.5" fill="#36291b" />
+                    <circle cx="73" cy="42" r="4.5" fill="#36291b" />
+                    <path d="M 48,58 Q 60,45 72,58" fill="none" stroke="#36291b" stroke-width="4.5" stroke-linecap="round" />
+                    <circle cx="60" cy="48" r="4.5" fill="#ff7e42" />
+                  </svg>
+                </div>
+                <div class="chk-label">🤝 Partners In Crime</div>
+              </div>
+            </div>
+
+            <!-- Photo 3: Touch Grass -->
+            <div class="hanging-polaroid item-3 memory-trigger" data-memory="grass" style="left: 80%; top: 82px; transform: rotate(-3deg); margin-left: -130px;">
+              <div class="rope-connector" style="height: 54px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- Mountain trail & grass doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <path d="M 15,95 C 40,80 80,80 105,95 Z" fill="#8caa46" stroke="#2d5a27" stroke-width="2" />
+                    <path d="M 45,95 L 60,65 L 75,95 Z" fill="#ffcf54" stroke="#5d4630" stroke-width="1.5" />
+                    <path d="M 60,95 L 60,78" stroke="#5d4630" stroke-width="2.5" />
+                    <path d="M 28,88 Q 23,76 18,88 M 28,88 Q 28,74 28,88 M 28,88 Q 33,76 38,88" fill="none" stroke="#2d5a27" stroke-width="2.2" stroke-linecap="round" />
+                    <path d="M 88,88 Q 83,76 78,88 M 88,88 Q 88,74 88,88 M 88,88 Q 93,76 98,88" fill="none" stroke="#2d5a27" stroke-width="2.2" stroke-linecap="round" />
+                    <circle cx="60" cy="38" r="10" fill="#ffd15c" opacity="0.3" filter="blur(2px)" />
+                    <circle cx="60" cy="38" r="6" fill="#ffd15c" />
+                  </svg>
+                </div>
+                <div class="chk-label">🌿 Touching Grass</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Height spacer between the upper and lower hanging photo ropes -->
+        <div style="height: 340px; width: 100%;"></div>
+
+        <!-- ==========================================
+             ROPE 2: LOWER MEMORIES
+             ========================================== -->
+        <div class="rope-section">
+          <!-- Hanging Rope Line SVG -->
+          <div class="rope-hanging-harness">
+            <svg class="rope-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" width="100%" height="100%">
+              <path d="M -10,35 Q 500,165 1010,35" fill="none" stroke="#5d4630" stroke-width="4.5" stroke-linecap="round" />
+              <path d="M -10,36 Q 500,166 1010,36" fill="none" stroke="#ebdcb9" stroke-width="1.8" stroke-dasharray="4, 4" stroke-linecap="round" />
+            </svg>
+          </div>
+
+          <!-- Hanging tilted photo memories -->
+          <div class="hanging-memories-shelf">
+            <!-- Photo 4: Memes -->
+            <div class="hanging-polaroid item-4 memory-trigger" data-memory="memes" style="left: 16%; top: 85px; transform: rotate(4deg);">
+              <div class="rope-connector" style="height: 56px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- Floppy disk with panda ears doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <rect x="34" y="44" width="52" height="52" rx="6" fill="#37474f" stroke="#1c272c" stroke-width="2" />
+                    <rect x="44" y="44" width="32" height="18" fill="#eceff1" rx="1.5" />
+                    <rect x="46" y="72" width="28" height="24" fill="#ffffff" rx="1.5" />
+                    <rect x="66" y="76" width="6" height="15" fill="#37474f" />
+                    <circle cx="28" cy="38" r="10" fill="#1c272c" />
+                    <circle cx="92" cy="38" r="10" fill="#1c272c" />
+                    <circle cx="28" cy="38" r="5" fill="#ff8a80" />
+                    <circle cx="92" cy="38" r="5" fill="#ff8a80" />
+                    <circle cx="50" cy="53" r="2.5" fill="#ff7e42" />
+                    <circle cx="70" cy="53" r="2.5" fill="#ff7e42" />
+                  </svg>
+                </div>
+                <div class="chk-label">💾 Meme Vault</div>
+              </div>
+            </div>
+
+            <!-- Photo 5: Midnight Food Raids -->
+            <div class="hanging-polaroid item-5 memory-trigger" data-memory="food" style="left: 50%; top: 124px; transform: rotate(-5deg); margin-left: -65px;">
+              <div class="rope-connector" style="height: 60px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- Steaming Frying Pan Pizza Doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <circle cx="60" cy="60" r="38" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+                    <rect x="75" y="65" width="22" height="7" rx="2" fill="#5d4037" transform="rotate(30 86 68)" />
+                    <circle cx="56" cy="56" r="22" fill="#37474f" stroke="#1c272c" stroke-width="2" />
+                    <circle cx="56" cy="56" r="9" fill="#ffffff" />
+                    <circle cx="56" cy="56" r="4.5" fill="#ffb300" />
+                    <path d="M 46,25 Q 48,15 50,25" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
+                    <path d="M 58,22 Q 60,12 62,22" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
+                    <path d="M 68,26 Q 70,16 72,26" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="chk-label">🍕 Midnight Raids</div>
+              </div>
+            </div>
+
+            <!-- Photo 6: Endless Laughter Journey -->
+            <div class="hanging-polaroid item-6 memory-trigger" data-memory="journey" style="left: 82%; top: 78px; transform: rotate(3deg); margin-left: -130px;">
+              <div class="rope-connector" style="height: 50px;"></div>
+              <div class="polaroid-frame">
+                <div class="polaroid-picture">
+                  <!-- Cozy Flower Pot Doodle -->
+                  <svg viewBox="0 0 120 120" width="100%" height="100%">
+                    <path d="M 40,85 L 45,102 L 75,102 L 80,85 Z" fill="#b0855a" stroke="#5d4037" stroke-width="2" />
+                    <rect x="36" y="80" width="48" height="6" rx="1.5" fill="#a1887f" stroke="#5d4037" stroke-width="1.8" />
+                    <path d="M 60,80 Q 50,45 42,50" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 60,80 Q 60,35 60,40" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 60,80 Q 70,45 78,50" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="42" cy="48" r="6" fill="#ff8a80" />
+                    <circle cx="42" cy="48" r="2.5" fill="#ffd15c" />
+                    <circle cx="60" cy="36" r="7" fill="#ffa4d4" />
+                    <circle cx="60" cy="36" r="3" fill="#ffffff" />
+                    <circle cx="78" cy="48" r="6" fill="#ffcd5c" />
+                    <circle cx="78" cy="48" r="2.5" fill="#ffffff" />
+                  </svg>
+                </div>
+                <div class="chk-label">🌸 Our Journey</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Height spacer to clear the lower hanging sways and give breathing room -->
+        <div style="height: 280px; width: 100%;"></div>
+
+        <!-- ==========================================
+             SLOW FADE IN EMOTIONAL CLOSING TEXT BLOCK
+             ========================================== -->
+        <div id="friendship-closing-text" class="emotional-closing-container hidden-closing">
+          <div class="closing-wood-board">
+            <div class="wood-rings"></div>
+            <p class="closing-paragraph">
+              "In the magical forest of our memories, the greatest adventure was the one we shared.<br>
+              Let's keep creating chaos, touching grass, and hoarding memes together."
+            </p>
+            <h2 class="closing-signature">Happy 20th Birthday, Rejo! 🌿🌸✨</h2>
+          </div>
+        </div>
+
+        <!-- ==========================================
+             FINAL CELEBRATORY PROCEED BUTTON SIGNBOARD
+             ========================================== -->
+        <div id="friendship-navigation-sign" class="wooden-sign-container locked-state">
+          <div class="wooden-board" style="padding: 10px; transform: rotate(-1deg);">
+            <div class="wood-rings"></div>
+            <button id="celebrate-btn" class="wooden-sign-btn" style="font-size: 1.22rem; padding: 10px 28px; width: 100%;">
+              <span class="btn-leaf">🔒</span>
+              <span class="btn-text">Explore 6 Memories! (0/6)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cheeky secret wobbly warning signboard -->
+        <div id="detective-secret-sign" class="wooden-sign-container warning-wood-sign" style="width: 250px; z-index: 85; margin: 25px auto 60px auto !important;">
+          <div class="wooden-board" style="padding: 8px; transform: rotate(1.5deg);">
+            <div class="wood-rings"></div>
+            <button id="secret-detective-btn" class="wooden-sign-btn warning-sign-btn">
+              <span class="btn-leaf">🚫</span>
+              <span class="btn-text">DO NOT CLICK</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Height padding at the very bottom of scroll page to ensure no layout clipping -->
+        <div style="height: 40px; width: 100%;"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 8: SECRET DETECTIVE OFFICE (Amber Cozy Storybook Mystery)
+       ======================================================================== -->
+  <section id="scene-detective" class="scene-container hidden">
+    <!-- Parallax Hand-Painted Fixed Background -->
+    <div class="detective-fixed-bg"></div>
+
+    <!-- Soft radial glowing ambient amber lights -->
+    <div class="detective-office-glow"></div>
+
+    <!-- Cozy floating header scroll -->
+    <header class="story-header-scroll" style="top: 25px; z-index: 100;">
+      <div class="scroll-wood-ends"></div>
+      <div class="scroll-paper" style="padding: 6px 30px;">
+        <h2 style="font-family: var(--font-storybook); font-size: 1.45rem; color: var(--color-text-brown); text-shadow: 1px 1px 0 #fff; text-align: center; font-weight: 800; line-height: 1.2;">
+          🕵️‍♂️ Secret Detective Office
+        </h2>
+      </div>
+    </header>
+
+    <main class="story-canvas forest-detective-canvas">
+      
+      <!-- Cozy Wall Cork Board (pinned notes, strings and evidence) -->
+      <div class="detective-corkboard">
+        <svg viewBox="0 0 160 110" width="100%" height="100%">
+          <rect x="5" y="5" width="150" height="100" rx="4" fill="#d7ccc8" stroke="#5d4037" stroke-width="4" />
+          <!-- Thumb tacks -->
+          <circle cx="20" cy="20" r="3" fill="#ff5252" />
+          <circle cx="80" cy="18" r="3" fill="#42a5f5" />
+          <circle cx="140" cy="25" r="3" fill="#ffd15c" />
+          <circle cx="50" cy="70" r="3" fill="#8caa46" />
+          <!-- Notes -->
+          <rect x="15" y="24" width="22" height="28" fill="#fff9c4" stroke="#5d4037" stroke-width="1" />
+          <line x1="18" y1="30" x2="33" y2="30" stroke="#a1887f" stroke-width="1.5" />
+          <line x1="18" y1="36" x2="30" y2="36" stroke="#a1887f" stroke-width="1.5" />
+          <rect x="74" y="22" width="26" height="24" fill="#e1f5fe" stroke="#5d4037" stroke-width="1" />
+          <circle cx="87" cy="34" r="5" fill="#ffa4a4" opacity="0.8" />
+          <!-- Connecting String -->
+          <path d="M 20,20 Q 50,15 80,18" fill="none" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="2, 2" />
+          <path d="M 80,18 Q 110,40 140,25" fill="none" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="2, 2" />
+          <path d="M 20,20 Q 35,45 50,70" fill="none" stroke="#ff5252" stroke-width="1.2" stroke-dasharray="2, 2" />
+        </svg>
+      </div>
+
+      <!-- Wooden Filing Cabinet in the Corner -->
+      <div class="detective-cabinet">
+        <svg viewBox="0 0 80 140" width="100%" height="100%">
+          <rect x="5" y="5" width="70" height="130" rx="6" fill="#8d6e63" stroke="#4e342e" stroke-width="3.5" />
+          <!-- Drawer 1 -->
+          <rect x="10" y="15" width="60" height="50" rx="3" fill="#a1887f" stroke="#4e342e" stroke-width="2" />
+          <rect x="30" y="36" width="20" height="8" rx="2" fill="#5d4037" />
+          <!-- Drawer 2 -->
+          <rect x="10" y="75" width="60" height="50" rx="3" fill="#a1887f" stroke="#4e342e" stroke-width="2" />
+          <rect x="30" y="96" width="20" height="8" rx="2" fill="#5d4037" />
+          <!-- Cabinet key/label tag -->
+          <rect x="42" y="22" width="12" height="8" fill="#fff" stroke="#5d4037" stroke-width="0.8" />
+          <line x1="45" y1="26" x2="51" y2="26" stroke="#5d4037" stroke-width="1" />
+        </svg>
+      </div>
+
+      <!-- Center Scene: Desk and Sitting Panda Detective Rig -->
+      <div class="detective-center-wrapper">
+        
+        <!-- Spawning humming musical notes overlays -->
+        <div class="panda-hums-container" id="detective-hums"></div>
+
+        <!-- Panda Detective Character Rig -->
+        <div id="detective-panda" class="panda-container state-detective">
+          <svg viewBox="0 0 160 160" width="150" height="150" class="panda-svg">
+            <g id="detective-panda-body" filter="url(#soft-shadow)">
+              <!-- Feet/Shadow inside coat -->
+              <ellipse cx="80" cy="145" rx="45" ry="8" fill="#291e12" opacity="0.3" />
+              
+              <!-- Panda Body Structure inside Detective Trench Coat -->
+              <circle cx="80" cy="112" r="36" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              
+              <!-- Oversized Detective Trench Coat (Warm brown cartoon lapels) -->
+              <path d="M 46,104 C 40,118 42,148 54,148 L 106,148 C 118,148 120,118 114,104 Z" fill="#8d6e63" stroke="#4e342e" stroke-width="2.5" />
+              <!-- Coat Collars / Lapels -->
+              <path d="M 52,106 L 68,124 L 80,108 L 92,124 L 108,106 Z" fill="#a1887f" stroke="#4e342e" stroke-width="2" />
+              <!-- Coat buttons (cute round circles) -->
+              <circle cx="80" cy="132" r="3.5" fill="#4e342e" />
+              <circle cx="80" cy="142" r="3.5" fill="#4e342e" />
+
+              <!-- Ears -->
+              <circle id="det-ear-left" cx="46" cy="48" r="14" fill="#36291b" />
+              <circle id="det-ear-right" cx="114" cy="48" r="14" fill="#36291b" />
+
+              <!-- Head -->
+              <circle id="det-head" cx="80" cy="78" r="35" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+              
+              <!-- Rosy Cheeks -->
+              <ellipse cx="57" cy="88" rx="7" ry="4" fill="#ffa4a4" opacity="0.6" />
+              <ellipse cx="103" cy="88" rx="7" ry="4" fill="#ffa4a4" opacity="0.6" />
+
+              <!-- Detective Eyepatch/Marks -->
+              <path d="M 53,69 C 47,73 47,85 53,89 C 59,93 65,80 60,73 Z" fill="#36291b" />
+              <path d="M 107,69 C 113,73 113,85 107,89 C 101,93 95,80 100,73 Z" fill="#36291b" />
+
+              <!-- Curious Cute Eyes -->
+              <circle cx="57" cy="78" r="3.5" fill="#ffffff" />
+              <circle cx="57" cy="78" r="2" fill="#1b120c" />
+              <circle cx="56.2" cy="77.2" r="0.8" fill="#ffffff" />
+              
+              <circle cx="103" cy="78" r="3.5" fill="#ffffff" />
+              <circle cx="103" cy="78" r="2" fill="#1b120c" />
+              <circle cx="102.2" cy="77.2" r="0.8" fill="#ffffff" />
+
+              <!-- Nose & mouth -->
+              <path d="M 78,80 L 82,80 L 80,82 Z" fill="#24190e" stroke="#24190e" stroke-width="1" />
+              <path d="M 77,86 Q 80,88 83,86" stroke="#36291b" stroke-width="2" stroke-linecap="round" fill="none" />
+
+              <!-- Oversized Detective Deerslayer Cap (Floppy, cute, checkered deerslayer look) -->
+              <!-- Cap Back Flop -->
+              <ellipse cx="80" cy="50" rx="36" ry="15" fill="#8d6e63" stroke="#4e342e" stroke-width="2.5" />
+              <ellipse cx="80" cy="46" rx="28" ry="11" fill="#a1887f" />
+              <!-- Cap Visor/Brim (slid down cute over eyebrows) -->
+              <path d="M 44,52 C 44,40 116,40 116,52 C 104,56 56,56 44,52 Z" fill="#5d4037" stroke="#4e342e" stroke-width="2" />
+              <!-- Cap Button on peak -->
+              <circle cx="80" cy="35" r="4.5" fill="#4e342e" />
+
+              <!-- Left Paw resting on desk -->
+              <path id="det-arm-left" d="M 44,116 C 36,116 32,128 38,135 C 44,142 50,132 50,126 Z" fill="#36291b" stroke="#291e12" stroke-width="1" />
+
+              <!-- Right Paw idly wiggling to tap pencil! -->
+              <g id="det-tapping-arm" class="tapping-arm-group">
+                <!-- Paw -->
+                <path id="det-arm-right" d="M 116,116 C 124,116 128,128 122,135 C 116,142 110,132 110,126 Z" fill="#36291b" stroke="#291e12" stroke-width="1" />
+                <!-- Pencil in paw -->
+                <g id="tapping-pencil" class="pencil-rig">
+                  <rect x="114" y="112" width="5" height="22" fill="#ffd15c" stroke="#5d4037" stroke-width="1.2" rx="1" transform="rotate(-40 116 123)" />
+                  <!-- Eraser -->
+                  <rect x="114" y="110" width="5" height="3" fill="#ff8a80" stroke="#5d4037" stroke-width="0.8" transform="rotate(-40 116 123)" />
+                  <!-- Tip -->
+                  <polygon points="114,134 119,134 116.5,139" fill="#e0d0c0" stroke="#5d4037" stroke-width="0.8" transform="rotate(-40 116 123)" />
+                  <polygon points="115.5,137 117.5,137 116.5,139" fill="#36291b" transform="rotate(-40 116 123)" />
+                </g>
+              </g>
+
+            </g>
+          </svg>
+        </div>
+
+        <!-- Heavy Wooden Cartoon Desk in front of Panda -->
+        <div class="detective-desk">
+          <svg viewBox="0 0 280 90" width="100%" height="100%">
+            <!-- Desk Board -->
+            <rect x="5" y="15" width="270" height="65" rx="10" fill="url(#panda-body-grad)" stroke="#5d4037" stroke-width="5" />
+            <!-- Desk wood grain layers -->
+            <rect x="10" y="20" width="260" height="55" rx="6" fill="#a1887f" />
+            <path d="M 15,35 Q 140,25 265,35" fill="none" stroke="#8d6e63" stroke-width="3" opacity="0.3" stroke-linecap="round" />
+            <path d="M 20,55 Q 140,48 260,55" fill="none" stroke="#8d6e63" stroke-width="3" opacity="0.3" stroke-linecap="round" />
+            
+            <!-- Desk drawer dividers/shadows -->
+            <line x1="75" y1="75" x2="75" y2="80" stroke="#5d4037" stroke-width="4" />
+            <line x1="205" y1="75" x2="205" y2="80" stroke="#5d4037" stroke-width="4" />
+            
+            <!-- Glowing Candle Lamp on Desk (Left side) -->
+            <g id="desk-candle-lamp" class="candle-glow-group">
+              <!-- Base -->
+              <path d="M 30,36 C 26,36 26,42 30,42 Z" fill="#8caa46" stroke="#2d5a27" stroke-width="1.5" />
+              <!-- Stem -->
+              <line x1="30" y1="36" x2="30" y2="24" stroke="#8caa46" stroke-width="3.5" stroke-linecap="round" />
+              <!-- Wax Candle -->
+              <rect x="27" y="16" width="6" height="12" fill="#fffdf2" stroke="#5d4037" stroke-width="1.2" rx="1.5" />
+              <!-- Wick -->
+              <line x1="30" y1="16" x2="30" y2="12" stroke="#36291b" stroke-width="1" />
+              <!-- Flame -->
+              <path class="candle-flame" d="M 30,12 Q 26,6 30,1 Q 34,6 30,12 Z" fill="#ffb74d" filter="drop-shadow(0 0 4px #ffd15c)" />
+            </g>
+          </svg>
+
+          <!-- ==========================================
+               THE 4 CASE FOLDER BOOKS RACK (Sitting on Desk)
+               ========================================== -->
+          <div class="desk-folders-rack">
+            
+            <!-- Folder 1: Goluk Boluk Case -->
+            <div id="folder-goluk" class="case-folder-book f-1 folder-trigger" data-case="goluk">
+              <div class="folder-binder">
+                <span class="folder-badge">📋 Case 1</span>
+                <span class="folder-title">Goluk Boluk</span>
+              </div>
+            </div>
+
+            <!-- Folder 2: Eruma Maadu Case -->
+            <div id="folder-eruma" class="case-folder-book f-2 folder-trigger" data-case="eruma">
+              <div class="folder-binder">
+                <span class="folder-badge">📋 Case 2</span>
+                <span class="folder-title">Eruma Maadu</span>
+              </div>
+            </div>
+
+            <!-- Folder 3: Meme Collection -->
+            <div id="folder-memes" class="case-folder-book f-3 folder-trigger" data-case="memes">
+              <div class="folder-binder">
+                <span class="folder-badge">🗂️ Case 3</span>
+                <span class="folder-title">Meme Vault</span>
+              </div>
+            </div>
+
+            <!-- Folder 4: Suspicious Activities -->
+            <div id="folder-suspicious" class="case-folder-book f-4 folder-trigger" data-case="suspicious">
+              <div class="folder-binder">
+                <span class="folder-badge">⚠️ Case 4</span>
+                <span class="folder-title">Suspicious</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ==========================================
+           RETURN TO SCENE 7 SIGNBOARD (Leaves Forest)
+           ========================================== -->
+      <div id="detective-return-sign" class="wooden-sign-container visible-sign-btn" style="bottom: 30px; left: calc(50% - 140px); width: 280px; z-index: 100; position: absolute;">
+        <div class="wooden-board" style="padding: 8px; transform: rotate(-1.5deg);">
+          <div class="wood-rings"></div>
+          <button id="det-back-btn" class="wooden-sign-btn" style="font-size: 1.15rem; padding: 8px 22px; width: 100%;">
+            <span class="btn-leaf">🌿</span>
+            <span class="btn-text">Return to Forest</span>
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </section>
+
+  <!-- ========================================================================
+       SCENE 8: Giant animated Case Dossier Storybook Page Flip Modal
+       ======================================================================== -->
+  <div id="case-file-modal" class="memory-modal hidden-modal">
+    <div class="modal-overlay"></div>
+    <div class="memory-book-card case-dossier-card">
+      
+      <!-- Page Left: Worn Paper Dossier Stamp and Ghibli Doodle SVG -->
+      <div class="book-page page-left">
+        <div class="page-parchment">
+          <div class="decor-stamp dossier-stamp-label">🕵️‍♂️ CASE FILE: CLASSIFIED</div>
+          <div class="doodle-container" id="case-modal-doodle">
+            <!-- Loaded dynamically via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Right: Accusation Report & File Close -->
+      <div class="book-page page-right">
+        <div class="page-parchment">
+          <button id="case-modal-close-btn" class="close-leaf-btn">🌿 File Case</button>
+          
+          <div class="memory-log-header dossier-log-header">
+            <h3 id="case-modal-title">CASE REPORT #---</h3>
+            <div class="log-stars">⚠️ STATS: SUSPICIOUS</div>
+          </div>
+          
+          <p id="case-modal-caption-text" class="memory-caption-content case-caption-content">
+            <!-- Loaded dynamically via JS -->
+          </p>
+          
+          <div class="memory-footer-sig dossier-footer-sig">
+            <span class="footer-seal seal-danger">GUILTY 💮</span>
+            <span class="footer-doodles">🕵️‍♂️🔎📂⚖️</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       SCENE 9: GHIBLI PLAYROOM (Arcade Hub & 3 Mini-Games)
+       ======================================================================== -->
+  <section id="scene-games" class="scene-container hidden">
+    <!-- Parallax Fixed Background -->
+    <div class="playhouse-fixed-bg"></div>
+
+    <!-- Glowing vignette glow -->
+    <div class="playhouse-office-glow"></div>
+
+    <!-- Header wood scroll -->
+    <header class="story-header-scroll" style="top: 25px; z-index: 100;">
+      <div class="scroll-wood-ends"></div>
+      <div class="scroll-paper" style="padding: 6px 30px;">
+        <h2 style="font-family: var(--font-storybook); font-size: 1.45rem; color: var(--color-text-brown); text-shadow: 1px 1px 0 #fff; text-align: center; font-weight: 800; line-height: 1.2;">
+          🎮 Chapter 4: Ghibli Playhouse
+        </h2>
+      </div>
+    </header>
+
+    <!-- HUB SELECTION SCREEN -->
+    <div id="playhouse-hub" class="playhouse-grid-canvas">
+      
+      <div class="playhouse-wood-board">
+        <div class="wood-rings"></div>
+        <h3 class="hub-subtitle">Choose a Mini-Game to Unlock Ultimate Achievements! 🏆</h3>
+        
+        <div class="game-selectors-rack">
+          <!-- Game 1 selector -->
+          <div class="game-selector-card f-1" id="select-game-1">
+            <div class="stone-rings"></div>
+            <div class="game-sel-emoji">🍕</div>
+            <h4 class="game-sel-title">Feed Goluk Boluk</h4>
+            <p class="game-sel-desc">Help the chubby boy catch falling pizzas & burgers! 🍔</p>
+          </div>
+
+          <!-- Game 2 selector -->
+          <div class="game-selector-card f-2" id="select-game-2">
+            <div class="stone-rings"></div>
+            <div class="game-sel-emoji">🐼</div>
+            <h4 class="game-sel-title">Save Baby Panda</h4>
+            <p class="game-sel-desc">Collect floating bamboo stalks to get a big warm hug! ❤️</p>
+          </div>
+
+          <!-- Game 3 selector -->
+          <div class="game-selector-card f-3" id="select-game-3">
+            <div class="stone-rings"></div>
+            <div class="game-sel-emoji">🐃</div>
+            <h4 class="game-sel-title">Eruma Maadu Race</h4>
+            <p class="game-sel-desc">Help the water buffalo jump obstacles to reach the cake! 🎂</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exit playroom to Chapter 3 Forest -->
+      <div id="playhouse-return-sign" class="wooden-sign-container visible-sign-btn" style="position: absolute; bottom: 35px; left: calc(50% - 130px); width: 260px; z-index: 100;">
+        <div class="wooden-board" style="padding: 8px; transform: rotate(1.5deg);">
+          <div class="wood-rings"></div>
+          <button id="playhouse-back-btn" class="wooden-sign-btn">
+            <span class="btn-leaf">🎋</span>
+            <span class="btn-text">Return to Garden</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GAME 1 VIEWPORT: FEED GOLUK BOLUK -->
+    <div id="game-viewport-1" class="game-viewport hidden">
+      <!-- Back Button -->
+      <div class="game-back-sign">
+        <button class="game-back-btn btn-leave-game">🌿 Leave Game</button>
+      </div>
+
+      <!-- Scoreboard leaf -->
+      <div class="game-score-card">
+        Caught: <span id="g1-score">0</span> / 20
+      </div>
+
+      <!-- Instructions Leaf Scroll -->
+      <div id="g1-instructions" class="game-instructions-overlay">
+        <div class="instructions-scroll">
+          <h3>🍕 Feed Goluk Boluk!</h3>
+          <p>Yum! Food is falling from the sky. Click or tap the falling items (pizza, burgers, fries, ice cream) to catch them before they hit the ground!</p>
+          <button class="start-game-btn" id="start-g1-btn">🌿 Start Feeding</button>
+        </div>
+      </div>
+
+      <div class="game-canvas-area" id="g1-canvas-area">
+        <!-- Falling items spawned dynamically in JS -->
+
+        <!-- SVG Chubby Boy -->
+        <div id="g1-boy-character" class="chubby-boy-rig">
+          <svg viewBox="0 0 160 160" width="130" height="130">
+            <g id="boy-body-group">
+              <!-- Body -->
+              <circle cx="80" cy="115" r="32" fill="#ffb74d" stroke="#5d4037" stroke-width="2.5" />
+              <!-- Shirt details -->
+              <path d="M 52,100 L 108,100 A 32,32 0 0,1 80,147 Z" fill="#42a5f5" stroke="#5d4037" stroke-width="2" />
+              <circle cx="80" cy="116" r="3" fill="#fff" />
+              <circle cx="80" cy="126" r="3" fill="#fff" />
+              <!-- Shadow -->
+              <ellipse cx="80" cy="148" rx="40" ry="7" fill="#291e12" opacity="0.3" />
+              
+              <!-- Head -->
+              <circle cx="80" cy="74" r="28" fill="#ffe0b2" stroke="#5d4037" stroke-width="2.5" />
+              <!-- Hair -->
+              <path d="M 52,70 Q 80,42 108,70 Q 80,62 52,70" fill="#5d4037" stroke="#5d4037" stroke-width="2.5" />
+              <path d="M 68,54 Q 80,40 92,54" fill="#5d4037" stroke="#5d4037" stroke-width="1.5" />
+              <!-- Cheeks -->
+              <ellipse cx="60" cy="82" rx="5" ry="3" fill="#ff8a80" opacity="0.6" />
+              <ellipse cx="100" cy="82" rx="5" ry="3" fill="#ff8a80" opacity="0.6" />
+              <!-- Eyes -->
+              <circle cx="64" cy="72" r="3" fill="#5d4037" />
+              <circle cx="96" cy="72" r="3" fill="#5d4037" />
+              <circle cx="63" cy="71" r="1" fill="#fff" />
+              <circle cx="95" cy="71" r="1" fill="#fff" />
+
+              <!-- Segmented Mouth -->
+              <g class="mouth-standard">
+                <path d="M 74,86 Q 80,90 86,86" fill="none" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round" />
+              </g>
+              <g class="mouth-open hidden">
+                <ellipse cx="80" cy="88" rx="8" ry="7" fill="#c62828" stroke="#5d4037" stroke-width="2" />
+                <ellipse cx="80" cy="91" rx="5" ry="3.5" fill="#ff8a80" />
+              </g>
+              
+              <!-- Arms/Hands -->
+              <circle cx="44" cy="110" r="8" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+              <circle cx="116" cy="110" r="8" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Victory Plaque -->
+      <div id="g1-victory-card" class="game-victory-card hidden">
+        <div class="wood-board-victory">
+          <div class="wood-rings"></div>
+          <h2>🍔 ULTIMATE GOLUK BOLUK 👑</h2>
+          <p>Incredible! You have fed Goluk Boluk 20 scrumptious treats! He has grown into his supreme chubby form and is wiggling with joy!</p>
+          <span class="victory-seal">ACHIEVED 💮</span>
+          <button class="victory-close-btn btn-leave-game">🌿 Return to Playhouse</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME 2 VIEWPORT: SAVE BABY PANDA -->
+    <div id="game-viewport-2" class="game-viewport hidden">
+      <!-- Back Button -->
+      <div class="game-back-sign">
+        <button class="game-back-btn btn-leave-game">🌿 Leave Game</button>
+      </div>
+
+      <!-- Scoreboard leaf -->
+      <div class="game-score-card">
+        Collected: <span id="g2-score">0</span> / 20
+      </div>
+
+      <!-- Instructions Leaf Scroll -->
+      <div id="g2-instructions" class="game-instructions-overlay">
+        <div class="instructions-scroll">
+          <h3>🐼 Save Baby Panda!</h3>
+          <p>Oh no! Baby Panda needs bamboo sticks to build a cozy shelter. Floating bamboo nodes are drifting across the screen. Click or tap them to collect them!</p>
+          <button class="start-game-btn" id="start-g2-btn">🌿 Collect Bamboo</button>
+        </div>
+      </div>
+
+      <div class="game-canvas-area" id="g2-canvas-area">
+        <!-- Floating bamboo elements spawned dynamically in JS -->
+
+        <!-- SVG Baby Panda Rig (appears at success) -->
+        <div id="g2-panda-character" class="hugging-panda-rig hidden">
+          <svg viewBox="0 0 160 160" width="140" height="140">
+            <!-- Shadow -->
+            <ellipse cx="80" cy="142" rx="42" ry="7" fill="#291e12" opacity="0.3" />
+            <!-- Body -->
+            <circle cx="80" cy="110" r="34" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+            
+            <!-- Red Bow Tie -->
+            <path d="M 70,110 L 90,122 L 90,110 L 70,122 Z" fill="#ff5252" stroke="#5d4037" stroke-width="2" />
+            <circle cx="80" cy="116" r="3.5" fill="#ffd15c" stroke="#5d4037" stroke-width="1.2" />
+
+            <!-- Paws wrapping in a hug animation -->
+            <g class="panda-hugging-arms">
+              <path d="M 44,116 C 36,116 32,102 42,94 C 52,86 58,102 58,110 Z" fill="#36291b" stroke="#291e12" stroke-width="1.2" />
+              <path d="M 116,116 C 124,116 128,102 118,94 C 108,86 102,102 102,110 Z" fill="#36291b" stroke="#291e12" stroke-width="1.2" />
+            </g>
+
+            <!-- Ears -->
+            <circle cx="48" cy="46" r="14" fill="#36291b" />
+            <circle cx="112" cy="46" r="14" fill="#36291b" />
+
+            <!-- Head -->
+            <circle cx="80" cy="76" r="32" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="2.5" />
+            <!-- Cheeks -->
+            <ellipse cx="58" cy="86" rx="6" ry="3.5" fill="#ffa4a4" opacity="0.65" />
+            <ellipse cx="102" cy="86" rx="6" ry="3.5" fill="#ffa4a4" opacity="0.65" />
+            <!-- Eyepatches -->
+            <ellipse cx="66" cy="74" rx="7.5" ry="10" fill="#36291b" transform="rotate(-15 66 74)" />
+            <ellipse cx="94" cy="74" rx="7.5" ry="10" fill="#36291b" transform="rotate(15 94 74)" />
+            <!-- Eyes -->
+            <circle cx="66" cy="74" r="3" fill="#fff" />
+            <circle cx="94" cy="74" r="3" fill="#fff" />
+            <circle cx="65.5" cy="73.5" r="1" fill="#1b120c" />
+            <circle cx="93.5" cy="73.5" r="1" fill="#1b120c" />
+            
+            <!-- Snout -->
+            <ellipse cx="80" cy="83" rx="7" ry="5" fill="#fff" stroke="#36291b" stroke-width="1" />
+            <polygon points="78,81 82,81 80,83" fill="#36291b" />
+            <!-- Smile -->
+            <path d="M 77,86 Q 80,89 83,86" stroke="#36291b" stroke-width="1.5" stroke-linecap="round" fill="none" />
+          </svg>
+          <!-- Hearts container inside panda -->
+          <div class="hugging-hearts" id="g2-hearts-container"></div>
+        </div>
+      </div>
+
+      <!-- Victory Plaque -->
+      <div id="g2-victory-card" class="game-victory-card hidden">
+        <div class="wood-board-victory">
+          <div class="wood-rings"></div>
+          <h2>🐼 BABY PANDA SAVED! ❤️</h2>
+          <p>How precious! You have gathered 20 healthy bamboo stalks! Baby panda is incredibly warm, cozy, and gives you a giant, snuggly Ghibli hug!</p>
+          <span class="victory-seal">HUG TIME 💮</span>
+          <button class="victory-close-btn btn-leave-game">🌿 Return to Playhouse</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME 3 VIEWPORT: ERUMA MAADU RACE -->
+    <div id="game-viewport-3" class="game-viewport hidden">
+      <!-- Back Button -->
+      <div class="game-back-sign">
+        <button class="game-back-btn btn-leave-game">🌿 Leave Game</button>
+      </div>
+
+      <!-- Scoreboard leaf -->
+      <div class="game-score-card">
+        Cleared: <span id="g3-score">0</span> / 15
+      </div>
+
+      <!-- Instructions Leaf Scroll -->
+      <div id="g3-instructions" class="game-instructions-overlay">
+        <div class="instructions-scroll">
+          <h3>🐃 Eruma Maadu Race!</h3>
+          <p>Charge! The water buffalo (Eruma Maadu) is racing through the village. Click or tap anywhere in the track area to make the buffalo jump over fences, clay pots, and chickens!</p>
+          <button class="start-game-btn" id="start-g3-btn">🌿 Start Racing</button>
+        </div>
+      </div>
+
+      <div class="game-canvas-area scroll-race-bg" id="g3-canvas-area">
+        
+        <!-- Track floor line -->
+        <div class="race-floor"></div>
+
+        <!-- Obstacles spawned dynamically inside this -->
+        <div id="obstacles-container"></div>
+
+        <!-- Water Buffalo character (Eruma Maadu) -->
+        <div id="g3-buffalo-character" class="racing-buffalo-rig">
+          <svg viewBox="0 0 140 100" width="115" height="82" class="racing-buffalo-svg">
+            <g id="buffalo-body-rig">
+              <!-- Shadow -->
+              <ellipse cx="70" cy="90" rx="35" ry="6" fill="#291e12" opacity="0.3" />
+              
+              <!-- Legs moving -->
+              <g class="buffalo-legs">
+                <rect id="race-leg-1" x="42" y="74" width="7" height="15" fill="#37474f" stroke="#1c272c" stroke-width="1.5" rx="3" />
+                <rect id="race-leg-2" x="58" y="74" width="7" height="15" fill="#37474f" stroke="#1c272c" stroke-width="1.5" rx="3" />
+                <rect id="race-leg-3" x="78" y="74" width="7" height="15" fill="#37474f" stroke="#1c272c" stroke-width="1.5" rx="3" />
+                <rect id="race-leg-4" x="94" y="74" width="7" height="15" fill="#37474f" stroke="#1c272c" stroke-width="1.5" rx="3" />
+              </g>
+
+              <!-- Tail -->
+              <path d="M 38,55 Q 26,45 28,60" fill="none" stroke="#263238" stroke-width="3" stroke-linecap="round" />
+              <circle cx="28" cy="60" r="3.5" fill="#37474f" />
+
+              <!-- Chubby Body -->
+              <ellipse cx="70" cy="56" rx="38" ry="24" fill="#37474f" stroke="#1c272c" stroke-width="2.5" />
+              <ellipse cx="68" cy="54" rx="32" ry="20" fill="#4f5b66" />
+
+              <!-- Head -->
+              <g id="buffalo-head-group">
+                <ellipse cx="106" cy="46" rx="20" ry="16" fill="#37474f" stroke="#1c272c" stroke-width="2.5" />
+                <!-- Rosy cheek -->
+                <circle cx="114" cy="50" r="3.5" fill="#ffa4a4" opacity="0.6" />
+                
+                <!-- Eyes closed standard -->
+                <g class="buf-eyes-happy">
+                  <path d="M 106,42 Q 110,38 114,42" fill="none" stroke="#eceff1" stroke-width="2.2" stroke-linecap="round" />
+                </g>
+                <!-- Eyes dizzy (collision) -->
+                <g class="buf-eyes-dizzy hidden">
+                  <line x1="104" y1="39" x2="110" y2="45" stroke="#ff8a80" stroke-width="2.2" stroke-linecap="round" />
+                  <line x1="110" y1="39" x2="104" y2="45" stroke="#ff8a80" stroke-width="2.2" stroke-linecap="round" />
+                </g>
+
+                <!-- Horns -->
+                <path d="M 98,34 Q 85,15 100,24" fill="none" stroke="#eceff1" stroke-width="5.5" stroke-linecap="round" />
+                <path d="M 114,34 Q 128,15 112,24" fill="none" stroke="#eceff1" stroke-width="5.5" stroke-linecap="round" />
+
+                <!-- Nose Snout -->
+                <ellipse cx="116" cy="48" rx="8" ry="6" fill="#cfd8dc" stroke="#1c272c" stroke-width="1" />
+                <circle cx="113" cy="48" r="1.5" fill="#37474f" />
+                <circle cx="119" cy="48" r="1.5" fill="#37474f" />
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Victory Plaque -->
+      <div id="g3-victory-card" class="game-victory-card hidden">
+        <div class="wood-board-victory">
+          <div class="wood-rings"></div>
+          <h2>🐃 LEGENDARY ERUMA MAADU 🏆</h2>
+          <p>Success! You jumped all barriers and successfully reached the giant birthday cake! Eruma Maadu has achieved Level 20!</p>
+          <span class="victory-seal">LEVEL 20 💮</span>
+          <button class="victory-close-btn btn-leave-game">🌿 Return to Playhouse</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================
+       3D STORYBOOK MEMORY CARD MODAL OVERLAY
+       ======================================================================== -->
+  <div id="memory-card-modal" class="memory-modal hidden-modal">
+    <div class="modal-overlay"></div>
+    <div class="memory-book-card">
+      
+      <!-- Page Left: Worn Paper Cover and custom SVG Doodle -->
+      <div class="book-page page-left">
+        <div class="page-parchment">
+          <div class="decor-stamp">📜 MEMORY LOG</div>
+          <div class="doodle-container" id="modal-doodle">
+            <!-- Loaded dynamically via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Page Right: Worn Paper Capture Caption & Close -->
+      <div class="book-page page-right">
+        <div class="page-parchment">
+          <button id="modal-close-btn" class="close-leaf-btn">🌿 Close Page</button>
+          
+          <div class="memory-log-header">
+            <h3>LOG ENTRY #020</h3>
+            <div class="log-stars">⭐⭐⭐</div>
+          </div>
+          
+          <p id="modal-caption-text" class="memory-caption-content">
+            <!-- Loaded dynamically via JS -->
+          </p>
+          
+          <div class="memory-footer-sig">
+            <span class="footer-seal">APPROVED 💮</span>
+            <span class="footer-doodles">🧸🌸🎋</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js?v=1.0.4"></script>
+</body>
+</html>

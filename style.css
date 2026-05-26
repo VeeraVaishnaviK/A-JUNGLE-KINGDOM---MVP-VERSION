@@ -1,0 +1,4853 @@
+/* ==========================================================================
+   Studio Ghibli Animated Birthday Website — Complete Unified Stylesheet
+   ========================================================================== */
+
+/* Define Ghibli Design Tokens */
+:root {
+  --color-cream: #faf5e6;
+  --color-paper-light: #fefcf5;
+  --color-moss-deep: #25471d;
+  --color-moss-light: #467a35;
+  --color-bamboo-green: #7ca844;
+  --color-warm-gold: #ffcf54;
+  --color-gold-glow: rgba(255, 207, 84, 0.4);
+  --color-wood-dark: #664d36;
+  --color-wood-light: #a67c52;
+  --color-text-brown: #403223;
+  --font-bubbly: "Fredoka", sans-serif;
+  --font-storybook: "Sniglet", cursive;
+  --soft-shadow: 0 8px 24px rgba(90, 66, 45, 0.12);
+  --magic-glow: 0 0 25px rgba(255, 207, 84, 0.8), 0 0 50px rgba(255, 207, 84, 0.4);
+}
+
+/* Base resets & storybook parchment foundation */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-bubbly);
+  background-color: #dfdcd0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  user-select: none;
+}
+
+/* 1. Global Multi-Layer Backgrounds and Textures */
+.watercolor-texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/watercolor_paper_texture.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.warm-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 40%, rgba(255, 230, 180, 0.1) 80%, rgba(215, 170, 110, 0.25) 100%);
+  z-index: 90;
+  pointer-events: none;
+}
+
+/* Helper to hide elements programmatically and gracefully */
+.hidden {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SCENE CONTAINERS & TRANSITIONS
+   ========================================================================== */
+.scene-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease-in-out, transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 5;
+}
+
+.scene-container.active-scene {
+  opacity: 1;
+  visibility: visible;
+  z-index: 10;
+}
+
+/* Global Zoom Effect for success transitions */
+.camera-zoom-transition {
+  transform: scale(2.5);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   SCENE 1: OPENING FOREST (Dawn Layouts)
+   ========================================================================== */
+.story-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/baby_panda_flower_forest.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+/* Hide the SVG baby panda and SVG cottage in Scene 1 to let the premium hand-painted panda shine */
+#scene-opening #baby-panda {
+  display: none !important;
+}
+
+#scene-opening .bamboo-house {
+  display: none !important;
+}
+
+/* Atmosphere Sunbeams */
+.sunbeam-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.sunbeam {
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(to bottom, rgba(255, 245, 200, 0.4) 0%, rgba(255, 240, 180, 0.15) 50%, rgba(255, 240, 180, 0) 100%);
+  transform-origin: top center;
+  opacity: 0.7;
+}
+
+.ray-1 { transform: rotate(25deg); animation: swayRay1 12s ease-in-out infinite alternate; }
+.ray-2 { transform: rotate(35deg); animation: swayRay2 15s ease-in-out infinite alternate; left: 10%; }
+.ray-3 { transform: rotate(45deg); animation: swayRay3 18s ease-in-out infinite alternate; left: -10%; }
+
+@keyframes swayRay1 {
+  0% { transform: rotate(23deg) scaleX(0.9); opacity: 0.5; }
+  100% { transform: rotate(27deg) scaleX(1.1); opacity: 0.8; }
+}
+@keyframes swayRay2 {
+  0% { transform: rotate(32deg) scaleX(1.1); opacity: 0.6; }
+  100% { transform: rotate(38deg) scaleX(0.9); opacity: 0.9; }
+}
+@keyframes swayRay3 {
+  0% { transform: rotate(42deg) scaleX(0.95); opacity: 0.4; }
+  100% { transform: rotate(48deg) scaleX(1.05); opacity: 0.7; }
+}
+
+/* Floating Butterflies */
+.butterfly {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.wing-left { transform-origin: 20px 20px; animation: flapLeft 0.18s linear infinite alternate; }
+.wing-right { transform-origin: 20px 20px; animation: flapRight 0.18s linear infinite alternate; }
+
+.butterfly-1 { top: 30%; left: 10%; animation: flutterPath1 22s ease-in-out infinite alternate; }
+.butterfly-2 { top: 45%; right: 15%; animation: flutterPath2 26s ease-in-out infinite alternate; }
+
+@keyframes flapLeft { 0% { transform: scaleX(1); } 100% { transform: scaleX(0.15); } }
+@keyframes flapRight { 0% { transform: scaleX(1); } 100% { transform: scaleX(0.15); } }
+
+@keyframes flutterPath1 {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(120px, -60px) rotate(15deg); }
+  50% { transform: translate(250px, 30px) rotate(-10deg); }
+  75% { transform: translate(140px, 120px) rotate(20deg); }
+  100% { transform: translate(320px, 40px) rotate(-5deg); }
+}
+
+@keyframes flutterPath2 {
+  0% { transform: translate(0, 0) rotate(-10deg); }
+  33% { transform: translate(-150px, 80px) rotate(20deg); }
+  66% { transform: translate(-280px, -40px) rotate(-15deg); }
+  100% { transform: translate(-400px, 50px) rotate(5deg); }
+}
+
+/* Scroll Header */
+.story-header-scroll {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  margin-top: 15px;
+  z-index: 10;
+  filter: drop-shadow(0 12px 20px rgba(70, 52, 35, 0.18));
+  animation: softBobScroll 4s ease-in-out infinite alternate;
+}
+
+.scroll-wood-ends {
+  position: absolute;
+  top: -8px;
+  left: -20px;
+  right: -20px;
+  height: calc(100% + 16px);
+  border-left: 20px solid var(--color-wood-dark);
+  border-right: 20px solid var(--color-wood-dark);
+  border-radius: 12px;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.scroll-paper {
+  background: var(--color-paper-light);
+  border: 4px solid var(--color-wood-light);
+  border-radius: 8px;
+  padding: 16px 24px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 60%, rgba(215, 170, 110, 0.15) 100%);
+  pointer-events: none;
+}
+
+.scroll-paper h1 {
+  font-family: var(--font-storybook);
+  color: var(--color-text-brown);
+  font-size: 1.8rem;
+  line-height: 1.3;
+  font-weight: 800;
+  text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
+}
+
+@keyframes softBobScroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(6px); }
+}
+
+/* Cozy Bamboo Cottage */
+.bamboo-house {
+  position: absolute;
+  left: 8%;
+  bottom: 15px;
+  z-index: 3;
+  filter: drop-shadow(0 8px 16px rgba(50, 40, 30, 0.15));
+}
+
+.house-window { animation: glowWindow 3s ease-in-out infinite alternate; }
+
+@keyframes glowWindow {
+  0% { fill: #ffd15c; filter: drop-shadow(0 0 4px #ffd15c); }
+  100% { fill: #ffe18c; filter: drop-shadow(0 0 10px #ffbb00); }
+}
+
+/* Chirping Birds */
+.bird {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.bird-1 { left: 32%; bottom: 125px; }
+.bird-wing { transform-origin: 18px 25px; animation: birdWingFlap 1.2s ease-in-out infinite alternate; }
+
+.chirp-bubble {
+  position: absolute;
+  top: -30px;
+  left: 10px;
+  background: var(--color-paper-light);
+  border: 2px solid var(--color-moss-light);
+  border-radius: 12px;
+  font-family: var(--font-bubbly);
+  font-size: 0.75rem;
+  color: var(--color-moss-deep);
+  padding: 2px 8px;
+  font-weight: bold;
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: bottom center;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.bird.chirping .chirp-bubble {
+  opacity: 1;
+  transform: scale(1) translateY(-5px);
+}
+
+@keyframes birdWingFlap {
+  0%, 80% { transform: rotate(0); }
+  90% { transform: rotate(-25deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ==========================================================================
+   PANDA RIG - BASE SETTINGS (Scene 1 & Scene 2)
+   ========================================================================== */
+.scene-elements {
+  width: 100%;
+  flex: 1;
+  position: relative;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding-bottom: 30px;
+}
+
+.panda-container {
+  position: absolute;
+  right: 18%;
+  bottom: 85px; /* Lifted up into clear view above the bottom screen margin */
+  z-index: 4;
+  cursor: pointer;
+}
+
+/* Breathing */
+.panda-container.state-sleeping {
+  animation: pandaBreath 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes pandaBreath {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.03, 0.97) rotate(-1deg); }
+}
+
+/* Sleep Zzzs */
+.zzz-container {
+  position: absolute;
+  top: -15px;
+  left: 45px;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.zzz {
+  position: absolute;
+  font-family: var(--font-storybook);
+  font-weight: bold;
+  color: #7a6350;
+  opacity: 0;
+}
+
+.state-sleeping .z-1 { animation: floatZ 3s infinite 0s; left: 0; }
+.state-sleeping .z-2 { animation: floatZ 3s infinite 1s; left: 15px; }
+.state-sleeping .z-3 { animation: floatZ 3s infinite 2s; left: 30px; }
+
+@keyframes floatZ {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  30% { opacity: 0.6; }
+  80% { opacity: 0; }
+  100% { transform: translate(25px, -45px) scale(1.2); opacity: 0; }
+}
+
+/* Ear / Arm anchors */
+#panda-ear-left { transform-origin: 44px 46px; }
+#panda-ear-right { transform-origin: 116px 46px; }
+#panda-arm-left { transform-origin: 48px 92px; }
+#panda-arm-right { transform-origin: 112px 92px; }
+
+/* Yawn / Stretch states */
+.state-yawning { animation: pandaYawnBody 2s ease-in-out forwards; }
+.state-yawning #panda-arm-left { animation: stretchArmLeft 2s ease-in-out forwards; }
+.state-yawning #panda-arm-right { animation: stretchArmRight 2s ease-in-out forwards; }
+.state-yawning #panda-ear-left { animation: twitchLeftEar 2s ease-in-out forwards; }
+.state-yawning #panda-ear-right { animation: twitchRightEar 2s ease-in-out forwards; }
+
+@keyframes pandaYawnBody {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08, 0.92) translateY(5px); }
+  60% { transform: scale(0.95, 1.08) translateY(-10px); }
+  100% { transform: scale(1); }
+}
+
+@keyframes stretchArmLeft {
+  0% { transform: rotate(0); }
+  45% { transform: rotate(115deg) translate(-5px, 2px); }
+  85% { transform: rotate(115deg) translate(-5px, 2px); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes stretchArmRight {
+  0% { transform: rotate(0); }
+  45% { transform: rotate(-115deg) translate(5px, 2px); }
+  85% { transform: rotate(-115deg) translate(5px, 2px); }
+  100% { transform: rotate(0); }
+}
+
+@keyframes twitchLeftEar {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-15deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(0); }
+}
+@keyframes twitchRightEar {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(-10deg); }
+  100% { transform: rotate(0); }
+}
+
+/* Joyful state */
+.state-joyful { animation: pandaJumpJoy 0.85s ease-in-out infinite alternate; }
+.state-joyful #panda-arm-left { animation: pandaClapLeft 0.42s ease-in-out infinite alternate; }
+.state-joyful #panda-arm-right { animation: pandaClapRight 0.42s ease-in-out infinite alternate; }
+
+@keyframes pandaJumpJoy {
+  0% { transform: translateY(0) scale(1, 1); }
+  35% { transform: translateY(4px) scale(1.08, 0.92); }
+  75% { transform: translateY(-38px) scale(0.92, 1.08); }
+  100% { transform: translateY(-40px) scale(0.94, 1.06); }
+}
+@keyframes pandaClapLeft { 0% { transform: rotate(0); } 100% { transform: rotate(78deg) translate(-5px, 5px); } }
+@keyframes pandaClapRight { 0% { transform: rotate(0); } 100% { transform: rotate(-78deg) translate(5px, 5px); } }
+
+/* ==========================================================================
+   SCENE 1: GLOWING LETTER
+   ========================================================================== */
+.glowing-letter-wrapper {
+  position: absolute;
+  left: calc(50% - 75px);
+  top: calc(45% - 50px);
+  width: 150px;
+  height: 100px;
+  z-index: 50;
+  cursor: pointer;
+  animation: magicalFloat 4s ease-in-out infinite alternate, letterRevealIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  perspective: 800px;
+}
+
+.letter-glow-halo {
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  right: -25px;
+  bottom: -25px;
+  background: radial-gradient(circle, var(--color-warm-gold) 0%, rgba(255, 207, 84, 0.2) 65%, transparent 100%);
+  border-radius: 50%;
+  animation: glowPulse 2s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #ffd275;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(115, 82, 38, 0.25);
+  transform-style: preserve-3d;
+  z-index: 2;
+}
+
+.envelope-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #e5b350;
+  border-radius: 8px;
+  z-index: 3;
+}
+
+.letter-paper {
+  position: absolute;
+  left: 8px;
+  bottom: 6px;
+  width: calc(100% - 16px);
+  height: calc(100% - 12px);
+  background-color: var(--color-paper-light);
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 4;
+  overflow: hidden;
+}
+
+.letter-content {
+  text-align: center;
+  font-family: var(--font-bubbly);
+  color: var(--color-text-brown);
+  opacity: 0.1;
+  transition: opacity 0.8s ease;
+}
+
+.letter-content h3 { font-size: 0.65rem; font-family: var(--font-storybook); color: var(--color-moss-deep); margin-bottom: 2px; }
+.letter-content p { font-size: 0.55rem; color: #7a6350; }
+.letter-content h2 { font-size: 0.85rem; color: #d15656; margin-top: 1px; }
+
+.envelope-front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-bottom: 50px solid #f2c05e;
+  bottom: 0;
+  z-index: 5;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.envelope-front::before {
+  content: "";
+  position: absolute;
+  left: -75px;
+  bottom: -50px;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 60px solid #e8b858;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.envelope-front::after {
+  content: "";
+  position: absolute;
+  right: -75px;
+  bottom: -50px;
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 60px solid #e8b858;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.envelope-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-top: 52px solid #ffd275;
+  transform-origin: top center;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 6;
+}
+
+/* Open envelope transitions */
+.envelope.open .envelope-top { transform: rotateX(180deg); z-index: 3; border-top-color: #e5b350; }
+
+.envelope.open .letter-paper {
+  height: 180px;
+  width: 250px;
+  left: calc(50% - 125px);
+  bottom: 40px;
+  z-index: 60;
+  padding: 16px 20px;
+  box-shadow: 0 15px 40px rgba(70, 50, 20, 0.3), 0 0 15px rgba(255, 235, 170, 0.5);
+  border: 4px solid var(--color-warm-gold);
+}
+
+.envelope.open .letter-content { opacity: 1; }
+.envelope.open .letter-content h3 { font-size: 1rem; margin-bottom: 5px; }
+.envelope.open .letter-content p { font-size: 0.9rem; margin-bottom: 3px; }
+.envelope.open .letter-content h2 { font-size: 1.5rem; margin-top: 4px; }
+
+@keyframes letterRevealIn { 0% { transform: translateY(40px) scale(0.6); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+@keyframes magicalFloat { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(1.5deg); } 100% { transform: translateY(4px) rotate(-1.5deg); } }
+@keyframes glowPulse { 0% { transform: scale(0.95); opacity: 0.7; } 100% { transform: scale(1.15); opacity: 1; filter: blur(5px); } }
+
+/* Hanging Wooden Sign (Start adventure) */
+.wooden-sign-container {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: 0;
+  width: 300px;
+  height: 240px;
+  z-index: 80;
+  transform-origin: top center;
+  animation: signEnter 1.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, signSwaySlow 6s ease-in-out infinite alternate;
+}
+
+.vine { position: absolute; top: 0; width: 4px; background-color: var(--color-moss-deep); z-index: 1; }
+.vine::after { content: "🌿"; position: absolute; font-size: 0.85rem; }
+
+.vine-left { left: 60px; height: 120px; }
+.vine-left::after { bottom: 30px; left: -6px; }
+.vine-right { right: 60px; height: 120px; }
+.vine-right::after { bottom: 60px; right: -6px; transform: scaleX(-1); }
+
+.wooden-board {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-wood-light) 0%, var(--color-wood-dark) 100%);
+  border: 5px solid #543f2a;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 10px 20px rgba(50, 35, 20, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.wood-rings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.05) 5%, transparent 20%),
+                    radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.05) 8%, transparent 25%);
+  pointer-events: none;
+}
+
+.wooden-sign-btn {
+  background: var(--color-paper-light);
+  border: 3px solid var(--color-wood-dark);
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-family: var(--font-storybook);
+  font-size: 1.35rem;
+  color: var(--color-moss-deep);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 0px var(--color-wood-dark), 0 6px 12px rgba(0,0,0,0.1);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  outline: none;
+}
+
+.wooden-sign-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px var(--color-wood-dark), 0 3px 6px rgba(0,0,0,0.15);
+  background-color: var(--color-cream);
+  color: var(--color-moss-light);
+}
+
+.wooden-sign-btn:active { transform: translateY(4px); box-shadow: 0 0px 0px var(--color-wood-dark); }
+.btn-leaf { display: inline-block; animation: leafWiggle 2s ease-in-out infinite; }
+
+@keyframes leafWiggle { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(15deg); } }
+@keyframes signEnter { 0% { transform: translateY(-240px); } 100% { transform: translateY(0); } }
+
+.wooden-sign-container:hover {
+  animation: signEnter 1.4s forwards, signSwayHover 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes signSwaySlow { 0% { transform: rotate(-2deg); } 100% { transform: rotate(2deg); } }
+@keyframes signSwayHover { 0% { transform: rotate(-5deg); } 100% { transform: rotate(5deg); } }
+
+
+/* ==========================================================================
+   SCENE 2: PASSWORD SCREEN (Night Treehouse Details)
+   ========================================================================== */
+.treehouse-night-canvas {
+  background-image: url('assets/cozy_treehouse_night.png') !important;
+}
+
+/* 1. Starry sky elements */
+.starry-sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #fff, 0 0 20px #ffe18c;
+}
+
+.star-1 { top: 20%; left: 15%; animation: twinkleStar 3s infinite 0s; }
+.star-2 { top: 12%; left: 55%; animation: twinkleStar 4s infinite 1s; width: 8px; height: 8px; }
+.star-3 { top: 25%; right: 20%; animation: twinkleStar 3.5s infinite 2s; }
+
+@keyframes twinkleStar {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* 2. Swaying paper lanterns */
+.paper-lantern {
+  position: absolute;
+  z-index: 8;
+  transform-origin: top center;
+  animation: swingLantern 5s ease-in-out infinite alternate;
+}
+
+.lantern-left { top: 0px; left: 18%; }
+.lantern-right { top: 0px; right: 22%; animation-duration: 6s; }
+
+.lantern-cable {
+  width: 2px;
+  height: 60px;
+  background-color: #3e2815;
+  margin: 0 auto;
+}
+
+.lantern-glow {
+  position: absolute;
+  bottom: -15px;
+  left: calc(50% - 30px);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(255, 140, 60, 0.6) 0%, rgba(255, 200, 100, 0.15) 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes swingLantern {
+  0% { transform: rotate(-6deg); }
+  100% { transform: rotate(6deg); }
+}
+
+/* 3. Wooden Password Signboard */
+.password-wooden-signboard {
+  position: absolute;
+  top: 25%;
+  left: calc(50% - 175px);
+  width: 350px;
+  background: linear-gradient(135deg, #7c5c3e 0%, #543f2a 100%);
+  border: 6px solid #453220;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(35, 25, 15, 0.45), inset 0 0 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 30;
+  transform-origin: center center;
+  color: var(--color-cream);
+  overflow: hidden;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
+}
+
+/* Dynamic error shaking */
+.password-wooden-signboard.shake-signboard {
+  animation: shakePlaque 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shakePlaque {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+.signboard-header {
+  font-family: var(--font-storybook);
+  font-size: 1.15rem;
+  color: #fdfaf0;
+  margin-bottom: 18px;
+  line-height: 1.3;
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.password-form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-form-box input {
+  width: 100%;
+  background-color: var(--color-paper-light);
+  border: 3px solid #4a3826;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-family: var(--font-bubbly);
+  font-size: 1.25rem;
+  color: var(--color-text-brown);
+  text-align: center;
+  outline: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.15);
+  transition: border-color 0.2s ease;
+}
+
+.password-form-box input:focus {
+  border-color: var(--color-warm-gold);
+}
+
+.password-form-box input::placeholder {
+  color: #bfaea2;
+  font-weight: normal;
+  letter-spacing: 0px;
+}
+
+/* Wood input inset look */
+.wood-input-inset {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  border-radius: 10px;
+  box-shadow: inset 0 4px 5px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.enter-btn {
+  background: var(--color-paper-light);
+  border: 3px solid #4a3826;
+  border-radius: 10px;
+  padding: 8px 20px;
+  font-family: var(--font-storybook);
+  font-size: 1.15rem;
+  color: var(--color-moss-deep);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 0px #4a3826;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.enter-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0px #4a3826;
+  background-color: var(--color-cream);
+}
+.enter-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0px #4a3826;
+}
+
+.attempts-box {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: #dcbfa8;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   SCENE 2: EXPRESSIVE WATCHDOG PANDA & SPEECH BUBBLES
+   ========================================================================== */
+.watchdog-panda-wrapper {
+  position: absolute;
+  right: 15%;
+  bottom: 85px; /* Lifted up into view */
+  width: 160px;
+  height: 160px;
+  z-index: 25;
+}
+
+/* Fix absolute nesting collapse so watchdog panda fits perfectly */
+.watchdog-panda-wrapper #watchdog-panda {
+  position: relative !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: 100%;
+  height: 100%;
+}
+
+/* Base anchor styling for Scene 2 limbs */
+.watchdog-ear { transform-origin: 44px 46px; }
+.watchdog-arm { transform-origin: 48px 92px; }
+#watchdog-arm-right { transform-origin: 112px 92px; }
+
+/* Panda dialogue bubble */
+.panda-speech-bubble {
+  position: absolute;
+  top: -85px;
+  right: 15px;
+  background: var(--color-paper-light);
+  border: 3px solid var(--color-moss-light);
+  border-radius: 18px;
+  padding: 10px 16px;
+  min-width: 180px;
+  max-width: 240px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  z-index: 40;
+  animation: bubblePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: bottom center;
+}
+
+.bubble-tail {
+  position: absolute;
+  bottom: -13px;
+  right: 60px;
+  width: 0; height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--color-paper-light);
+}
+
+.bubble-tail::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  right: -13px;
+  width: 0; height: 0;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-top: 13px solid var(--color-moss-light);
+  z-index: -1;
+}
+
+.speech-text {
+  font-family: var(--font-bubbly);
+  font-size: 0.92rem;
+  color: var(--color-text-brown);
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+@keyframes bubblePop {
+  0% { transform: scale(0) translateY(20px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* STATE 1: SAD EXPRESSION */
+.state-watchdog.sad-panda {
+  animation: sadDroop 2s infinite alternate;
+}
+.state-watchdog.sad-panda #watchdog-arm-left { transform: rotate(15deg); }
+.state-watchdog.sad-panda #watchdog-arm-right { transform: rotate(-15deg); }
+
+@keyframes sadDroop {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(3px) scale(0.98, 1.02); }
+}
+
+/* STATE 2: SNIFFLING & SHAKING */
+.state-watchdog.sniffling-panda {
+  animation: sniffleQuiver 0.15s infinite;
+}
+.state-watchdog.sniffling-panda #watchdog-cheek-left,
+.state-watchdog.sniffling-panda #watchdog-cheek-right {
+  fill: #ff8585 !important;
+}
+
+@keyframes sniffleQuiver {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+  75% { transform: translate(1px, -1px) rotate(0.5deg); }
+}
+
+/* STATE 3: DRAMATIC WAILING CRY (Flying teardrops!) */
+.state-watchdog.crying-panda {
+  animation: dramaticCryBody 0.6s infinite alternate;
+}
+
+.state-watchdog.crying-panda #watchdog-arm-left {
+  animation: waveArmL 0.3s infinite alternate;
+}
+.state-watchdog.crying-panda #watchdog-arm-right {
+  animation: waveArmR 0.3s infinite alternate;
+}
+
+@keyframes dramaticCryBody {
+  0% { transform: scale(1, 1) translateY(0); }
+  100% { transform: scale(0.96, 1.04) translateY(-8px); }
+}
+
+@keyframes waveArmL { 0% { transform: rotate(40deg); } 100% { transform: rotate(90deg); } }
+@keyframes waveArmR { 0% { transform: rotate(-40deg); } 100% { transform: rotate(-90deg); } }
+
+/* Dynamic Ghibli-style wailing teardrop particles shooting */
+.crying-tears-spray {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.tear-droplet {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  /* Shaded watercolor Ghibli-style teardrop shape */
+  background: radial-gradient(circle at 35% 35%, #ffffff 0%, #a4e0ff 30%, #3ca9ff 70%, #0077d6 100%);
+  border-radius: 0 50% 50% 50%;
+  box-shadow: 0 3px 6px rgba(0, 119, 214, 0.4);
+  font-size: 0px; /* hides the text emoji completely */
+  color: transparent;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.state-watchdog.crying-panda .crying-tears-spray {
+  display: block !important;
+}
+
+/* Alternate launch delays to create continuous gushing streams */
+.state-watchdog.crying-panda .tear-l1 { left: 45px; animation: sprayTearLeft 0.7s infinite linear 0s; }
+.state-watchdog.crying-panda .tear-l2 { left: 45px; animation: sprayTearLeft 0.7s infinite linear 0.35s; }
+.state-watchdog.crying-panda .tear-r1 { right: 45px; animation: sprayTearRight 0.7s infinite linear 0.15s; }
+.state-watchdog.crying-panda .tear-r2 { right: 45px; animation: sprayTearRight 0.7s infinite linear 0.5s; }
+
+/* Parabolic wailing curves: shoots up and out, then falls under gravity */
+@keyframes sprayTearLeft {
+  0% { transform: translate(0, 0) rotate(135deg) scale(0.3); opacity: 0; }
+  15% { opacity: 0.95; }
+  45% { transform: translate(-65px, -35px) rotate(100deg) scale(1.2); opacity: 0.9; }
+  100% { transform: translate(-150px, 75px) rotate(45deg) scale(0.7); opacity: 0; }
+}
+
+@keyframes sprayTearRight {
+  0% { transform: translate(0, 0) rotate(-45deg) scale(0.3); opacity: 0; }
+  15% { opacity: 0.95; }
+  45% { transform: translate(65px, -35px) rotate(-10deg) scale(1.2); opacity: 0.9; }
+  100% { transform: translate(140px, 75px) rotate(45deg) scale(0.7); opacity: 0; }
+}
+
+
+/* ==========================================================================
+   SCENE 2: DYNAMIC LEAF FALL CANOPY (Attempt 3)
+   ========================================================================== */
+.falling-leaves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  overflow: hidden;
+}
+
+.falling-leaf {
+  position: absolute;
+  width: 25px;
+  height: 18px;
+  background-color: var(--color-bamboo-green);
+  border-radius: 15px 0 15px 0;
+  opacity: 0.85;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  transform-origin: center;
+  animation: fallLeaf 4s linear forwards;
+}
+
+@keyframes fallLeaf {
+  0% { transform: translateY(-30px) rotate(0deg); left: var(--start-x); }
+  50% { transform: translateY(50vh) rotate(180deg) translateX(40px); }
+  100% { transform: translateY(105vh) rotate(360deg) translateX(-45px); }
+}
+
+
+/* ==========================================================================
+   SCENE 2: GIANT PARTING BAMBOO GATES & SUCCESS SEQUENCES
+   ========================================================================== */
+.giant-bamboo-gates {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 95;
+  display: flex;
+  pointer-events: none;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.giant-bamboo-gates.hidden-gates {
+  display: none !important;
+}
+
+.gate {
+  width: 50vw;
+  height: 100%;
+  transition: transform 2.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transform-style: preserve-3d;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.gate-left {
+  transform-origin: left center;
+}
+
+.gate-right {
+  transform-origin: right center;
+}
+
+/* Gates parted state */
+.giant-bamboo-gates.open-gates .gate-left {
+  transform: rotateY(-115deg);
+}
+
+.giant-bamboo-gates.open-gates .gate-right {
+  transform: rotateY(115deg);
+}
+
+/* Blooming Success Flower gardens at the bottom */
+.blooming-flowers-garden {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 18;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.success-flower {
+  width: 35px;
+  height: 80px;
+  transform-origin: bottom center;
+  animation: bloomFlower 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes bloomFlower {
+  0% { transform: scale(0) rotate(-15deg); }
+  70% { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* Success petals flying (Confetti) */
+.petal-confetti {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50% 0 50% 50%;
+  pointer-events: none;
+  z-index: 45;
+  animation: flutterPetal 3.5s linear forwards;
+}
+
+@keyframes flutterPetal {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(var(--x-dist), var(--y-dist), 0) rotate(720deg); opacity: 0; }
+}
+
+
+/* ==========================================================================
+   SCENE 3: GORILLA GATEKEEPER (Magical Stone Gate details)
+   ========================================================================== */
+.forest-gate-canvas {
+  background-image: url('assets/magical_forest_gate_bg.png') !important;
+}
+
+/* Stone Gate Arch */
+.stone-gate-container {
+  position: absolute;
+  bottom: 80px;
+  left: calc(50% - 160px);
+  width: 320px;
+  height: 240px;
+  z-index: 2;
+  filter: drop-shadow(0 10px 18px rgba(30, 45, 55, 0.25));
+}
+
+.gate-portal-glow {
+  position: absolute;
+  top: 70px;
+  left: 80px;
+  width: 160px;
+  height: 170px;
+  background: radial-gradient(circle, rgba(255, 235, 170, 0.95) 0%, rgba(255, 207, 84, 0.4) 60%, transparent 100%);
+  border-radius: 80px 80px 0 0;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Stone Arch Open State */
+.active-portal .gate-portal-glow {
+  opacity: 1;
+  animation: glowPulse 2.5s ease-in-out infinite alternate;
+}
+
+/* The Giant Gorilla Container (Scene 3) */
+.gorilla-character-container {
+  position: absolute;
+  left: calc(50% - 100px);
+  bottom: 80px;
+  width: 200px;
+  height: 200px;
+  z-index: 10;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Wobble Idle sway */
+.gorilla-character-container.state-idle {
+  animation: gorWobble 4s ease-in-out infinite alternate;
+}
+
+@keyframes gorWobble {
+  0% { transform: scale(1) rotate(-1.5deg) translateY(0); }
+  100% { transform: scale(1.02, 0.98) rotate(1.5deg) translateY(2px); }
+}
+
+/* Rotatable arm pivots */
+#gorilla-arm-left {
+  transform-origin: 44px 110px;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#gorilla-arm-right {
+  transform-origin: 156px 110px;
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* STUBBORN STATE: crosses arms and grows */
+.gorilla-character-container.state-grow {
+  transform: scale(1.3) !important;
+}
+
+.gorilla-character-container.state-grow #gorilla-arm-left {
+  transform: rotate(62deg) translate(8px, -18px);
+}
+
+.gorilla-character-container.state-grow #gorilla-arm-right {
+  transform: rotate(-62deg) translate(-8px, -18px);
+}
+
+/* DANCING STATE: bouncy jig and spear waves */
+.gorilla-character-container.state-dance {
+  animation: gorDance 0.65s ease-in-out infinite alternate;
+}
+
+.gorilla-character-container.state-dance #gorilla-arm-left {
+  animation: gorArmWaveL 0.32s ease-in-out infinite alternate;
+}
+
+.gorilla-character-container.state-dance #gorilla-arm-right {
+  animation: gorArmWaveR 0.32s ease-in-out infinite alternate;
+}
+
+@keyframes gorDance {
+  0% { transform: scale(1, 1) translate(0, 0) rotate(-3deg); }
+  100% { transform: scale(1.05, 0.95) translate(0, -14px) rotate(3deg); }
+}
+
+@keyframes gorArmWaveL {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(85deg) translate(-6px, 12px); }
+}
+
+@keyframes gorArmWaveR {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-85deg) translate(6px, 12px); }
+}
+
+/* Gorilla Wood Dialogue Speech Bubble */
+.gorilla-speech-wrapper {
+  position: absolute;
+  top: 20%;
+  left: calc(50% - 110px);
+  width: 220px;
+  z-index: 35;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.18));
+}
+
+.bubble-wood-board {
+  background: linear-gradient(135deg, #a67c52 0%, #664d36 100%);
+  border: 4.5px solid #543f2a;
+  border-radius: 16px;
+  padding: 10px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.bubble-wood-board::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle, transparent 65%, rgba(0,0,0,0.15) 100%);
+  pointer-events: none;
+}
+
+.bubble-wood-board .speech-text {
+  color: var(--color-cream);
+  font-family: var(--font-bubbly);
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.5);
+  line-height: 1.35;
+  display: inline-block;
+}
+
+.bubble-wood-tail {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #664d36;
+  margin: 0 auto;
+}
+
+.bubble-wood-tail::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: calc(50% - 12px);
+  width: 0; height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid #543f2a;
+  z-index: -1;
+}
+
+/* Wooden Tablets Choice Buttons */
+.gorilla-tablets-container {
+  position: absolute;
+  bottom: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 40;
+}
+
+.wooden-tablet-btn {
+  background: linear-gradient(135deg, var(--color-wood-light) 0%, var(--color-wood-dark) 100%);
+  border: 4.5px solid #543f2a;
+  border-radius: 14px;
+  padding: 12px 24px;
+  font-family: var(--font-storybook);
+  font-size: 1.25rem;
+  color: var(--color-cream);
+  cursor: pointer;
+  box-shadow: 0 5px 0px #403223, 0 8px 16px rgba(0,0,0,0.22);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  outline: none;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.tablet-wood-rings {
+  position: absolute;
+  top: 0; left: 0; width: 200%; height: 200%;
+  background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.05) 5%, transparent 20%);
+  pointer-events: none;
+}
+
+.wooden-tablet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #403223, 0 10px 20px rgba(0,0,0,0.25);
+  color: #fffdec;
+}
+
+.wooden-tablet-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #403223, 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.tablet-emoji {
+  font-size: 1.35rem;
+}
+
+/* Path-Blocking Vines slide-in */
+.blocking-vines-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.vine-branch {
+  position: absolute;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.vine-branch-left {
+  left: 0;
+  transform: translateX(-105%);
+}
+
+.vine-branch-right {
+  right: 0;
+  transform: translateX(105%);
+}
+
+/* Active blocking vines slide in */
+.vines-active .vine-branch-left {
+  transform: translateX(0);
+}
+
+.vines-active .vine-branch-right {
+  transform: translateX(0);
+}
+
+/* Retry Button Absolute Positioning */
+.retry-btn-absolute {
+  position: absolute !important;
+  bottom: 0px;
+  left: calc(50% - 90px);
+  width: 180px;
+  z-index: 45;
+  box-shadow: 0 5px 0px #1e330a, 0 8px 16px rgba(0,0,0,0.3) !important;
+  background: linear-gradient(135deg, #7ca844 0%, #467a35 100%) !important;
+  border-color: #25471d !important;
+}
+
+.retry-btn-absolute:hover {
+  background: linear-gradient(135deg, #8cbd52 0%, #528c3e 100%) !important;
+}
+
+
+/* ==========================================================================
+   SCENE 4: SURPRISE SCREEN & BANISHMENT (Forest Clearing)
+   ========================================================================== */
+.forest-clearing-canvas {
+  background-image: url('assets/magical_forest_clearing_bg.png') !important;
+}
+
+/* Soft golden spotlight overlay */
+.golden-spotlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 235, 170, 0.3) 0%, rgba(255, 235, 170, 0) 70%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 1. 3D Page Turn Card */
+.storybook-page-turn {
+  position: absolute;
+  top: 15%;
+  left: calc(50% - 200px);
+  width: 400px;
+  height: 120px;
+  z-index: 10;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+
+.page-side {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--color-paper-light);
+  border: 4px solid var(--color-wood-light);
+  box-shadow: var(--soft-shadow);
+}
+
+.page-left {
+  left: 0;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  background: linear-gradient(to right, #ebdcb9 0%, var(--color-paper-light) 12%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-right {
+  right: 0;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  transform-origin: left center;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: linear-gradient(to left, #ebdcb9 0%, var(--color-paper-light) 12%);
+  transform: rotateY(-180deg); /* Folded shut at start */
+  transition: transform 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.page-turn-active .page-right {
+  transform: rotateY(0deg); /* Swings open like a real book */
+}
+
+.surprise-question {
+  font-family: var(--font-storybook);
+  font-size: 1.32rem;
+  color: var(--color-text-brown);
+  text-align: center;
+  font-weight: 800;
+  line-height: 1.35;
+  text-shadow: 1px 1px 0px #fff;
+}
+
+/* 2. Choice Buttons Wrapper (YES and Leaf NO) */
+.surprise-buttons-wrapper {
+  position: absolute;
+  top: 36%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  z-index: 40;
+}
+
+/* Glowing bouncy YES */
+.surprise-yes-btn {
+  background: linear-gradient(135deg, var(--color-warm-gold) 0%, #ff9800 100%);
+  border: 4.5px solid var(--color-wood-dark);
+  border-radius: 14px;
+  padding: 12px 32px;
+  font-family: var(--font-storybook);
+  font-weight: bold;
+  font-size: 1.55rem;
+  color: var(--color-text-brown);
+  cursor: pointer;
+  box-shadow: 0 6px 0px var(--color-wood-dark), 0 10px 20px rgba(0,0,0,0.18);
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.surprise-yes-btn.glowing-bouncy {
+  animation: yesBouncyPulse 1.8s infinite alternate;
+}
+
+@keyframes yesBouncyPulse {
+  0% { transform: scale(1); box-shadow: 0 6px 0px var(--color-wood-dark), 0 0 15px rgba(255, 207, 84, 0.6); }
+  100% { transform: scale(1.08) translateY(-3px); box-shadow: 0 9px 0px var(--color-wood-dark), 0 0 30px rgba(255, 207, 84, 1); }
+}
+
+/* Leaf Hidden NO */
+.no-btn-leaf-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease;
+}
+
+.surprise-no-btn {
+  background: linear-gradient(135deg, #b89c7d 0%, #8c6e4f 100%);
+  border: 3.5px solid #5d4630;
+  border-radius: 12px;
+  padding: 8px 22px;
+  font-family: var(--font-storybook);
+  font-size: 1.05rem;
+  color: var(--color-cream);
+  cursor: pointer;
+  box-shadow: 0 4px 0px #5d4630, 0 6px 12px rgba(0,0,0,0.15);
+  outline: none;
+  z-index: 1;
+  transition: transform 0.2s ease;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.35);
+}
+
+.hiding-leaf {
+  position: absolute;
+  top: -20px;
+  left: -24px; /* Shifted left so it doesn't cover the N! */
+  width: 48px;  /* Plump and cute but not oversized */
+  height: 56px;
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: bottom center;
+  animation: leafSway 4s ease-in-out infinite alternate;
+}
+
+@keyframes leafSway {
+  0% { transform: rotate(-6deg); }
+  100% { transform: rotate(6deg); }
+}
+
+/* NO BUTTON BANISHMENT - horizontal speed dash and spin shrink */
+.no-btn-leaf-wrapper.run-away {
+  animation: runawayNoBtn 1.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+  pointer-events: none;
+}
+
+@keyframes runawayNoBtn {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  25% { transform: translate3d(40px, -10px) scale(1.1) rotate(15deg); }
+  100% { transform: translate3d(-350px, 80px) scale(0) rotate(-720deg); opacity: 0; }
+}
+
+
+/* 3. Parade of guilt-tripping guild characters */
+.guilt-characters-parade {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 30px;
+  z-index: 25;
+}
+
+.guilt-char {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.guilt-char.hidden-char {
+  opacity: 0;
+  transform: translateY(45px) scale(0.6);
+  pointer-events: none;
+}
+
+.guilt-char.visible-char {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Guild character dialog speech bubbles */
+.char-speech-bubble {
+  position: absolute;
+  top: -65px;
+  background: var(--color-paper-light);
+  border: 2.5px solid var(--color-moss-light);
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-family: var(--font-bubbly);
+  font-size: 0.82rem;
+  color: var(--color-text-brown);
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  width: 150px;
+  line-height: 1.3;
+  animation: bubblePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  z-index: 30;
+}
+
+.speech-tail-char {
+  position: absolute;
+  bottom: -8px;
+  left: calc(50% - 8px);
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--color-paper-light);
+}
+
+.speech-tail-char::before {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: -8px;
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--color-moss-light);
+  z-index: -1;
+}
+
+/* Character 2: Baby Gorilla pullups details */
+.pullup-bar-bamboo {
+  position: absolute;
+  top: 10px;
+  width: 90px;
+  height: 8px;
+  background-color: var(--color-bamboo-green);
+  border: 2px solid #2d5a27;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.pullup-baby-gorilla {
+  position: relative;
+  z-index: 1;
+  transform-origin: top center;
+  animation: gorPullups 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes gorPullups {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-16px); }
+}
+
+/* Character 3: Village Buffalo leg trot and tail bob */
+.trotting-buffalo {
+  animation: buffaloBob 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes buffaloBob {
+  0% { transform: translateY(0) rotate(0.8deg); }
+  100% { transform: translateY(-5px) rotate(-0.8deg); }
+}
+
+#buf-leg-1, #buf-leg-3 {
+  transform-origin: 50% 100px;
+  animation: legWalkL 0.3s infinite alternate ease-in-out;
+}
+#buf-leg-2, #buf-leg-4 {
+  transform-origin: 50% 100px;
+  animation: legWalkR 0.3s infinite alternate ease-in-out;
+}
+
+@keyframes legWalkL { 0% { transform: rotate(16deg); } 100% { transform: rotate(-16deg); } }
+@keyframes legWalkR { 0% { transform: rotate(-16deg); } 100% { transform: rotate(16deg); } }
+
+/* Dust puffs */
+.dust-cloud {
+  position: absolute;
+  bottom: 8px;
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255,255,255,0.75);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dust-cloud.d-1 { left: 20px; animation: dustTrail 1s infinite 0s; }
+.dust-cloud.d-2 { left: 55px; animation: dustTrail 1s infinite 0.5s; }
+
+@keyframes dustTrail {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0.8; }
+  100% { transform: translate(-22px, -12px) scale(1.6); opacity: 0; }
+}
+
+/* Character 4: Chubby Boy cake and candles */
+.boy-holding-cake {
+  animation: boyBob 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes boyBob {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px) scaleY(0.97); }
+}
+
+.candle-flame {
+  transform-origin: bottom center;
+  animation: flamePulse 0.15s infinite alternate ease-in-out;
+}
+
+@keyframes flamePulse {
+  0% { transform: scale(0.85) rotate(-3deg); }
+  100% { transform: scale(1.15) rotate(3deg); }
+}
+
+
+/* ==========================================================================
+   RESPONSIVENESS AND MOBILE FIXES
+   ========================================================================== */
+@media (max-width: 600px) {
+  .story-header-scroll h1 { font-size: 1.4rem; }
+  .bamboo-house { width: 160px; height: 130px; left: 4%; }
+  
+  .panda-container { right: 8%; width: 120px; height: 120px; bottom: 85px; }
+  .panda-svg { width: 120px; height: 120px; }
+  
+  .glowing-letter-wrapper {
+    top: calc(40% - 40px);
+    width: 120px;
+    height: 80px;
+    left: calc(50% - 60px);
+  }
+  .envelope.open .letter-paper { width: 200px; left: calc(50% - 100px); padding: 10px; }
+  .envelope.open .letter-content h2 { font-size: 1.1rem; }
+  
+  .wooden-sign-container { width: 240px; left: calc(50% - 120px); }
+  .wooden-sign-btn { font-size: 1.1rem; padding: 8px 16px; }
+
+  /* Scene 2 mobile */
+  .password-wooden-signboard {
+    width: 290px;
+    left: calc(50% - 145px);
+    top: 20%;
+    padding: 16px;
+  }
+  .signboard-header { font-size: 1rem; margin-bottom: 12px; }
+  .password-form-box input { font-size: 1.1rem; padding: 8px; }
+  .enter-btn { font-size: 1rem; padding: 6px 14px; }
+  .watchdog-panda-wrapper { right: 4%; bottom: 85px; }
+  .panda-speech-bubble {
+    top: -75px;
+    right: 5px;
+    min-width: 150px;
+    max-width: 180px;
+    padding: 6px 10px;
+  }
+  .speech-text { font-size: 0.8rem; }
+
+  /* Scene 3 mobile */
+  .stone-gate-container {
+    width: 240px;
+    height: 180px;
+    left: calc(50% - 120px);
+    bottom: 80px;
+  }
+  .stone-gate-svg {
+    width: 240px;
+    height: 180px;
+  }
+  .gate-portal-glow {
+    top: 52px;
+    left: 60px;
+    width: 120px;
+    height: 130px;
+  }
+  .gorilla-character-container {
+    width: 150px;
+    height: 150px;
+    left: calc(50% - 75px);
+    bottom: 80px;
+  }
+  .gorilla-speech-wrapper {
+    width: 180px;
+    left: calc(50% - 90px);
+    top: 15%;
+  }
+  .bubble-wood-board .speech-text {
+    font-size: 0.8rem;
+  }
+  .gorilla-tablets-container {
+    bottom: 20px;
+    gap: 10px;
+  }
+  .wooden-tablet-btn {
+    font-size: 0.95rem;
+    padding: 8px 14px;
+  }
+  .tablet-emoji {
+    font-size: 1.1rem;
+  }
+  .vine-branch {
+    width: 40%;
+  }
+  .retry-btn-absolute {
+    width: 140px;
+    left: calc(50% - 70px);
+  }
+
+  /* Scene 4 mobile adjustments */
+  .storybook-page-turn {
+    width: 300px;
+    left: calc(50% - 150px);
+    top: 14%;
+  }
+  .surprise-question {
+    font-size: 1rem;
+  }
+  .surprise-buttons-wrapper {
+    top: 34%;
+    gap: 20px;
+  }
+  .surprise-yes-btn {
+    font-size: 1.22rem;
+    padding: 10px 24px;
+  }
+  .surprise-no-btn {
+    font-size: 0.95rem;
+    padding: 6px 16px;
+  }
+  .hiding-leaf {
+    width: 38px;
+    height: 44px;
+    top: -16px;
+    left: -18px;
+  }
+  .guilt-characters-parade {
+    padding: 0 10px;
+    gap: 4px;
+  }
+  .char-speech-bubble {
+    width: 95px;
+    font-size: 0.58rem;
+    padding: 4px 6px;
+    top: -52px;
+  }
+  .panda-svg {
+    width: 80px;
+    height: 80px;
+  }
+  .gorilla-svg {
+    width: 75px;
+    height: 75px;
+  }
+  .buffalo-svg {
+    width: 85px;
+    height: 75px;
+  }
+  .boy-svg {
+    width: 85px;
+    height: 90px;
+  }
+  .pullup-bar-bamboo {
+    width: 65px;
+  }
+}
+
+/* ==========================================================================
+   SCENE 4: CRYING TEAR ANIMATIONS FOR GUILT PANDA & BOY
+   ========================================================================== */
+.guilt-char.visible-char .crying-tears-spray {
+  display: block !important;
+}
+
+#guilt-panda.visible-char .tear-l1 { left: 35px; top: 20px; animation: sprayTearLeft 0.7s infinite linear 0s; }
+#guilt-panda.visible-char .tear-l2 { left: 35px; top: 20px; animation: sprayTearLeft 0.7s infinite linear 0.35s; }
+#guilt-panda.visible-char .tear-r1 { right: 35px; top: 20px; animation: sprayTearRight 0.7s infinite linear 0.15s; }
+#guilt-panda.visible-char .tear-r2 { right: 35px; top: 20px; animation: sprayTearRight 0.7s infinite linear 0.5s; }
+
+#guilt-boy.visible-char .tear-l1 { left: 45px; top: 25px; animation: sprayTearLeft 0.7s infinite linear 0s; }
+#guilt-boy.visible-char .tear-l2 { left: 45px; top: 25px; animation: sprayTearLeft 0.7s infinite linear 0.35s; }
+#guilt-boy.visible-char .tear-r1 { right: 45px; top: 25px; animation: sprayTearRight 0.7s infinite linear 0.15s; }
+#guilt-boy.visible-char .tear-r2 { right: 45px; top: 25px; animation: sprayTearRight 0.7s infinite linear 0.5s; }
+
+/* ==========================================================================
+   SCENE 4: RED AND BLACK GIFT BOX POPPING & SPARKLES
+   ========================================================================== */
+.gift-box-container {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.8s, opacity 0.8s ease 0.8s;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Make it pop out beautifully when page-turn-active is added */
+.page-turn-active .gift-box-container {
+  transform: scale(1);
+  opacity: 1;
+  animation: giftWobble 4s ease-in-out infinite alternate 2.0s;
+}
+
+@keyframes giftWobble {
+  0% { transform: scale(1) rotate(-3deg) translateY(0); }
+  100% { transform: scale(1.05) rotate(3deg) translateY(-6px); }
+}
+
+/* Sparkles and Magic Twinkle effects */
+.gift-sparkles .sp-1 {
+  animation: twinkleSparkle 2s infinite alternate ease-in-out;
+  transform-origin: 16px 20px;
+}
+
+.gift-sparkles .sp-2 {
+  animation: twinkleSparkle 2.5s infinite alternate ease-in-out 0.5s;
+  transform-origin: 84px 27px;
+}
+
+.gift-sparkles .sd-1 {
+  animation: floatDot 3s infinite linear;
+}
+
+.gift-sparkles .sd-2 {
+  animation: floatDot 4s infinite linear 1s;
+}
+
+@keyframes twinkleSparkle {
+  0% { transform: scale(0.3) rotate(0deg); opacity: 0.1; }
+  100% { transform: scale(1.1) rotate(45deg); opacity: 1; filter: drop-shadow(0 0 5px #ffd15c); }
+}
+
+@keyframes floatDot {
+  0% { transform: translateY(0) scale(1); opacity: 0.2; }
+  50% { transform: translateY(-8px) scale(1.3); opacity: 0.8; }
+  100% { transform: translateY(-16px) scale(0.6); opacity: 0; }
+}
+
+/* ==========================================================================
+   SCENE 5: CHAPTER 1: BABY REJO (Nursery Photo Gallery)
+   ========================================================================== */
+.nursery-canvas {
+  background-image: url('assets/baby_rejo_nursery_bg.png') !important;
+}
+
+.nursery-intro-text {
+  font-family: var(--font-storybook);
+  font-size: 1.25rem;
+  color: var(--color-text-brown);
+  text-align: center;
+  font-weight: 800;
+  line-height: 1.35;
+  text-shadow: 1px 1px 0px #fff;
+  padding: 10px;
+}
+
+.nursery-page-illustration {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Floating Toy Alphabet Blocks */
+.alphabet-block {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgba(50, 40, 30, 0.15));
+}
+
+.block-a {
+  top: 15%;
+  left: 8%;
+  animation: blockFloatA 4.5s ease-in-out infinite alternate;
+}
+
+.block-b {
+  top: 48%;
+  right: 8%;
+  animation: blockFloatB 5s ease-in-out infinite alternate-reverse;
+}
+
+.block-c {
+  top: 72%;
+  left: 12%;
+  animation: blockFloatC 4s ease-in-out infinite alternate 0.5s;
+}
+
+@keyframes blockFloatA {
+  0% { transform: translateY(0) rotate(-6deg); }
+  100% { transform: translateY(-12px) rotate(8deg); }
+}
+
+@keyframes blockFloatB {
+  0% { transform: translateY(0) rotate(8deg); }
+  100% { transform: translateY(-15px) rotate(-8deg); }
+}
+
+@keyframes blockFloatC {
+  0% { transform: translateY(0) rotate(-8deg); }
+  100% { transform: translateY(-10px) rotate(6deg); }
+}
+
+/* Illustrated Hanging Polaroid Shelf */
+.polaroids-shelf {
+  position: absolute;
+  top: 38%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  padding: 0 40px;
+  z-index: 15;
+}
+
+.polaroid-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  opacity: 0;
+  transform: scale(0.6) translateY(-40px);
+  transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s ease;
+}
+
+/* Swaying hang animation when active scene is loaded */
+.active-scene .polaroid-item {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.active-scene .item-1 { transition-delay: 0.8s; animation: polaroidHangSway1 6s ease-in-out infinite alternate 2.0s; }
+.active-scene .item-2 { transition-delay: 1.0s; animation: polaroidHangSway2 6.5s ease-in-out infinite alternate 2.2s; }
+.active-scene .item-3 { transition-delay: 1.2s; animation: polaroidHangSway1 5.5s ease-in-out infinite alternate 2.4s; }
+.active-scene .item-4 { transition-delay: 1.4s; animation: polaroidHangSway2 7s ease-in-out infinite alternate 2.6s; }
+
+@keyframes polaroidHangSway1 {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+
+@keyframes polaroidHangSway2 {
+  0% { transform: rotate(2.5deg); }
+  100% { transform: rotate(-2.5deg); }
+}
+
+/* Interactive hover sway */
+.polaroid-item:hover {
+  animation-play-state: paused;
+  transform: scale(1.06) rotate(0deg) !important;
+  z-index: 50;
+}
+
+.hanging-line {
+  width: 10px;
+  height: 50px;
+  margin-bottom: -5px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.polaroid-frame {
+  background: var(--color-paper-light);
+  border: 4px solid var(--color-cream);
+  border-radius: 12px;
+  padding: 10px 10px 32px 10px; /* Thicker bottom border for Ghibli Polaroid feel */
+  width: 135px;
+  box-shadow: 0 10px 25px rgba(90, 66, 45, 0.16);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.polaroid-picture {
+  width: 115px;
+  height: 105px;
+  background-color: #faf7f0;
+  border-radius: 6px;
+  border: 2px solid #ebdcb9;
+  box-shadow: inset 0 2px 4px rgba(90, 66, 45, 0.08);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.baby-doodle-svg {
+  filter: drop-shadow(0 2px 4px rgba(90, 66, 45, 0.08));
+  transition: transform 0.3s ease;
+}
+
+.polaroid-item:hover .baby-doodle-svg {
+  transform: scale(1.1) rotate(2deg);
+}
+
+/* Luggage Caption Tags */
+.luggage-tag {
+  position: absolute;
+  bottom: -22px;
+  left: calc(50% - 62px);
+  width: 124px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid #5d4630;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 5;
+  transform-origin: top center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tag-string-loop {
+  position: absolute;
+  top: -7px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #5d4630;
+  background-color: transparent;
+}
+
+.tag-string-loop::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 2px;
+  width: 2px;
+  height: 6px;
+  background-color: #5d4630;
+}
+
+.tag-label {
+  font-family: var(--font-bubbly);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-cream);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  text-align: center;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+/* Luggage tag custom Ghibli watercolor colors */
+.tag-red { background: linear-gradient(135deg, #e57373 0%, #d32f2f 100%); }
+.tag-blue { background: linear-gradient(135deg, #64b5f6 0%, #1e88e5 100%); }
+.tag-green { background: linear-gradient(135deg, #81c784 0%, #388e3c 100%); }
+.tag-yellow { background: linear-gradient(135deg, #ffd54f 0%, #fbc02d 100%); border-color: #664d36; }
+.tag-yellow .tag-label { color: var(--color-text-brown); text-shadow: 1px 1px 0px rgba(255,255,255,0.6); }
+.tag-yellow .tag-string-loop { border-color: #664d36; }
+.tag-yellow .tag-string-loop::after { background-color: #664d36; }
+
+/* Wiggle luggage tags on hover */
+.polaroid-item:hover .luggage-tag {
+  transform: rotate(8deg) scale(1.05);
+}
+
+/* Proceed button signboard animation states */
+.hidden-sign-btn {
+  transform: translateY(-200px) scale(0) !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
+}
+
+.visible-sign-btn {
+  transform: translateY(0) scale(1) !important;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile scale adjustment for gift box & nursery */
+@media (max-width: 600px) {
+  .gift-box-container {
+    width: 95px;
+    height: 95px;
+  }
+  /* Scene 5 mobile adjustments */
+  .polaroids-shelf {
+    top: 36%;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .polaroid-frame {
+    width: 74px;
+    padding: 6px 6px 18px 6px;
+    border-radius: 8px;
+    box-shadow: 0 5px 12px rgba(90, 66, 45, 0.12);
+  }
+  .polaroid-picture {
+    width: 62px;
+    height: 56px;
+    border-radius: 4px;
+  }
+  .hanging-line {
+    height: 25px;
+  }
+  .luggage-tag {
+    bottom: -15px;
+    left: calc(50% - 37px);
+    width: 74px;
+    height: 22px;
+    border-radius: 5px;
+  }
+  .tag-label {
+    font-size: 0.42rem;
+  }
+  .tag-string-loop {
+    width: 5px;
+    height: 5px;
+    top: -5px;
+    left: calc(50% - 2.5px);
+  }
+  .alphabet-block {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ==========================================================================
+   SCENE 5: CHAPTER 1: CUSTOM LAYOUT ALIGNMENTS & SPACING OVERRIDES
+   ========================================================================== */
+
+#nursery-book-page {
+  width: 500px !important; /* Wider storybook card to give text lines ample breathing room! */
+  height: 160px !important; /* Plump, elegant vertical sizing */
+  left: calc(50% - 250px) !important; /* Recenter card horizontally */
+  top: 7% !important; /* Lifted up slightly to fit perfectly and leave space */
+  perspective: 1200px !important;
+  transform-style: preserve-3d !important;
+}
+
+#nursery-book-page .page-right {
+  padding: 12px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#nursery-book-page .nursery-intro-text {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 1.14rem !important; /* Extremely neat and highly legible size */
+  line-height: 1.45 !important;
+  letter-spacing: -0.2px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.story-line {
+  display: block !important;
+  width: 100% !important;
+  white-space: nowrap !important; /* Prevent individual lines from wrapping internally! */
+  margin: 3px 0 !important; /* Elegant vertical spacing */
+  text-align: center !important;
+}
+
+/* Swings open like a real book, translateZ fixes WebKit depth rendering bugs */
+#scene-baby-rejo .page-turn-active .page-right {
+  transform: rotateY(0deg) translateZ(0.5px) !important;
+}
+
+/* Position the proceed wooden sign neatly at the bottom right corner instead of covering the book */
+#nursery-navigation-sign {
+  position: absolute !important;
+  right: 40px !important;
+  bottom: 35px !important;
+  left: auto !important;
+  top: auto !important;
+  width: 250px !important;
+  height: auto !important;
+  z-index: 85 !important;
+  animation: none !important; /* Remove hanging sway since it's standing/sitting */
+}
+
+/* Hide the hanging vines for the bottom right signboard */
+#nursery-navigation-sign .vine {
+  display: none !important;
+}
+
+/* Adjust the wooden board inside the proceed sign for bottom right placement */
+#nursery-navigation-sign .wooden-board {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: rotate(-1.5deg) !important; /* Elegant Ghibli organic tilt */
+  box-shadow: 0 8px 16px rgba(70, 52, 35, 0.22) !important;
+}
+
+/* Give the standing signboard a gentle hover lift */
+#nursery-navigation-sign:hover .wooden-board {
+  transform: translateY(-4px) rotate(1deg) !important;
+}
+
+/* Polaroids Shelf lift up slightly to fit taller card and maintain symmetry */
+.polaroids-shelf {
+  top: 39% !important;
+}
+
+/* Mobile responsive layout overrides for bottom-right proceed sign */
+@media (max-width: 600px) {
+  #nursery-navigation-sign {
+    right: 15px !important;
+    bottom: 15px !important;
+    width: 160px !important;
+  }
+  #nursery-navigation-sign .wooden-board {
+    padding: 4px !important;
+  }
+  #nursery-navigation-sign .wooden-sign-btn {
+    font-size: 0.8rem !important;
+    padding: 6px 10px !important;
+  }
+  #nursery-book-page {
+    width: 330px !important; /* Wider on mobile to fit the text beautifully */
+    height: 140px !important; /* Plump enough for mobile text wrap */
+    left: calc(50% - 165px) !important; /* Recenter mobile card */
+    top: 13% !important;
+  }
+  #nursery-book-page .page-right {
+    padding: 8px 10px !important;
+  }
+  #nursery-book-page .nursery-intro-text {
+    font-size: 0.74rem !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.1px !important;
+  }
+  .story-line {
+    margin: 1.5px 0 !important;
+  }
+}
+
+/* ==========================================================================
+   SCENE 6: CHAPTER 2: GROWING UP (Gorilla Mountain Scroll Experience)
+   ========================================================================== */
+
+#scene-mountain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: #3b522a;
+}
+
+.mountain-scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 5;
+}
+
+/* Clear standard scrollbar for Ghibli aesthetic, or style it as a vine */
+.mountain-scroll-container::-webkit-scrollbar {
+  width: 10px;
+}
+.mountain-scroll-container::-webkit-scrollbar-track {
+  background: rgba(77, 50, 29, 0.08);
+}
+.mountain-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--color-wood-light);
+  border-radius: 5px;
+  border: 2px solid var(--color-paper-light);
+}
+
+.mountain-scroll-height {
+  width: 100%;
+  height: 3100px; /* Expands height to give smooth tracking range */
+  position: relative;
+}
+
+/* 1. Fixed Parallax Mountain Background */
+.mountain-fixed-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_mountain_climb_bg.png') !important;
+  background-size: cover;
+  background-position: center bottom;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 2. Top-Fixed Leaf Progress Bar */
+.mountain-progress-bar {
+  position: fixed;
+  top: 18px;
+  left: calc(50% - 150px);
+  width: 300px;
+  background: rgba(254, 252, 245, 0.94);
+  border: 3px solid var(--color-wood-light);
+  border-radius: 20px;
+  padding: 8px 14px 6px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(70, 52, 35, 0.25);
+  z-index: 95;
+  pointer-events: none;
+  font-family: var(--font-bubbly);
+  border-top-color: #8cbe53;
+  border-bottom-color: #5d4630;
+}
+
+.progress-leaf-track {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: #e1d8cc;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.progress-leaf-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #8cbe53 0%, #7ca844 100%);
+  border-radius: 4px;
+  transition: width 0.15s ease-out;
+}
+
+.progress-icon {
+  position: absolute;
+  top: -15px;
+  left: 0%;
+  font-size: 1.15rem;
+  transform: translateX(-50%);
+  transition: left 0.15s ease-out;
+}
+
+.progress-text {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  letter-spacing: 0.3px;
+  text-shadow: 1px 1px 0px #fff;
+}
+
+/* 3. Floating Scroll Helper Arrow */
+.scroll-down-tip {
+  position: fixed;
+  bottom: 25px;
+  left: calc(50% - 130px);
+  width: 260px;
+  background: rgba(93, 70, 48, 0.95);
+  border: 2.5px solid var(--color-cream);
+  color: var(--color-cream);
+  border-radius: 14px;
+  padding: 8px 14px;
+  font-family: var(--font-bubbly);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-align: center;
+  z-index: 90;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  animation: bounceTip 1.6s ease-in-out infinite alternate;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.scroll-down-tip.fade-out {
+  opacity: 0;
+}
+
+@keyframes bounceTip {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/* 4. Organic SVG Path Overlay */
+.mountain-svg-overlay {
+  position: absolute;
+  top: 0;
+  width: 1000px;
+  height: 3000px;
+  left: calc(50% - 500px);
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 8px rgba(70, 52, 35, 0.15));
+}
+
+#mountain-trek-fill {
+  stroke-dasharray: 5000;
+  stroke-dashoffset: 5000; /* Controlled by JS scroll percentage */
+  transition: stroke-dashoffset 0.1s ease-out;
+}
+
+/* 5. Dynamic Footprint Markings */
+.trek-footprint {
+  position: absolute;
+  font-size: 1.15rem;
+  color: #5d4630;
+  opacity: 0;
+  z-index: 4;
+  transform: translate(-50%, -50%) scale(0.5) rotate(-15deg);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+  pointer-events: none;
+}
+
+.trek-footprint:nth-child(even) {
+  transform: translate(-50%, -50%) scale(0.5) rotate(15deg);
+}
+
+.trek-footprint.active-print {
+  opacity: 0.68;
+}
+
+.trek-footprint.active-print:nth-child(odd) { transform: translate(-50%, -50%) scale(1.05) rotate(-10deg); }
+.trek-footprint.active-print:nth-child(even) { transform: translate(-50%, -50%) scale(1.05) rotate(10deg); }
+
+/* 6. Dynamic Drifting Clouds */
+.mountain-cloud {
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.55;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cloud-top { top: 12%; left: -60px; animation: driftRight 65s linear infinite; }
+.cloud-mid { top: 46%; right: -60px; animation: driftLeft 75s linear infinite; }
+.cloud-bottom { top: 78%; left: -60px; animation: driftRight 80s linear infinite; }
+
+@keyframes driftRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes driftLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
+}
+
+/* 7. Peeking Critters behind Viewport borders */
+.peeking-critter {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+.critter-bird {
+  transform: translateX(-45px) scale(0.7);
+}
+.critter-bird.peek-in {
+  transform: translateX(0) scale(1);
+}
+
+.critter-gorilla {
+  transform: translateX(50px) rotate(8deg);
+}
+.critter-gorilla.peek-in {
+  transform: translateX(0) rotate(-4deg);
+}
+
+.critter-soot {
+  transform: translateY(40px) scale(0);
+}
+.critter-soot.peek-in {
+  transform: translateY(0) scale(1);
+}
+
+/* Soot Sprite Vector details */
+.soot-sprite-body {
+  width: 32px;
+  height: 32px;
+  background-color: #222222;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.soot-sprite-body::after {
+  content: "";
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  border: 3px dashed #222222;
+  border-radius: 50%;
+  animation: sootFuzz 0.4s linear infinite;
+}
+
+@keyframes sootFuzz {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.soot-eye {
+  position: absolute;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soot-left { left: 4px; }
+.soot-right { right: 4px; }
+
+.pupil {
+  width: 4.5px;
+  height: 4.5px;
+  background-color: #000000;
+  border-radius: 50%;
+}
+
+/* 8. Tiny Climbing Hiker (Panda Climber) */
+.mountain-climber-avatar {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  z-index: 10;
+  transform: translate(-36px, -36px) scale(1);
+  transition: transform 0.05s ease-out;
+  filter: drop-shadow(0 6px 10px rgba(50, 40, 30, 0.28));
+  pointer-events: none;
+}
+
+.climber-dust {
+  position: absolute;
+  bottom: -4px;
+  left: calc(50% - 10px);
+  font-size: 1.1rem;
+  opacity: 0;
+  transform: scale(0.4);
+  pointer-events: none;
+}
+
+.mountain-climber-avatar.climbing .climber-dust {
+  animation: climbDustEmit 0.6s linear infinite;
+}
+
+@keyframes climbDustEmit {
+  0% { opacity: 0.8; transform: translateY(0) scale(0.4); }
+  100% { opacity: 0; transform: translateY(14px) scale(1.1); }
+}
+
+/* 9. Winding Mountain Checkpoints */
+.mountain-checkpoint {
+  position: absolute;
+  width: 146px;
+  z-index: 15;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.28), opacity 0.6s ease-out;
+}
+
+/* Locked hidden state */
+.locked-chk {
+  opacity: 0;
+  transform: scale(0.6) translateY(60px);
+  pointer-events: none;
+}
+
+/* Unlocked bouncy state */
+.unlocked-chk {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Checkpoint swaying keyframes */
+.chk-sway-1 {
+  transform-origin: top center;
+  animation: checkpointSwing 5s ease-in-out infinite alternate;
+}
+
+.chk-sway-2 {
+  transform-origin: top center;
+  animation: checkpointSwing 5.5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes checkpointSwing {
+  0% { transform: rotate(-2.5deg); }
+  100% { transform: rotate(2.5deg); }
+}
+
+.mountain-checkpoint .polaroid-frame {
+  background: var(--color-paper-light);
+  border: 4.5px solid var(--color-cream);
+  border-radius: 12px;
+  padding: 8px 8px 24px 8px;
+  box-shadow: 0 10px 22px rgba(80, 55, 35, 0.2);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.mountain-checkpoint .polaroid-picture {
+  width: 100%;
+  height: 110px;
+  background-color: #faf7f0;
+  border-radius: 6px;
+  border: 2px solid #ebdcb9;
+  box-shadow: inset 0 2px 5px rgba(90, 66, 45, 0.08);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mountain-checkpoint .chk-label {
+  font-family: var(--font-bubbly);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0 #fff;
+  text-align: center;
+  margin-top: 6px;
+  line-height: 1.1;
+}
+
+.mountain-checkpoint:hover .polaroid-frame {
+  transform: scale(1.08) rotate(0deg) !important;
+  z-index: 50;
+  box-shadow: 0 15px 30px rgba(80, 55, 35, 0.3);
+}
+
+/* 10. Plump Ghibli Achievement Wood Stamps */
+.ink-stamp {
+  position: absolute;
+  bottom: -22px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3.5px double;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  transform: scale(0) rotate(45deg);
+  opacity: 0;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.14);
+  font-family: var(--font-bubbly);
+  transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.35), opacity 0.4s ease;
+}
+
+.checkpoint-left .ink-stamp { right: -25px; }
+.checkpoint-right .ink-stamp { left: -25px; }
+
+/* Inked Stamp Smash active animations */
+.unlocked-chk .ink-stamp {
+  opacity: 0.94;
+  transform: scale(1) rotate(-12deg);
+}
+
+.stamp-pizza { border-color: #d32f2f; color: #d32f2f; background: rgba(255, 238, 238, 0.96); }
+.stamp-sleep { border-color: #1976d2; color: #1976d2; background: rgba(235, 246, 255, 0.96); }
+.stamp-drama { border-color: #8e24aa; color: #8e24aa; background: rgba(252, 235, 255, 0.96); }
+.stamp-burger { border-color: #388e3c; color: #388e3c; background: rgba(235, 255, 240, 0.96); }
+
+.stamp-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: 1px dashed;
+  border-radius: 50%;
+  padding: 3px;
+  line-height: 1;
+}
+
+.checkpoint-left .stamp-inner { border-color: rgba(211, 47, 47, 0.35); }
+.checkpoint-right .stamp-inner { border-color: rgba(25, 118, 210, 0.35); }
+
+.ink-stamp .stamp-emoji {
+  font-size: 1.15rem;
+  margin-bottom: 1px;
+}
+
+.ink-stamp .stamp-text {
+  font-size: 0.45rem;
+  font-weight: 900;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ink-stamp .stamp-verified {
+  font-size: 0.38rem;
+  font-weight: 700;
+  margin-top: 1px;
+  opacity: 0.8;
+  letter-spacing: 0.2px;
+}
+
+/* 11. Mobile Viewport Layout Adjustments for Mountain Climb */
+@media (max-width: 600px) {
+  .mountain-svg-overlay {
+    width: 100%;
+    left: 0;
+  }
+  
+  .mountain-progress-bar {
+    width: 250px;
+    left: calc(50% - 125px);
+    top: 12px;
+    padding: 6px 10px 4px 10px;
+  }
+  
+  .scroll-down-tip {
+    width: 220px;
+    left: calc(50% - 110px);
+    bottom: 15px;
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  .mountain-checkpoint {
+    width: 90px;
+  }
+  
+  .mountain-checkpoint .polaroid-frame {
+    padding: 5px 5px 14px 5px;
+    border-width: 3px;
+    border-radius: 8px;
+  }
+  
+  .mountain-checkpoint .polaroid-picture {
+    height: 70px;
+  }
+  
+  .mountain-checkpoint .chk-label {
+    font-size: 0.45rem;
+    margin-top: 3px;
+  }
+  
+  .ink-stamp {
+    width: 48px;
+    height: 48px;
+    border-width: 2px;
+  }
+  
+  .checkpoint-left .ink-stamp { right: -15px; bottom: -12px; }
+  .checkpoint-right .ink-stamp { left: -15px; bottom: -12px; }
+  
+  .ink-stamp .stamp-emoji { font-size: 0.75rem; }
+  .ink-stamp .stamp-text { font-size: 0.32rem; }
+  .ink-stamp .stamp-verified { display: none; }
+  
+  .mountain-climber-avatar {
+    width: 46px;
+    height: 46px;
+    transform: translate(-23px, -23px);
+  }
+  
+  /* Pull checkpoints slightly closer to path in mobile */
+  #chk-1 { left: 35px !important; }
+  #chk-2 { right: 35px !important; }
+  #chk-3 { left: 35px !important; }
+  #chk-4 { right: 35px !important; }
+}
+
+/* ==========================================================================
+   SCENE 7: CHAPTER 3: FRIENDSHIP FOREST (Memory Garden at Golden Hour)
+   ========================================================================== */
+
+#scene-friendship {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  overflow: hidden;
+  background-color: #3e2712;
+}
+
+.friendship-fixed-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_friendship_forest_bg.png') !important;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 1. Magical Floating Fireflies */
+.fireflies-spawner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.firefly {
+  position: absolute;
+  width: 6.5px;
+  height: 6.5px;
+  background: #ffecb3;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #ffd15c);
+  opacity: 0;
+}
+
+.ff-1 { top: 75%; left: 15%; animation: floatFirefly1 14s ease-in-out infinite; }
+.ff-2 { top: 62%; left: 35%; animation: floatFirefly2 16s ease-in-out infinite 2s; }
+.ff-3 { top: 82%; left: 52%; animation: floatFirefly1 18s ease-in-out infinite 4s; }
+.ff-4 { top: 55%; left: 74%; animation: floatFirefly3 15s ease-in-out infinite 1s; }
+.ff-5 { top: 45%; left: 22%; animation: floatFirefly2 17s ease-in-out infinite 3s; }
+.ff-6 { top: 85%; left: 82%; animation: floatFirefly3 20s ease-in-out infinite 5s; }
+.ff-7 { top: 38%; left: 62%; animation: floatFirefly1 15s ease-in-out infinite 2.5s; }
+.ff-8 { top: 68%; left: 90%; animation: floatFirefly2 13s ease-in-out infinite 1.5s; }
+
+@keyframes floatFirefly1 {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  30% { opacity: 0.85; }
+  60% { transform: translate(45px, -65px) scale(1.1); opacity: 0.9; }
+  80% { opacity: 0.45; }
+  100% { transform: translate(75px, -110px) scale(0.5); opacity: 0; }
+}
+
+@keyframes floatFirefly2 {
+  0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  25% { opacity: 0.9; }
+  50% { transform: translate(-50px, -45px) scale(1); opacity: 0.8; }
+  75% { opacity: 0.5; }
+  100% { transform: translate(-90px, -90px) scale(0.4); opacity: 0; }
+}
+
+@keyframes floatFirefly3 {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  40% { opacity: 0.8; }
+  70% { transform: translate(30px, -80px) scale(1.1); opacity: 0.85; }
+  90% { opacity: 0.3; }
+  100% { transform: translate(50px, -130px) scale(0.5); opacity: 0; }
+}
+
+/* 2. Cozy Hanging Lanterns & Glow */
+.hanging-lantern {
+  position: absolute;
+  top: 0;
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hl-1 { left: 16%; }
+.hl-2 { right: 16%; }
+
+.lantern-cable {
+  width: 2.2px;
+  background: #47321c;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.lantern-glow {
+  position: absolute;
+  bottom: -6px;
+  left: calc(50% - 14px);
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle, rgba(255, 207, 84, 0.45) 0%, rgba(255, 207, 84, 0) 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: lanternPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes lanternPulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0.85; }
+}
+
+/* 3. Structural Bamboo side poles */
+.bamboo-pole {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 100%;
+  background: linear-gradient(to right, #467a35 0%, #7ca844 40%, #315822 100%);
+  border-left: 2px solid #1c3214;
+  border-right: 2px solid #1c3214;
+  z-index: 10;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+}
+
+.pole-left { left: 0; }
+.pole-right { right: 0; }
+
+.bamboo-pole::before, .bamboo-pole::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #1a2f13;
+  box-shadow: 0 1.5px 0 rgba(255,255,255,0.15);
+}
+
+.bamboo-pole::before { top: 30%; }
+.bamboo-pole::after { top: 68%; }
+
+/* 4. suspended Rope structure */
+.rope-hanging-harness {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.rope-svg {
+  filter: drop-shadow(0 4px 6px rgba(50, 40, 30, 0.22));
+}
+
+/* 5. Swaying Polaroid Frames dangling from ropes */
+.hanging-memories-shelf {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 420px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hanging-polaroid {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  transform-origin: top center;
+  animation: ropeSwing 6.5s ease-in-out infinite alternate;
+  width: 130px;
+}
+
+.rope-connector {
+  width: 2.2px;
+  background: #ebdcb9;
+  border: 0.8px solid #5d4630;
+  margin-bottom: -5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+@keyframes ropeSwing {
+  0% { transform: rotate(-3.5deg); }
+  100% { transform: rotate(3.5deg); }
+}
+
+.hanging-polaroid:hover {
+  transform: scale(1.08) rotate(0deg) !important;
+  animation-play-state: paused !important;
+  z-index: 80 !important;
+  cursor: pointer;
+}
+
+.hanging-polaroid .polaroid-frame {
+  background: var(--color-paper-light);
+  border: 4.5px solid var(--color-cream);
+  border-radius: 12px;
+  padding: 8px 8px 24px 8px;
+  box-shadow: 0 12px 26px rgba(80, 55, 35, 0.22);
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hanging-polaroid .polaroid-picture {
+  width: 100%;
+  height: 105px;
+  background-color: #faf7f0;
+  border-radius: 6px;
+  border: 2px solid #ebdcb9;
+  box-shadow: inset 0 2px 4px rgba(90, 66, 45, 0.08);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hanging-polaroid:hover .polaroid-frame {
+  box-shadow: 0 18px 36px rgba(80, 55, 35, 0.32);
+}
+
+/* 6. 3D Page-Flip Memory Card Modal */
+.memory-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+
+.memory-modal.visible-modal {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(43, 31, 20, 0.52);
+  backdrop-filter: blur(5px);
+}
+
+.memory-book-card {
+  position: relative;
+  width: 640px;
+  height: 390px;
+  transform-style: preserve-3d;
+  perspective: 1500px;
+  display: flex;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.42);
+  z-index: 10;
+  border-radius: 16px;
+  overflow: visible;
+  transition: transform 0.85s cubic-bezier(0.19, 1, 0.22, 1);
+  transform: rotateX(15deg) rotateY(-90deg) scale(0.65);
+}
+
+.visible-modal .memory-book-card {
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+}
+
+.book-page {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  background: var(--color-paper-light);
+  border: 7px solid var(--color-wood-light);
+  box-shadow: inset 0 0 25px rgba(93, 70, 48, 0.08);
+}
+
+.page-left {
+  border-right: none;
+  border-radius: 16px 0 0 16px;
+  background: linear-gradient(to right, #eeddbd 0%, var(--color-paper-light) 12%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-right {
+  border-left: none;
+  border-radius: 0 16px 16px 0;
+  background: linear-gradient(to left, #eeddbd 0%, var(--color-paper-light) 12%);
+  padding: 30px 24px;
+}
+
+.page-parchment {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Close leaf button styling */
+.close-leaf-btn {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  background: linear-gradient(135deg, #ff8a80 0%, #e53935 100%);
+  border: 2.5px solid var(--color-wood-dark);
+  border-radius: 10px;
+  color: var(--color-cream);
+  font-family: var(--font-bubbly);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 55;
+}
+
+.close-leaf-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+.decor-stamp {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--font-bubbly);
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: var(--color-text-brown);
+  opacity: 0.35;
+  border: 1.5px dashed var(--color-text-brown);
+  padding: 2px 6px;
+  border-radius: 4px;
+  transform: rotate(-10deg);
+}
+
+.doodle-container {
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Right page content logs styling */
+.memory-log-header {
+  border-bottom: 2px dashed rgba(93, 70, 48, 0.18);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.memory-log-header h3 {
+  font-family: var(--font-bubbly);
+  font-size: 0.95rem;
+  color: var(--color-wood-dark);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.log-stars {
+  font-size: 0.72rem;
+  margin-top: 3px;
+}
+
+.memory-caption-content {
+  font-family: var(--font-storybook);
+  font-size: 1.16rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0px rgba(255,255,255,0.7);
+  line-height: 1.48;
+  text-align: center;
+  margin: auto 0;
+}
+
+.memory-footer-sig {
+  border-top: 2px dashed rgba(93, 70, 48, 0.18);
+  padding-top: 10px;
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-seal {
+  font-family: var(--font-bubbly);
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #ff7e42;
+  border: 1.5px solid #ff7e42;
+  border-radius: 4px;
+  padding: 2px 5px;
+  transform: rotate(-5deg);
+  opacity: 0.85;
+}
+
+.footer-doodles {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* 7. Emotional Dedicated Closing Text Box */
+.emotional-closing-container {
+  position: absolute;
+  bottom: 130px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 12;
+  transition: opacity 1.5s ease-out, transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.22);
+  opacity: 0;
+  transform: scale(0.85) translateY(50px);
+  pointer-events: none;
+}
+
+.emotional-closing-container.visible-closing {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.closing-wood-board {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #fffcf2 100%);
+  border: 4.5px solid var(--color-wood-light);
+  border-radius: 18px;
+  padding: 22px 35px;
+  width: 560px;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(80, 55, 35, 0.28);
+  position: relative;
+  overflow: hidden;
+}
+
+.closing-paragraph {
+  font-family: var(--font-storybook);
+  font-size: 1.06rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0 #fff;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+
+.closing-signature {
+  font-family: var(--font-bubbly);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ff7e42;
+  text-shadow: 1.5px 1.5px 0 #ffe0b2;
+  margin-top: 6px;
+}
+
+/* Scrollable friendship forest viewport container */
+.friendship-scroll-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 5;
+  scroll-behavior: smooth;
+  padding: 0 40px; /* leaves room for bamboo side poles */
+}
+
+/* Custom scrollbar to keep it Ghibli-themed (cozy soft brown) */
+.friendship-scroll-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.friendship-scroll-viewport::-webkit-scrollbar-track {
+  background: rgba(93, 70, 48, 0.05);
+  border-radius: 4px;
+}
+.friendship-scroll-viewport::-webkit-scrollbar-thumb {
+  background: var(--color-wood-light);
+  border-radius: 4px;
+  border: 1px solid var(--color-wood-dark);
+}
+.friendship-scroll-viewport::-webkit-scrollbar-thumb:hover {
+  background: var(--color-wood-dark);
+}
+
+.friendship-scroll-content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rope-section {
+  position: relative;
+  width: 100%;
+  height: 180px;
+}
+
+/* Override absolute positioning for block flow in scrollable forest */
+#scene-friendship .emotional-closing-container {
+  position: relative !important;
+  bottom: auto !important;
+  width: 100% !important;
+  margin-top: 30px !important;
+  margin-bottom: 20px !important;
+  display: flex !important;
+  justify-content: center !important;
+  z-index: 12 !important;
+  transform: scale(0.95);
+}
+
+#scene-friendship .emotional-closing-container.visible-closing {
+  transform: scale(1);
+}
+
+/* Custom positioning and animations for Chapter 3 Final Celebrate Button Signboard */
+#friendship-navigation-sign {
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  top: auto !important;
+  width: 330px !important;
+  height: auto !important;
+  margin-bottom: 60px !important;
+  z-index: 85 !important;
+  animation: none !important; /* Disable general top-hanging sway */
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Remove default vine lines since this stands at the bottom */
+#friendship-navigation-sign .vine {
+  display: none !important;
+}
+
+#friendship-navigation-sign .wooden-board {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: rotate(-1.5deg);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 16px rgba(70, 52, 35, 0.22);
+}
+
+/* --- LOCKED STATE CLASS --- */
+#friendship-navigation-sign.locked-state .wooden-board {
+  background: linear-gradient(135deg, #7c624a 0%, #5d4632 100%) !important;
+  border-color: #4a3827 !important;
+  animation: ghibliFloatLocked 4s ease-in-out infinite alternate !important;
+  opacity: 0.88;
+}
+
+#friendship-navigation-sign.locked-state .wooden-sign-btn {
+  background: #eae3d2 !important;
+  border-color: #5d4632 !important;
+  color: #826d58 !important;
+  box-shadow: 0 4px 0px #423224, 0 4px 8px rgba(0,0,0,0.15) !important;
+  cursor: pointer;
+}
+
+#friendship-navigation-sign.locked-state:hover .wooden-board {
+  transform: scale(1.02) rotate(-0.5deg) !important;
+  opacity: 0.95;
+}
+
+/* Custom locked warning vibration */
+#friendship-navigation-sign.locked-shake .wooden-board {
+  animation: lockedShake 0.4s ease-in-out !important;
+}
+
+/* --- UNLOCKED CELEBRATE STATE CLASS --- */
+#friendship-navigation-sign.unlocked-state .wooden-board {
+  background: linear-gradient(135deg, #ffc837 0%, #ff8008 100%) !important; /* Vibrant golden hour Ghibli gradient */
+  border-color: #8a3c00 !important;
+  animation: ghibliButtonPulse 2.8s ease-in-out infinite !important;
+  box-shadow: 0 12px 24px rgba(255, 128, 8, 0.3), inset 0 0 15px rgba(255, 255, 255, 0.2) !important;
+  opacity: 1 !important;
+}
+
+#friendship-navigation-sign.unlocked-state .wooden-sign-btn {
+  background: linear-gradient(to bottom, #fffef9, #fff7d6) !important;
+  border-color: #9c4a04 !important;
+  color: #b35900 !important;
+  font-weight: 800;
+  box-shadow: 0 5px 0px #703300, 0 8px 16px rgba(255, 128, 8, 0.25) !important;
+}
+
+#friendship-navigation-sign.unlocked-state .wooden-sign-btn:hover {
+  background: #ffffff !important;
+  transform: translateY(2px) scale(1.02) !important;
+  box-shadow: 0 3px 0px #703300, 0 5px 10px rgba(255, 128, 8, 0.35) !important;
+  color: #ff6f00 !important;
+}
+
+#friendship-navigation-sign.unlocked-state .wooden-sign-btn:active {
+  transform: translateY(5px) !important;
+  box-shadow: 0 0px 0px #703300 !important;
+}
+
+/* Custom CSS sparkles for celebration board */
+.celebrate-sparkle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 1.1rem;
+  z-index: 95;
+  animation: buttonSparkleFloat 1.6s ease-out forwards;
+}
+
+/* Animations for Friendship Proceed Button */
+@keyframes ghibliButtonPulse {
+  0% { transform: scale(1) rotate(-1.5deg); }
+  50% { transform: scale(1.03) translateY(-4px) rotate(1deg); }
+  100% { transform: scale(1) rotate(-1.5deg); }
+}
+
+@keyframes ghibliFloatLocked {
+  0% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-4px) rotate(-0.5deg); }
+  100% { transform: translateY(0) rotate(-1.5deg); }
+}
+
+@keyframes lockedShake {
+  0%, 100% { transform: translateX(0) rotate(-1.5deg); }
+  20%, 60% { transform: translateX(-6px) rotate(-3.5deg); }
+  40%, 80% { transform: translateX(6px) rotate(0.5deg); }
+}
+
+@keyframes buttonSparkleFloat {
+  0% { transform: translate(0, 0) scale(0.4) rotate(0deg); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.2) rotate(360deg); opacity: 0; }
+}
+
+/* 8. Mobile Viewport Adaptations for Friendship Forest */
+@media (max-width: 600px) {
+  .bamboo-pole {
+    width: 20px;
+  }
+  
+  .hanging-memories-shelf {
+    height: 320px;
+    top: 90px;
+  }
+  
+  .rope-hanging-harness {
+    top: 90px;
+  }
+  
+  .hanging-polaroid {
+    width: 76px;
+  }
+  
+  .hanging-polaroid .polaroid-frame {
+    padding: 5px 5px 16px 5px;
+    border-width: 3px;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(80, 55, 35, 0.16);
+  }
+  
+  .hanging-polaroid .polaroid-picture {
+    height: 60px;
+  }
+  
+  .hanging-polaroid .chk-label {
+    font-size: 0.42rem;
+    margin-top: 4px;
+  }
+  
+  .rope-connector {
+    width: 1.8px;
+    margin-bottom: -3px;
+  }
+  
+  /* Manual connector coordinate spacing overrides for mobile sways */
+  .hanging-polaroid.item-1 { left: 6% !important; top: 40px !important; }
+  .hanging-polaroid.item-1 .rope-connector { height: 26px; }
+  
+  .hanging-polaroid.item-2 { left: 29% !important; top: 72px !important; }
+  .hanging-polaroid.item-2 .rope-connector { height: 32px; }
+  
+  .hanging-polaroid.item-3 { left: 52% !important; top: 70px !important; }
+  .hanging-polaroid.item-3 .rope-connector { height: 30px; }
+  
+  .hanging-polaroid.item-4 { left: 75% !important; top: 38px !important; }
+  .hanging-polaroid.item-4 .rope-connector { height: 24px; }
+  
+  /* Stacking book pages vertically on mobile screens */
+  .memory-book-card {
+    width: 310px;
+    height: 420px;
+    flex-direction: column;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    transform: rotateX(15deg) rotateY(-90deg) scale(0.7);
+  }
+  
+  .book-page {
+    width: 100%;
+  }
+  
+  .page-left {
+    height: 44%;
+    border-right: 7px solid var(--color-wood-light);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(to bottom, #eeddbd 0%, var(--color-paper-light) 12%);
+  }
+  
+  .page-right {
+    height: 56%;
+    border-left: 7px solid var(--color-wood-light);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    background: linear-gradient(to top, #eeddbd 0%, var(--color-paper-light) 12%);
+    padding: 16px 14px;
+  }
+  
+  .doodle-container {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .decor-stamp {
+    top: 8px;
+    left: 8px;
+    font-size: 0.5rem;
+    padding: 1px 4px;
+  }
+  
+  .memory-log-header {
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+  }
+  
+  .memory-log-header h3 {
+    font-size: 0.72rem;
+  }
+  
+  .log-stars {
+    font-size: 0.55rem;
+  }
+  
+  .memory-caption-content {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  
+  .memory-footer-sig {
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+  
+  .footer-seal {
+    font-size: 0.5rem;
+    padding: 1px 3px;
+  }
+  
+  .footer-doodles {
+    font-size: 0.75rem;
+  }
+  
+  .close-leaf-btn {
+    top: -12px;
+    right: 10px;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 8px;
+  }
+  
+  /* Emotional closing text container adaptations on mobile */
+  .emotional-closing-container {
+    bottom: 95px;
+    padding: 0 15px;
+  }
+  
+  .closing-wood-board {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 14px;
+  }
+  
+  .closing-paragraph {
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+  
+  .closing-signature {
+    font-size: 0.82rem;
+    margin-top: 4px;
+  }
+  
+  /* Mobile scale adaptations for Chapter 3 Final Celebrate Button */
+  #friendship-navigation-sign {
+    width: 220px !important;
+    margin-bottom: 30px !important;
+  }
+  #friendship-navigation-sign .wooden-board {
+    padding: 6px 12px !important;
+    border-width: 3.5px !important;
+  }
+  #friendship-navigation-sign .wooden-sign-btn {
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
+    gap: 4px !important;
+  }
+}
+
+/* Warning / Secret Signboard in Chapter 3 */
+.warning-wood-sign .wooden-board {
+  background: linear-gradient(135deg, #a63a2b 0%, #7c2b20 100%) !important;
+  border-color: #5c1b12 !important;
+  box-shadow: 0 8px 16px rgba(92, 27, 18, 0.25) !important;
+  animation: warningSway 3s ease-in-out infinite alternate !important;
+}
+
+.warning-sign-btn {
+  background: linear-gradient(to bottom, #fffcfc, #ffebee) !important;
+  border-color: #5c1b12 !important;
+  color: #b71c1c !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 0px #4a150e, 0 4px 8px rgba(0,0,0,0.15) !important;
+}
+
+.warning-wood-sign:hover .wooden-board {
+  transform: translateY(-2px) scale(1.03) rotate(-0.5deg) !important;
+  box-shadow: 0 10px 20px rgba(92, 27, 18, 0.35) !important;
+}
+
+@keyframes warningSway {
+  0% { transform: rotate(-1deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* ==========================================================================
+   SCENE 8: SECRET DETECTIVE OFFICE (Amber Cozy Storybook Mystery)
+   ========================================================================== */
+
+#scene-detective {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  overflow: hidden;
+  background-color: #2b1f14;
+}
+
+.detective-fixed-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_detective_office_bg.png') !important;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.detective-office-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 160, 0, 0.15) 0%, rgba(27, 18, 10, 0.45) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.forest-detective-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+/* Wall Cork Board */
+.detective-corkboard {
+  position: absolute;
+  top: 13%;
+  left: 6%;
+  width: 200px;
+  height: 140px;
+  z-index: 10;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+}
+
+/* Wooden Filing Cabinet */
+.detective-cabinet {
+  position: absolute;
+  bottom: 80px;
+  right: 6%;
+  width: 110px;
+  height: 190px;
+  z-index: 10;
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,0.22));
+}
+
+/* Center Wrapper containing Panda & Desk */
+.detective-center-wrapper {
+  position: absolute;
+  bottom: 80px;
+  left: calc(50% - 150px);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+}
+
+.panda-hums-container {
+  position: absolute;
+  top: -45px;
+  left: calc(50% - 40px);
+  width: 80px;
+  height: 60px;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* Hum notes styles */
+.hum-note {
+  position: absolute;
+  font-family: var(--font-bubbly);
+  font-size: 1.1rem;
+  color: #ffd54f;
+  opacity: 0;
+  z-index: 40;
+  pointer-events: none;
+  animation: noteFloat 2.5s ease-out forwards;
+}
+
+@keyframes noteFloat {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  20% { opacity: 0.85; }
+  85% { opacity: 0.85; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.1); opacity: 0; }
+}
+
+#detective-panda {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  z-index: 5;
+  margin-bottom: -32px;
+}
+
+.detective-desk {
+  position: relative;
+  width: 300px;
+  height: 96px;
+  z-index: 15;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+}
+
+/* 4 folders rack sitting on Desk */
+.desk-folders-rack {
+  position: absolute;
+  bottom: 24px;
+  left: calc(50% - 120px);
+  width: 240px;
+  display: flex;
+  justify-content: space-around;
+  gap: 6px;
+  z-index: 25;
+}
+
+.case-folder-book {
+  width: 50px;
+  height: 72px;
+  background: var(--color-paper-light);
+  border: 3px solid var(--color-wood-light);
+  border-radius: 6px 12px 12px 6px; /* Folder/binder look */
+  box-shadow: 0 5px 10px rgba(78, 52, 46, 0.22);
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  transform-origin: bottom center;
+}
+
+.case-folder-book.f-1 { background: #ffe0b2; border-color: #e65100; transform: rotate(-4deg); }
+.case-folder-book.f-2 { background: #bbdefb; border-color: #0d47a1; transform: rotate(3deg); }
+.case-folder-book.f-3 { background: #d1c4e9; border-color: #4a148c; transform: rotate(-2deg); }
+.case-folder-book.f-4 { background: #ffcdd2; border-color: #b71c1c; transform: rotate(4deg); }
+
+.case-folder-book:hover {
+  transform: translateY(-8px) scale(1.12) rotate(0deg) !important;
+  box-shadow: 0 10px 18px rgba(78, 52, 46, 0.35);
+  z-index: 30;
+}
+
+.folder-binder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  text-align: center;
+}
+
+.folder-badge {
+  font-family: var(--font-bubbly);
+  font-size: 0.52rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.6);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+
+.folder-title {
+  font-family: var(--font-storybook);
+  font-size: 0.58rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+/* Animations for Detective */
+.tapping-arm-group {
+  transform-origin: 116px 126px; /* Arm pivot */
+  animation: pencilTap 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes pencilTap {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(8deg); }
+}
+
+/* Case Dossier Modal overrides */
+.case-dossier-card {
+  border-radius: 12px;
+}
+
+.dossier-stamp-label {
+  color: #b71c1c !important;
+  border-color: #b71c1c !important;
+  font-size: 0.7rem !important;
+  opacity: 0.65 !important;
+}
+
+.dossier-log-header h3 {
+  color: #4e342e !important;
+}
+
+.dossier-log-header .log-stars {
+  color: #d84315;
+  font-weight: 800;
+}
+
+.case-caption-content {
+  font-size: 1.05rem !important;
+  line-height: 1.48;
+}
+
+.seal-danger {
+  color: #c62828 !important;
+  border-color: #c62828 !important;
+  font-size: 0.72rem !important;
+  font-weight: bold;
+  transform: rotate(-10deg);
+}
+
+/* Return Signboard Positioning */
+#detective-return-sign .wooden-board {
+  box-shadow: 0 8px 16px rgba(43, 31, 20, 0.35) !important;
+}
+
+/* Mobile Media Queries for Scene 8 */
+@media (max-width: 600px) {
+  .detective-corkboard {
+    width: 140px;
+    height: 98px;
+    top: 14%;
+    left: 4%;
+  }
+
+  .detective-cabinet {
+    width: 76px;
+    height: 130px;
+    bottom: 80px;
+    right: 4%;
+  }
+
+  .detective-center-wrapper {
+    bottom: 80px;
+    width: 220px;
+    left: calc(50% - 110px);
+  }
+
+  #detective-panda {
+    width: 110px;
+    height: 110px;
+    margin-bottom: -22px;
+  }
+  
+  #detective-panda .panda-svg {
+    width: 110px;
+    height: 110px;
+  }
+
+  .detective-desk {
+    width: 220px;
+    height: 70px;
+  }
+
+  .desk-folders-rack {
+    bottom: 18px;
+    left: calc(50% - 90px);
+    width: 180px;
+    gap: 4px;
+  }
+
+  .case-folder-book {
+    width: 38px;
+    height: 52px;
+    border-width: 2px;
+  }
+
+  .folder-badge {
+    font-size: 0.4rem;
+    margin-bottom: 1px;
+  }
+
+  .folder-title {
+    font-size: 0.42rem;
+  }
+
+  /* Return to forest signboard size on mobile */
+  #detective-return-sign {
+    width: 190px !important;
+    bottom: 18px !important;
+    left: calc(50% - 95px) !important;
+  }
+  
+  #detective-return-sign .wooden-sign-btn {
+    font-size: 0.9rem !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* ==========================================================================
+   SCENE 9: GHIBLI PLAYHOUSE (Arcade Hub & 3 Mini-Games)
+   ========================================================================== */
+
+#scene-games {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  overflow: hidden;
+  background-color: #2b1f14;
+}
+
+.playhouse-fixed-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_playhouse_bg.png') !important;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.playhouse-office-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 45%, rgba(255, 179, 0, 0.14) 0%, rgba(27, 18, 10, 0.42) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.playhouse-grid-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.playhouse-wood-board {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #ffe0b2 100%);
+  border: 5.5px solid var(--color-wood-light);
+  border-radius: 20px;
+  padding: 24px 30px;
+  width: 660px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(50, 40, 30, 0.3);
+  position: relative;
+  overflow: hidden;
+  transform: rotate(-0.5deg);
+  animation: woodWiggle 5s ease-in-out infinite alternate;
+}
+
+.hub-subtitle {
+  font-family: var(--font-bubbly);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0 #fff;
+  margin-bottom: 15px;
+}
+
+.game-selectors-rack {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-selector-card {
+  flex: 1;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 16px;
+  padding: 16px 12px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-text-brown);
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(50, 40, 30, 0.18);
+}
+
+.game-selector-card.f-1 {
+  background: linear-gradient(135deg, #ffe0b2 0%, #ffcc80 100%);
+  border-color: #e65100;
+  transform: rotate(-1.5deg);
+}
+
+.game-selector-card.f-2 {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-color: #2e7d32;
+  transform: rotate(2deg);
+}
+
+.game-selector-card.f-3 {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-color: #1565c0;
+  transform: rotate(-1deg);
+}
+
+.game-selector-card:hover {
+  transform: scale(1.06) rotate(0deg) !important;
+  box-shadow: 0 12px 20px rgba(50, 40, 30, 0.28);
+  z-index: 10;
+}
+
+.stone-rings {
+  position: absolute;
+  top: 0; left: 0; width: 200%; height: 200%;
+  background-image: radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.04) 5%, transparent 20%);
+  pointer-events: none;
+}
+
+.game-sel-emoji {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.game-sel-title {
+  font-family: var(--font-bubbly);
+  font-size: 0.98rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.game-sel-desc {
+  font-family: var(--font-storybook);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  font-weight: bold;
+}
+
+/* Back Sign & Return Signboards positioning */
+#playhouse-return-sign .wooden-board {
+  box-shadow: 0 8px 16px rgba(43, 31, 20, 0.35) !important;
+}
+
+/* ==========================================================================
+   GAME VIEWPORTS STRUCTURAL STYLES
+   ========================================================================== */
+
+.game-viewport {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-back-sign {
+  position: absolute;
+  top: 85px;
+  left: 40px;
+  z-index: 100;
+}
+
+.game-back-btn {
+  background: linear-gradient(135deg, #a67c52 0%, #7c5d3f 100%);
+  border: 3.5px solid #543f2a;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-family: var(--font-bubbly);
+  font-size: 0.85rem;
+  color: var(--color-cream);
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 0px #403223, 0 4px 8px rgba(0,0,0,0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.game-back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px #403223, 0 6px 12px rgba(0,0,0,0.22);
+}
+
+.game-back-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0px #403223, 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.game-score-card {
+  position: absolute;
+  top: 85px;
+  right: 40px;
+  background: linear-gradient(135deg, #8caa46 0%, #689f38 100%);
+  border: 3px solid #2d5a27;
+  color: #fff;
+  font-family: var(--font-bubbly);
+  font-size: 1.15rem;
+  font-weight: 800;
+  border-radius: 0 0 16px 16px;
+  padding: 10px 22px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  z-index: 90;
+  animation: ghibliFloatLocked 4s ease-in-out infinite alternate;
+}
+
+.game-canvas-area {
+  position: relative;
+  width: 780px;
+  height: 480px;
+  background: rgba(254, 252, 245, 0.9);
+  border: 6px solid var(--color-wood-light);
+  border-radius: 20px;
+  box-shadow: inset 0 0 30px rgba(93, 70, 48, 0.15), 0 12px 28px rgba(0,0,0,0.25);
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Instructions Overlay */
+.game-instructions-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30,20,10,0.65);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 80;
+  transition: opacity 0.5s ease-out;
+}
+
+.instructions-scroll {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #fffcf2 100%);
+  border: 5px solid var(--color-wood-light);
+  border-radius: 16px;
+  padding: 22px 30px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+.instructions-scroll h3 {
+  font-family: var(--font-bubbly);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  margin-bottom: 10px;
+}
+
+.instructions-scroll p {
+  font-family: var(--font-storybook);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  font-weight: bold;
+  color: var(--color-text-brown);
+  margin-bottom: 18px;
+}
+
+.start-game-btn {
+  background: linear-gradient(135deg, #8caa46 0%, #689f38 100%);
+  border: 3.5px solid #2d5a27;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-family: var(--font-storybook);
+  font-size: 1.15rem;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 0px #1c3818, 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.start-game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #1c3818, 0 8px 16px rgba(0,0,0,0.25);
+}
+
+.start-game-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #1c3818, 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   GAME 1 SPECIFICS: FEED GOLUK BOLUK
+   ========================================================================== */
+
+.chubby-boy-rig {
+  position: absolute;
+  bottom: 15px;
+  left: calc(50% - 65px);
+  width: 130px;
+  height: 130px;
+  z-index: 15;
+  transform-origin: bottom center;
+}
+
+.chubby-boy-rig.chewing {
+  animation: boyChew 0.8s ease-in-out infinite;
+}
+
+.falling-food-item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2rem;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  z-index: 20;
+}
+
+.food-fly-mouth {
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* ==========================================================================
+   GAME 2 SPECIFICS: SAVE BABY PANDA
+   ========================================================================== */
+
+.bamboo-stalk-item {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  z-index: 20;
+}
+
+.hugging-panda-rig {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 70px);
+  width: 140px;
+  height: 140px;
+  z-index: 15;
+  transform-origin: bottom center;
+  animation: pandaHug 2s ease-in-out infinite;
+}
+
+.panda-hugging-arms {
+  transform-origin: 80px 115px;
+  animation: ghibliFloatLocked 2s ease-in-out infinite alternate;
+}
+
+.hugging-hearts {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  pointer-events: none;
+}
+
+.heart-sparks {
+  position: absolute;
+  font-size: 1.3rem;
+  color: #ff4081;
+  opacity: 0;
+  animation: heartFloat 2s ease-out forwards;
+}
+
+@keyframes heartFloat {
+  0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.95; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(1.1) rotate(var(--dr)); opacity: 0; }
+}
+
+/* ==========================================================================
+   GAME 3 SPECIFICS: ERUMA MAADU RACE
+   ========================================================================== */
+
+.scroll-race-bg {
+  background-image: url('assets/watercolor_paper_texture.png') !important;
+  background-repeat: repeat-x;
+  background-size: 480px 100%;
+  background-position: 0 0;
+  animation: raceScroll 8s linear infinite;
+  animation-play-state: paused;
+}
+
+.scroll-race-bg.racing-active {
+  animation-play-state: running;
+}
+
+@keyframes raceScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: -480px 0; }
+}
+
+.race-floor {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #7c5d3f;
+  border-top: 3.5px solid #543f2a;
+}
+
+.racing-buffalo-rig {
+  position: absolute;
+  bottom: 40px;
+  left: 10%;
+  width: 115px;
+  height: 82px;
+  z-index: 15;
+  transform-origin: bottom center;
+}
+
+.racing-buffalo-rig.trotting #race-leg-1,
+.racing-buffalo-rig.trotting #race-leg-3 {
+  transform-origin: 50% 74px;
+  animation: legWalkL 0.22s infinite alternate ease-in-out;
+}
+
+.racing-buffalo-rig.trotting #race-leg-2,
+.racing-buffalo-rig.trotting #race-leg-4 {
+  transform-origin: 50% 74px;
+  animation: legWalkR 0.22s infinite alternate ease-in-out;
+}
+
+.racing-buffalo-rig.trotting #buffalo-body-rig {
+  animation: buffaloTrot 0.22s infinite alternate ease-in-out;
+}
+
+.racing-buffalo-rig.jumping {
+  transition: bottom 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.35s ease;
+}
+
+@keyframes buffaloTrot {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-4px); }
+}
+
+.race-obstacle {
+  position: absolute;
+  bottom: 44px;
+  font-size: 2.2rem;
+  z-index: 20;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+/* ==========================================================================
+   VICTORY CARDS OVERLAYS
+   ========================================================================== */
+
+.game-victory-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30,20,10,0.68);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+  transition: opacity 0.5s ease-out;
+}
+
+.wood-board-victory {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #fffdec 100%);
+  border: 5.5px solid var(--color-wood-light);
+  border-radius: 18px;
+  padding: 24px 35px;
+  width: 440px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+  animation: ghibliButtonPulse 2.8s ease-in-out infinite;
+}
+
+.wood-board-victory h2 {
+  font-family: var(--font-bubbly);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ff7e42;
+  text-shadow: 1.5px 1.5px 0 #ffe0b2;
+  margin-bottom: 8px;
+}
+
+.wood-board-victory p {
+  font-family: var(--font-storybook);
+  font-size: 0.92rem;
+  font-weight: bold;
+  line-height: 1.45;
+  color: var(--color-text-brown);
+  margin-bottom: 18px;
+}
+
+.victory-seal {
+  display: inline-block;
+  font-family: var(--font-bubbly);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #ff7e42;
+  border: 2px solid #ff7e42;
+  border-radius: 5px;
+  padding: 3px 8px;
+  transform: rotate(-6deg);
+  opacity: 0.9;
+  margin-bottom: 12px;
+}
+
+.victory-close-btn {
+  background: linear-gradient(135deg, #7ca844 0%, #467a35 100%);
+  border: 3.5px solid #25471d;
+  border-radius: 12px;
+  padding: 10px 24px;
+  font-family: var(--font-storybook);
+  font-size: 1.1rem;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 0px #1c330a, 0 6px 12px rgba(0,0,0,0.2);
+  width: 100%;
+}
+
+.victory-close-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0px #1c330a, 0 8px 16px rgba(0,0,0,0.25);
+}
+
+.victory-close-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0px #1c330a, 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* Playhouse General Animations */
+@keyframes woodWiggle {
+  0% { transform: rotate(-0.8deg) scale(1); }
+  100% { transform: rotate(0.8deg) scale(1.01); }
+}
+
+@keyframes boyChew {
+  0% { transform: scale(1) rotate(-1deg); }
+  50% { transform: scale(1.05, 0.94) rotate(1deg) translateY(3px); }
+  100% { transform: scale(1) rotate(-1deg); }
+}
+
+@keyframes pandaHug {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05) rotate(-2deg); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   MOBILE VIEWPORTS OVERRIDES FOR GHIBLI PLAYHOUSE & GAMES
+   ========================================================================== */
+
+@media (max-width: 600px) {
+  .playhouse-wood-board {
+    width: 320px;
+    padding: 16px 14px;
+    border-radius: 14px;
+    border-width: 4.5px;
+  }
+
+  .hub-subtitle {
+    font-size: 0.78rem;
+    margin-bottom: 12px;
+  }
+
+  .game-selectors-rack {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .game-selector-card {
+    padding: 10px 8px;
+    border-width: 3px;
+    border-radius: 12px;
+  }
+
+  .game-sel-emoji {
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+  }
+
+  .game-sel-title {
+    font-size: 0.74rem;
+    margin-bottom: 2px;
+  }
+
+  .game-sel-desc {
+    font-size: 0.58rem;
+    line-height: 1.25;
+  }
+
+  /* Return to Garden btn */
+  #playhouse-return-sign {
+    width: 180px !important;
+    bottom: 25px !important;
+    left: calc(50% - 90px) !important;
+  }
+
+  #playhouse-return-sign .wooden-sign-btn {
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
+  }
+
+  /* Viewport canvas mobile sizing */
+  .game-canvas-area {
+    width: 320px;
+    height: 380px;
+    border-width: 4.5px;
+    border-radius: 16px;
+  }
+
+  .game-back-sign {
+    top: 80px;
+    left: 15px;
+  }
+
+  .game-back-btn {
+    font-size: 0.74rem;
+    padding: 6px 12px;
+    border-width: 2.5px;
+    border-radius: 8px;
+  }
+
+  .game-score-card {
+    top: 80px;
+    right: 15px;
+    font-size: 0.85rem;
+    padding: 6px 12px;
+    border-width: 2px;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .instructions-scroll {
+    width: 280px;
+    padding: 16px 20px;
+    border-width: 4px;
+  }
+
+  .instructions-scroll h3 {
+    font-size: 0.98rem;
+  }
+
+  .instructions-scroll p {
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+  }
+
+  .start-game-btn {
+    font-size: 0.88rem;
+    padding: 8px 18px;
+    border-width: 2.5px;
+  }
+
+  /* Character sizes scaled down */
+  .chubby-boy-rig {
+    width: 90px;
+    height: 90px;
+    left: calc(50% - 45px);
+  }
+  .chubby-boy-rig svg {
+    width: 90px;
+    height: 90px;
+  }
+
+  .hugging-panda-rig {
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+  }
+  .hugging-panda-rig svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .racing-buffalo-rig {
+    width: 85px;
+    height: 60px;
+    bottom: 30px;
+  }
+  .racing-buffalo-rig svg {
+    width: 85px;
+    height: 60px;
+  }
+
+  .race-floor {
+    bottom: 30px;
+  }
+
+  .race-obstacle {
+    bottom: 34px;
+    font-size: 1.6rem;
+  }
+
+  /* Victory popup sizes */
+  .wood-board-victory {
+    width: 280px;
+    padding: 16px 20px;
+    border-width: 4px;
+  }
+
+  .wood-board-victory h2 {
+    font-size: 0.98rem;
+  }
+
+  .wood-board-victory p {
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+  }
+
+  .victory-close-btn {
+    font-size: 0.88rem;
+    padding: 8px 18px;
+    border-width: 2.5px;
+  }
+}
+
+
