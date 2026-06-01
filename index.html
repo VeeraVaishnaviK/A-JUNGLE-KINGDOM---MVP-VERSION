@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1.0.8">
+  <link rel="stylesheet" href="style.css?v=1.0.9">
 </head>
 <body>
 
@@ -2026,25 +2026,36 @@
       </div>
 
       <!-- Navigation Signs Rack -->
-      <div class="playhouse-nav-rack" style="position: absolute; bottom: 60px; left: 0; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 100;">
+      <div class="playhouse-nav-rack" style="position: absolute; bottom: 60px; left: 0; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 100;">
         <!-- Return to Garden Sign -->
-        <div id="playhouse-return-sign" class="wooden-sign-container visible-sign-btn" style="width: 250px; position: static;">
-          <div class="wooden-board" style="padding: 8px; transform: rotate(1.5deg);">
+        <div id="playhouse-return-sign" class="wooden-sign-container visible-sign-btn" style="width: 230px; position: static;">
+          <div class="wooden-board" style="padding: 6px; transform: rotate(1.5deg);">
             <div class="wood-rings"></div>
             <button id="playhouse-back-btn" class="wooden-sign-btn">
               <span class="btn-leaf">🎋</span>
-              <span class="btn-text">Return to Garden</span>
+              <span class="btn-text" style="font-size: 0.85rem;">Return to Garden</span>
             </button>
           </div>
         </div>
 
         <!-- View Achievement Tree Sign -->
-        <div id="playhouse-tree-sign" class="wooden-sign-container visible-sign-btn" style="width: 250px; position: static;">
-          <div class="wooden-board" style="padding: 8px; transform: rotate(-1.5deg); background: linear-gradient(135deg, #7ca844 0%, #467a35 100%); border-color: #2d5a27;">
+        <div id="playhouse-tree-sign" class="wooden-sign-container visible-sign-btn" style="width: 230px; position: static;">
+          <div class="wooden-board" style="padding: 6px; transform: rotate(-1deg); background: linear-gradient(135deg, #7ca844 0%, #467a35 100%); border-color: #2d5a27;">
             <div class="wood-rings"></div>
             <button id="playhouse-goto-tree-btn" class="wooden-sign-btn">
               <span class="btn-leaf">🌳</span>
-              <span class="btn-text">Achievement Tree</span>
+              <span class="btn-text" style="font-size: 0.85rem;">Achievement Tree</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- View Final Chapter Sign -->
+        <div id="playhouse-final-sign" class="wooden-sign-container visible-sign-btn" style="width: 230px; position: static;">
+          <div class="wooden-board" style="padding: 6px; transform: rotate(2deg); background: linear-gradient(135deg, #ffd54f 0%, #ff9800 100%); border-color: #e65100;">
+            <div class="wood-rings"></div>
+            <button id="playhouse-goto-final-btn" class="wooden-sign-btn">
+              <span class="btn-leaf">🌌</span>
+              <span class="btn-text" style="font-size: 0.85rem;">Final Chapter</span>
             </button>
           </div>
         </div>
@@ -2525,6 +2536,188 @@
 
   </section>
 
-  <script src="script.js?v=1.0.8"></script>
+  <!-- ========================================================================
+       SCENE 11: FINAL CHAPTER: LANTERN FESTIVAL (Chapter 6 Ending)
+       ======================================================================== -->
+  <section id="scene-final" class="scene-container hidden">
+    <!-- Parallax Fixed Background -->
+    <div class="final-fixed-bg"></div>
+
+    <!-- Shimmering river light layer -->
+    <div class="final-river-shimmer"></div>
+
+    <!-- Starry moonlight glow -->
+    <div class="final-moonlight-glow"></div>
+
+    <!-- Floating sky lanterns container -->
+    <div id="sky-lanterns-container"></div>
+
+    <!-- Floating fireflies container -->
+    <div id="final-fireflies-container"></div>
+
+    <!-- 1. TYPING LETTER SCROLL -->
+    <div id="final-letter-scroll" class="final-letter-overlay">
+      <div class="letter-scroll-paper">
+        <div class="wood-rings"></div>
+        <div id="typing-lines-container" class="typing-text-block">
+          <!-- Text lines typed dynamically via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. GIGANTIC BIRTHDAY CELEBRATION CARD & HUG VIDEO CARD -->
+    <div id="final-celebration-card" class="final-card-overlay hidden">
+      <div class="final-card-wrapper">
+        <div class="wood-rings"></div>
+        
+        <!-- Big Congratulations Header -->
+        <div class="final-card-header">
+          <h2>🎂 HAPPY 20TH BIRTHDAY REJO! 🎂</h2>
+          <div class="final-card-subtitles">
+            <span class="sub-badge text-green">THE LEGENDARY ERUMA MAADU 🐃</span>
+            <span class="sub-badge text-gold">THE ONE AND ONLY GOLUK BOLUK 🍔</span>
+          </div>
+          <p class="final-thankyou">THANK YOU FOR BEING PART OF MY STORY ❤️</p>
+        </div>
+
+        <!-- 3. CUTE HUGGING CUTSCENE ANIMATED HUG CARD -->
+        <div class="hugging-cutscene-container">
+          <div class="hug-frame-outer">
+            <!-- Watercolor Paper background frame -->
+            <img src="assets/ghibli_final_hug.png" alt="Rejo Hug Background" class="hug-video-bg" />
+            
+            <!-- Animated Ghibli vector hugging couple foreground -->
+            <div class="hug-video-fg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" class="ghibli-hug-svg">
+                <defs>
+                  <linearGradient id="boySweaterGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8caa46"/>
+                    <stop offset="100%" stop-color="#467a35"/>
+                  </linearGradient>
+                  <linearGradient id="girlDressGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ff7b7b"/>
+                    <stop offset="100%" stop-color="#e53935"/>
+                  </linearGradient>
+                  <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#5d4037"/>
+                    <stop offset="100%" stop-color="#3e2723"/>
+                  </linearGradient>
+                  <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fff0e0"/>
+                    <stop offset="100%" stop-color="#ffd8b3"/>
+                  </linearGradient>
+                  <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+                  </filter>
+                  <filter id="blushBlur">
+                    <feGaussianBlur stdDeviation="2"/>
+                  </filter>
+                </defs>
+
+                <!-- The Hugging Couple Group (sways wobblying together) -->
+                <g class="couple-sway" filter="url(#softShadow)">
+                  
+                  <!-- 1. GIRL'S CASCADING BACK HAIR -->
+                  <path class="girl-back-hair" d="M 155,70 C 145,100 135,120 138,150 C 140,165 170,165 175,150 C 180,120 185,100 175,70 Z" fill="url(#hairGrad)" />
+
+                  <!-- 2. BOY'S BACK HAIR -->
+                  <path class="boy-back-hair" d="M 90,65 C 80,85 75,110 82,130 C 85,135 105,135 102,120 C 100,105 105,85 110,65 Z" fill="url(#hairGrad)" />
+
+                  <!-- 3. BOY'S BODY / SWEATER -->
+                  <path class="boy-body" d="M 85,130 C 70,135 60,150 60,180 L 140,180 C 135,155 125,135 105,130 Z" fill="url(#boySweaterGrad)" stroke="#273f1b" stroke-width="3" stroke-linecap="round" />
+
+                  <!-- 4. GIRL'S BODY / DRESS -->
+                  <path class="girl-body" d="M 140,130 C 120,135 115,155 110,180 L 195,180 C 195,150 180,135 160,130 Z" fill="url(#girlDressGrad)" stroke="#5f1515" stroke-width="3" stroke-linecap="round" />
+
+                  <!-- 5. BOY'S HEAD -->
+                  <path class="boy-head" d="M 88,110 C 88,85 102,70 120,74 C 138,78 142,95 138,115 C 134,130 115,132 100,125 C 90,120 88,115 88,110 Z" fill="url(#skinGrad)" stroke="#3e2723" stroke-width="3" stroke-linecap="round" />
+
+                  <!-- Boy's blushing cheek -->
+                  <ellipse cx="104" cy="106" rx="10" ry="7" fill="#ff8a80" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse" />
+
+                  <!-- Boy's Eye (closed happy arc) -->
+                  <path d="M 108,94 C 110,91 114,91 116,94" fill="none" stroke="#3e2723" stroke-width="3.5" stroke-linecap="round" />
+                  
+                  <!-- Boy's Smile -->
+                  <path d="M 118,106 C 116,112 110,112 108,108" fill="none" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- Boy's front hair (bangs) -->
+                  <path class="boy-front-hair" d="M 86,100 C 84,90 90,75 105,70 C 120,65 138,72 138,72 C 138,72 132,82 125,82 C 118,82 114,88 110,88 C 104,88 98,96 98,96 C 98,96 94,92 86,100 Z" fill="url(#hairGrad)" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- 6. GIRL'S HEAD -->
+                  <path class="girl-head" d="M 132,108 C 128,95 130,80 145,72 C 160,64 178,74 180,95 C 182,112 170,128 152,126 C 140,125 134,118 132,108 Z" fill="url(#skinGrad)" stroke="#3e2723" stroke-width="3" stroke-linecap="round" />
+
+                  <!-- Girl's blushing cheek -->
+                  <ellipse cx="160" cy="100" rx="10" ry="7" fill="#ff8a80" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse" />
+
+                  <!-- Girl's Eye (closed happy arc) -->
+                  <path d="M 148,90 C 150,87 154,87 156,90" fill="none" stroke="#3e2723" stroke-width="3.5" stroke-linecap="round" />
+
+                  <!-- Girl's Smile -->
+                  <path d="M 142,100 C 145,104 150,104 152,101" fill="none" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- Girl's front hair -->
+                  <path class="girl-front-hair" d="M 132,95 C 132,85 138,72 152,68 C 166,64 182,75 182,85 C 182,85 178,92 170,92 C 162,92 158,98 152,98 C 146,98 140,102 140,102 Z" fill="url(#hairGrad)" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
+
+                  <!-- Cute Red Hair Ribbon on Girl -->
+                  <g class="girl-ribbon" transform="translate(172, 72) rotate(15)">
+                    <path d="M -8,-6 C -12,-15 -2,-18 0,-8 C 2,-18 12,-15 8,-6 C 4,2 -4,2 -8,-6 Z" fill="#ff3d00" stroke="#3e2723" stroke-width="1.5" />
+                    <circle cx="0" cy="-6" r="3" fill="#ffe082" stroke="#3e2723" stroke-width="1.5" />
+                  </g>
+
+                  <!-- 7. BOY'S HUGGING ARM -->
+                  <path class="boy-arm" d="M 80,140 C 95,140 120,135 145,142 C 152,144 158,150 156,156 C 154,162 145,160 135,158 C 115,154 95,156 82,160 Z" fill="url(#boySweaterGrad)" stroke="#273f1b" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="152" cy="152" r="5" fill="#ffd8b3" stroke="#3e2723" stroke-width="2.5" />
+
+                  <!-- 8. GIRL'S HUGGING ARM -->
+                  <path class="girl-arm" d="M 170,140 C 150,132 120,122 104,124 C 98,125 94,130 96,136 C 98,142 106,142 115,140 C 130,138 155,146 165,152 Z" fill="url(#girlDressGrad)" stroke="#5f1515" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="100" cy="128" r="5" fill="#ffd8b3" stroke="#3e2723" stroke-width="2.5" />
+
+                </g>
+              </svg>
+            </div>
+            <!-- Pink hearts container floating inside hug -->
+            <div class="hug-hearts-float" id="hug-hearts-float"></div>
+          </div>
+          <div class="hug-caption">"A tight warm hug to celebrate your special milestone! ✨"</div>
+        </div>
+
+        <!-- 4. FINAL CARTOON FUNNY JUNGLE SKIT -->
+        <div class="funny-skit-container">
+          <!-- Wood floor / Bridge surface -->
+          <div class="skit-bridge-floor"></div>
+
+          <!-- Skit elements -->
+          <!-- Table with cake -->
+          <div id="skit-table" class="skit-item table-cake">🎂</div>
+
+          <!-- Characters SVGs/Icons wiggling in loop -->
+          <!-- Panda -->
+          <div id="skit-panda" class="skit-char char-panda">🐼</div>
+          <!-- Gorilla -->
+          <div id="skit-gorilla" class="skit-char char-gorilla">🦍</div>
+          <!-- Buffalo -->
+          <div id="skit-buffalo" class="skit-char char-buffalo">🐃</div>
+          <!-- Goluk Boluk -->
+          <div id="skit-boy" class="skit-char char-boy">👦</div>
+        </div>
+
+        <!-- Replay sign button -->
+        <div id="replay-adventure-sign" class="wooden-sign-container visible-sign-btn" style="position: relative; margin: 20px auto 0 auto; width: 260px; z-index: 100;">
+          <div class="wooden-board" style="padding: 8px; transform: rotate(-1deg); background: linear-gradient(135deg, #8caa46 0%, #467a35 100%); border-color: #2d5a27;">
+            <div class="wood-rings"></div>
+            <button id="final-replay-btn" class="wooden-sign-btn">
+              <span class="btn-leaf">🌿</span>
+              <span class="btn-text" style="color: #fff;">Replay Adventure</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <script src="script.js?v=1.0.9"></script>
 </body>
 </html>

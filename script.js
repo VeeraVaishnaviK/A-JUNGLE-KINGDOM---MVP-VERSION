@@ -1573,6 +1573,36 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Go to Final Chapter (Scene 11) click handler
+    const gotoFinalBtn = document.getElementById("playhouse-goto-final-btn");
+    const sceneFinal = document.getElementById("scene-final");
+
+    if (gotoFinalBtn) {
+      gotoFinalBtn.addEventListener("click", () => {
+        playClack();
+        triggerPetalConfetti(80);
+
+        setTimeout(() => {
+          sceneGames.classList.remove("active-scene");
+          sceneGames.style.opacity = 0;
+
+          setTimeout(() => {
+            sceneGames.classList.add("hidden");
+
+            sceneFinal.classList.remove("hidden");
+            sceneFinal.offsetHeight; // force reflow
+            sceneFinal.style.opacity = 1;
+            sceneFinal.classList.add("active-scene");
+
+            // Initialize Final Ending Chapter
+            if (window.initFinalEndingSystem) {
+              window.initFinalEndingSystem();
+            }
+          }, 1000);
+        }, 800);
+      });
+    }
+
     // Bind Hub selectors to trigger Game frames
     if (selectG1) {
       selectG1.addEventListener("click", () => {
@@ -2409,6 +2439,335 @@ document.addEventListener("DOMContentLoaded", () => {
 
       hub.appendChild(f);
     }
+  }
+
+  // ==========================================================================
+  // --- SCENE 11: FINAL CHAPTER: LANTERN FESTIVAL Ending ---
+  // ==========================================================================
+  let finalLanternInterval = null;
+  let finalFireflyInterval = null;
+  let finalSkitTimeout = null;
+
+  window.initFinalEndingSystem = function() {
+    const sceneFinal = document.getElementById("scene-final");
+    const letterScroll = document.getElementById("final-letter-scroll");
+    const typingContainer = document.getElementById("typing-lines-container");
+    const celebrationCard = document.getElementById("final-celebration-card");
+    const replayBtn = document.getElementById("final-replay-btn");
+
+    // Clean old states
+    letterScroll.classList.remove("hidden");
+    letterScroll.style.opacity = "1";
+    celebrationCard.classList.add("hidden");
+    celebrationCard.style.opacity = "0";
+    typingContainer.innerHTML = "";
+
+    // Start Spawners
+    spawnFinalSkyLanterns();
+    spawnFinalFireflies();
+
+    // 1. Text lines typing cascade
+    const textLines = [
+      "We grew up.",
+      "We laughed.",
+      "We fought.",
+      "We made memories.",
+      "But through everything...",
+      "You remained my best friend. ❤️"
+    ];
+
+    textLines.forEach((text, i) => {
+      const el = document.createElement("div");
+      el.classList.add("typing-line");
+      el.innerHTML = text;
+      typingContainer.appendChild(el);
+
+      setTimeout(() => {
+        el.classList.add("visible-line");
+        playClack(); // typewriter clack sound effect
+      }, i * 1800 + 500);
+    });
+
+    // 2. Transition from Scroll to Grand Birthday Plaque
+    setTimeout(() => {
+      letterScroll.style.opacity = "0";
+      
+      setTimeout(() => {
+        letterScroll.classList.add("hidden");
+        
+        // Unhide Birthday celebration Card
+        celebrationCard.classList.remove("hidden");
+        celebrationCard.offsetHeight; // force reflow
+        celebrationCard.style.opacity = "1";
+        
+        // Trigger winning arpeggio & confetti shower
+        playWin();
+        triggerPetalConfetti(150);
+
+        // Start Skit loops and hugging sparks!
+        runJungleSkit();
+        startHuggingHeartsLoop();
+
+      }, 1000);
+
+    }, textLines.length * 1800 + 2000);
+
+    // 3. Replay button handler
+    if (replayBtn) {
+      replayBtn.addEventListener("click", () => {
+        playClack();
+        triggerPetalConfetti(120);
+
+        // Stop all endings loops
+        clearInterval(finalLanternInterval);
+        clearInterval(finalFireflyInterval);
+        clearTimeout(finalSkitTimeout);
+
+        setTimeout(() => {
+          // Fade final scene out
+          sceneFinal.classList.remove("active-scene");
+          sceneFinal.style.opacity = "0";
+
+          setTimeout(() => {
+            sceneFinal.classList.add("hidden");
+
+            // Reset all games and achievements states
+            window.game1Score = 0;
+            window.game2Score = 0;
+            window.game3Score = 0;
+            window.friendshipViewedMemories = new Set();
+            window.triggeredDrama = false;
+            window.achievementsState = {
+              panda: false,
+              gorilla: true,
+              buffalo: false,
+              friend: false,
+              goluk: false,
+              snack: false,
+              legend: true,
+              drama: false
+            };
+
+            // Restart from Scene 1 (Ghibli Opening)
+            if (sceneOpening) {
+              sceneOpening.classList.remove("hidden");
+              sceneOpening.offsetHeight;
+              sceneOpening.style.opacity = "1";
+              sceneOpening.classList.add("active-scene");
+              
+              // Reset opening scene states
+              letterOpened = false;
+              welcomeFinished = false;
+              attemptsRemaining = 3;
+
+              // Reset attempts counter
+              if (attemptCounter) {
+                attemptCounter.textContent = "3 attempts remaining";
+              }
+
+              // Reset letter & envelope elements
+              if (glowingLetter) glowingLetter.classList.add("hidden");
+              if (envelope) envelope.classList.remove("open");
+              if (adventureSign) adventureSign.classList.add("hidden");
+              if (typewriterElement) typewriterElement.textContent = "";
+
+              // Reset baby panda to sleeping state
+              if (babyPanda) {
+                babyPanda.className = "panda-container state-sleeping";
+                eyesSleeping.classList.remove("hidden");
+                eyesYawning.classList.add("hidden");
+                eyesHappy.classList.add("hidden");
+                mouthSleeping.classList.remove("hidden");
+                mouthYawning.classList.add("hidden");
+                mouthHappy.classList.add("hidden");
+              }
+
+              // Restart the beautiful Ghibli typewriter intro
+              typeWriter(typewriterElement, "Welcome Traveler...", 100, () => {
+                welcomeFinished = true;
+                triggerPandaAwakening();
+              });
+            }
+          }, 1000);
+        }, 800);
+      });
+    }
+  };
+
+  // Drifting Sky Lanterns loop
+  function spawnFinalSkyLanterns() {
+    const cont = document.getElementById("sky-lanterns-container");
+    if (!cont) return;
+
+    cont.innerHTML = "";
+    clearInterval(finalLanternInterval);
+
+    // Initial burst
+    for (let i = 0; i < 8; i++) {
+      createLantern(cont, true);
+    }
+
+    finalLanternInterval = setInterval(() => {
+      createLantern(cont, false);
+    }, 1500);
+  }
+
+  function createLantern(container, randomY) {
+    const l = document.createElement("div");
+    l.classList.add("floating-sky-lantern");
+    
+    const x = Math.random() * 95;
+    l.style.left = `${x}vw`;
+
+    if (randomY) {
+      const y = Math.random() * 80;
+      l.style.top = `${y}vh`;
+      // Start already floating
+      l.style.animation = `lanternFloat ${10 + Math.random() * 6}s linear infinite`;
+      l.style.animationDelay = `-${Math.random() * 8}s`;
+    } else {
+      l.style.bottom = "-40px";
+      const duration = 10 + Math.random() * 6;
+      l.style.animationDuration = `${duration}s`;
+      l.style.setProperty("--sway", `${(Math.random() - 0.5) * 140}px`);
+    }
+
+    container.appendChild(l);
+    
+    // Auto remove after animation completes
+    if (!randomY) {
+      setTimeout(() => { l.remove(); }, 16000);
+    }
+  }
+
+  // Floating Moonlight Fireflies
+  function spawnFinalFireflies() {
+    const cont = document.getElementById("final-fireflies-container");
+    if (!cont) return;
+
+    cont.innerHTML = "";
+    clearInterval(finalFireflyInterval);
+
+    const colors = ["rgba(255,235,59,0.75)", "rgba(139,195,74,0.65)", "rgba(255,207,84,0.7)"];
+
+    for (let i = 0; i < 25; i++) {
+      const f = document.createElement("div");
+      f.style.position = "absolute";
+      f.style.width = `${4 + Math.random() * 5}px`;
+      f.style.height = f.style.width;
+      f.style.borderRadius = "50%";
+      f.style.background = colors[Math.floor(Math.random() * colors.length)];
+      f.style.pointerEvents = "none";
+      f.style.zIndex = "6";
+      
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      f.style.left = `${x}vw`;
+      f.style.top = `${y}vh`;
+
+      const delay = Math.random() * -10;
+      const duration = 8 + Math.random() * 10;
+      f.style.animation = `ghibliFloatLocked ${duration}s ease-in-out ${delay}s infinite alternate`;
+      f.style.filter = "blur(1px)";
+      f.style.boxShadow = `0 0 8px ${f.style.background}`;
+
+      cont.appendChild(f);
+    }
+  }
+
+  // Cute final skits loops
+  function runJungleSkit() {
+    const panda = document.getElementById("skit-panda");
+    const gorilla = document.getElementById("skit-gorilla");
+    const buffalo = document.getElementById("skit-buffalo");
+    const boy = document.getElementById("skit-boy");
+    const table = document.getElementById("skit-table");
+
+    if (!panda || !gorilla || !buffalo || !boy) return;
+
+    // Reset positions and elements
+    panda.style.transition = "none";
+    gorilla.style.transition = "none";
+    panda.style.left = "40px";
+    gorilla.style.left = "110px";
+    panda.textContent = "🐼";
+    gorilla.textContent = "🦍";
+    buffalo.textContent = "🐃";
+    boy.textContent = "👦";
+    table.textContent = "🎂";
+    buffalo.classList.remove("buffalo-jig");
+    boy.classList.remove("boy-happy-wiggle");
+
+    // Skit Loop Trigger
+    finalSkitTimeout = setTimeout(() => {
+      // 1. Panda steals cake and runs!
+      panda.textContent = "🐼🎂"; // carrying cake!
+      table.textContent = "";    // empty table!
+      
+      panda.style.transition = "left 3s linear";
+      panda.style.left = "380px"; // runs right!
+
+      setTimeout(() => {
+        // 2. Gorilla is angry and chases panda!
+        gorilla.textContent = "🦍💢";
+        gorilla.style.transition = "left 2.5s linear";
+        gorilla.style.left = "350px"; 
+
+        // Buffalo thumps chest wobbly!
+        buffalo.classList.add("buffalo-jig");
+
+        setTimeout(() => {
+          // 3. Boy gets a piece and chews happily!
+          boy.textContent = "👦🍰";
+          boy.classList.add("boy-happy-wiggle");
+
+          // 4. Panda and Gorilla run off-screen together
+          panda.style.transition = "left 1.5s ease-in";
+          panda.style.left = "850px";
+
+          setTimeout(() => {
+            gorilla.style.transition = "left 1.5s ease-in";
+            gorilla.style.left = "850px";
+
+            // Restart skit sequence loop after 5 seconds of peace
+            setTimeout(runJungleSkit, 5000);
+          }, 300);
+
+        }, 2200);
+
+      }, 1000);
+
+    }, 1500);
+  }
+
+  // Floating hearts arpeggios for hugging cutscene
+  function startHuggingHeartsLoop() {
+    const cont = document.getElementById("hug-hearts-float");
+    if (!cont) return;
+
+    cont.innerHTML = "";
+    
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.classList.add("heart-sparks");
+      h.textContent = ["❤️", "💖", "🌸", "💕"][Math.floor(Math.random() * 4)];
+      
+      const dx = (Math.random() - 0.5) * 160;
+      const dy = -100 - Math.random() * 120;
+      const dr = (Math.random() - 0.5) * 60;
+      
+      h.style.setProperty("--dx", `${dx}px`);
+      h.style.setProperty("--dy", `${dy}px`);
+      h.style.setProperty("--dr", `${dr}deg`);
+      
+      h.style.left = `${100 + Math.random() * 80}px`;
+      h.style.bottom = "20px";
+      h.style.fontSize = "1.6rem";
+      
+      cont.appendChild(h);
+      
+      setTimeout(() => { h.remove(); }, 2000);
+    }, 350);
   }
 
 });
