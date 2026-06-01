@@ -4283,8 +4283,8 @@ body {
 
 .game-back-sign {
   position: absolute;
-  top: 85px;
-  left: 40px;
+  bottom: 25px;
+  left: 30px;
   z-index: 100;
 }
 
@@ -4749,8 +4749,9 @@ body {
   }
 
   .game-back-sign {
-    top: 80px;
+    bottom: 20px;
     left: 15px;
+    top: auto;
   }
 
   .game-back-btn {

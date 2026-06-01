@@ -1597,6 +1597,33 @@ document.addEventListener("DOMContentLoaded", () => {
     let spawnedFoods = [];
 
     const startG1Btn = document.getElementById("start-g1-btn");
+    // ------------------------------------------------------------------------
+    // --- GAME 1 INTERACTIVE LOGIC: CURSOR MOVEMENT & COLLISION EATING ---
+    // ------------------------------------------------------------------------
+    const g1Canvas = document.getElementById("g1-canvas-area");
+    if (g1Canvas) {
+      window.addEventListener("pointermove", (e) => {
+        if (!game1Active) return;
+        const rect = g1Canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        
+        const boy = document.getElementById("g1-boy-character");
+        const canvasWidth = g1Canvas.clientWidth;
+        const boyWidth = boy ? boy.offsetWidth : 130;
+        
+        // Map cursor coordinate to relative canvas coordinates
+        const relativeX = (x / rect.width) * canvasWidth;
+        let newLeft = relativeX - (boyWidth / 2);
+        
+        // Clamp between 0 and canvasWidth - boyWidth
+        newLeft = Math.max(0, Math.min(canvasWidth - boyWidth, newLeft));
+        
+        if (boy) {
+          boy.style.left = `${newLeft}px`;
+        }
+      });
+    }
+
     if (startG1Btn) {
       startG1Btn.addEventListener("click", () => {
         playClack();
@@ -1614,8 +1641,14 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("g1-victory-card").classList.add("hidden");
       
       const boy = document.getElementById("g1-boy-character");
-      boy.classList.remove("chewing");
-      boy.style.transform = "scale(1)";
+      if (boy) {
+        boy.classList.remove("chewing");
+        boy.style.transform = "scale(1)";
+        // Center the boy at start
+        const canvasWidth = g1Canvas ? g1Canvas.clientWidth : 780;
+        const boyWidth = boy.offsetWidth || 130;
+        boy.style.left = `${(canvasWidth - boyWidth) / 2}px`;
+      }
 
       // Reset mouth standard
       const mouthStd = document.querySelector(".chubby-boy-rig .mouth-standard");
@@ -1627,12 +1660,58 @@ document.addEventListener("DOMContentLoaded", () => {
       game1AnimationId = requestAnimationFrame(updateFoods);
     }
 
+    // Centered catch helper for both pointer taps and automated collisions
+    function catchFood(foodObj) {
+      if (foodObj.clicked || !game1Active) return;
+      foodObj.clicked = true;
+      
+      playMunch();
+      
+      const mouthStd = document.querySelector(".chubby-boy-rig .mouth-standard");
+      const mouthOpen = document.querySelector(".chubby-boy-rig .mouth-open");
+      if (mouthStd) mouthStd.classList.add("hidden");
+      if (mouthOpen) mouthOpen.classList.remove("hidden");
+      
+      const boy = document.getElementById("g1-boy-character");
+      if (boy) boy.classList.add("chewing");
+
+      const el = foodObj.element;
+      el.classList.add("food-fly-mouth");
+      if (boy) {
+        const targetLeft = boy.offsetLeft + (boy.offsetWidth / 2) - 25; // 25 is half of food width
+        const targetTop = boy.offsetTop + 45; // mouth coordinates
+        el.style.left = `${targetLeft}px`;
+        el.style.top = `${targetTop}px`;
+      } else {
+        el.style.left = "390px";
+        el.style.top = "410px";
+      }
+      el.style.transform = "scale(0.2) rotate(360deg)";
+      el.style.opacity = "0.2";
+
+      setTimeout(() => {
+        el.remove();
+        if (mouthStd) mouthStd.classList.remove("hidden");
+        if (mouthOpen) mouthOpen.classList.add("hidden");
+        if (boy) boy.classList.remove("chewing");
+      }, 450);
+
+      game1Score++;
+      updateG1Score();
+
+      if (game1Score >= 20) {
+        triggerGame1Win();
+      }
+    }
+
     function spawnFood() {
       if (!game1Active) return;
       const el = document.createElement("div");
       el.classList.add("falling-food-item");
       el.textContent = ["🍕", "🍔", "🍟", "🍦", "🍩", "🍰"][Math.floor(Math.random() * 6)];
-      el.style.left = `${20 + Math.random() * (780 - 80)}px`;
+      
+      const canvasWidth = g1Canvas ? g1Canvas.clientWidth : 780;
+      el.style.left = `${20 + Math.random() * (canvasWidth - 80)}px`;
       el.style.top = "0px";
       
       const foodObj = {
@@ -1644,47 +1723,7 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       el.addEventListener("pointerdown", () => {
-        if (foodObj.clicked || !game1Active) return;
-        foodObj.clicked = true;
-        
-        playMunch();
-        
-        // Open mouth wide
-        const mouthStd = document.querySelector(".chubby-boy-rig .mouth-standard");
-        const mouthOpen = document.querySelector(".chubby-boy-rig .mouth-open");
-        if (mouthStd) mouthStd.classList.add("hidden");
-        if (mouthOpen) mouthOpen.classList.remove("hidden");
-        
-        const boy = document.getElementById("g1-boy-character");
-        boy.classList.add("chewing");
-
-        // Fly the food directly into mouth
-        el.classList.add("food-fly-mouth");
-        if (boy) {
-          const targetLeft = boy.offsetLeft + (boy.offsetWidth / 2) - 25; // 25 is half of 50px food width
-          const targetTop = boy.offsetTop + 45; // mouth is around 45px down from the top of the boy
-          el.style.left = `${targetLeft}px`;
-          el.style.top = `${targetTop}px`;
-        } else {
-          el.style.left = "390px";
-          el.style.top = "410px";
-        }
-        el.style.transform = "scale(0.2) rotate(360deg)";
-        el.style.opacity = "0.2";
-
-        setTimeout(() => {
-          el.remove();
-          if (mouthStd) mouthStd.classList.remove("hidden");
-          if (mouthOpen) mouthOpen.classList.add("hidden");
-          boy.classList.remove("chewing");
-        }, 450);
-
-        game1Score++;
-        updateG1Score();
-
-        if (game1Score >= 20) {
-          triggerGame1Win();
-        }
+        catchFood(foodObj);
       });
 
       document.getElementById("g1-canvas-area").appendChild(el);
@@ -1694,13 +1733,26 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateFoods() {
       if (!game1Active) return;
       
+      const boy = document.getElementById("g1-boy-character");
+      const boyLeft = boy ? boy.offsetLeft : 325;
+      const boyWidth = boy ? boy.offsetWidth : 130;
+      const boyTop = boy ? boy.offsetTop : 330;
+      const boyHeight = boy ? boy.offsetHeight : 130;
+      
       for (let i = spawnedFoods.length - 1; i >= 0; i--) {
         const f = spawnedFoods[i];
         if (!f.clicked) {
           f.y += f.speed;
           f.element.style.top = `${f.y}px`;
 
-          if (f.y > 450) {
+          // Automatic collision eating: if food center is horizontally inside the boy
+          // and the bottom of the food overlaps with the top of the boy's head
+          const foodCenterX = f.x + 25; // 25 is half of 50px food width
+          
+          if (f.y + 50 > boyTop && f.y < boyTop + (boyHeight / 2) && foodCenterX > boyLeft && foodCenterX < boyLeft + boyWidth) {
+            catchFood(f);
+            spawnedFoods.splice(i, 1); // remove from active physics checks immediately
+          } else if (f.y > 450) {
             f.element.remove();
             spawnedFoods.splice(i, 1);
           }
