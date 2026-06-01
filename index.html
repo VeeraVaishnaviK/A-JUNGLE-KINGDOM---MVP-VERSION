@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=1.0.6">
+  <link rel="stylesheet" href="style.css?v=1.0.7">
 </head>
 <body>
 
@@ -2025,14 +2025,28 @@
         </div>
       </div>
 
-      <!-- Exit playroom to Chapter 3 Forest -->
-      <div id="playhouse-return-sign" class="wooden-sign-container visible-sign-btn" style="position: absolute; bottom: 35px; left: calc(50% - 130px); width: 260px; z-index: 100;">
-        <div class="wooden-board" style="padding: 8px; transform: rotate(1.5deg);">
-          <div class="wood-rings"></div>
-          <button id="playhouse-back-btn" class="wooden-sign-btn">
-            <span class="btn-leaf">🎋</span>
-            <span class="btn-text">Return to Garden</span>
-          </button>
+      <!-- Navigation Signs Rack -->
+      <div class="playhouse-nav-rack" style="position: absolute; bottom: 35px; left: 0; width: 100%; display: flex; justify-content: center; gap: 20px; z-index: 100;">
+        <!-- Return to Garden Sign -->
+        <div id="playhouse-return-sign" class="wooden-sign-container visible-sign-btn" style="width: 250px; position: static;">
+          <div class="wooden-board" style="padding: 8px; transform: rotate(1.5deg);">
+            <div class="wood-rings"></div>
+            <button id="playhouse-back-btn" class="wooden-sign-btn">
+              <span class="btn-leaf">🎋</span>
+              <span class="btn-text">Return to Garden</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- View Achievement Tree Sign -->
+        <div id="playhouse-tree-sign" class="wooden-sign-container visible-sign-btn" style="width: 250px; position: static;">
+          <div class="wooden-board" style="padding: 8px; transform: rotate(-1.5deg); background: linear-gradient(135deg, #7ca844 0%, #467a35 100%); border-color: #2d5a27;">
+            <div class="wood-rings"></div>
+            <button id="playhouse-goto-tree-btn" class="wooden-sign-btn" style="color: #fff;">
+              <span class="btn-leaf">🌳</span>
+              <span class="btn-text">Achievement Tree</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -2338,6 +2352,179 @@
     </div>
   </div>
 
-  <script src="script.js?v=1.0.6"></script>
+  <!-- ========================================================================
+       SCENE 10: ACHIEVEMENT TREE (Chapter 5)
+       ======================================================================== -->
+  <section id="scene-achievements" class="scene-container hidden">
+    <!-- Parallax Fixed Background -->
+    <div class="achievements-fixed-bg"></div>
+
+    <!-- Glowing vignette -->
+    <div class="achievements-glow"></div>
+
+    <!-- Header wood scroll -->
+    <header class="story-header-scroll" style="top: 25px; z-index: 100;">
+      <div class="scroll-wood-ends"></div>
+      <div class="scroll-paper" style="padding: 6px 30px;">
+        <h2 style="font-family: var(--font-storybook); font-size: 1.45rem; color: var(--color-text-brown); text-shadow: 1px 1px 0 #fff; text-align: center; font-weight: 800; line-height: 1.2;">
+          🌳 Chapter 5: Achievement Tree
+        </h2>
+      </div>
+    </header>
+
+    <!-- TREE CANVAS AREA -->
+    <div id="achievements-hub" class="achievements-grid-canvas">
+      
+      <div class="tree-canvas-wrapper">
+        <!-- SVG Magical Tree Background -->
+        <svg class="magical-tree-svg" viewBox="0 0 800 560">
+          <defs>
+            <!-- Bark Gradient -->
+            <linearGradient id="bark-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#4e3629" />
+              <stop offset="50%" stop-color="#7c5d3f" />
+              <stop offset="100%" stop-color="#3c261c" />
+            </linearGradient>
+            <!-- Leaf Glow filter -->
+            <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <!-- Tree Canopy Foliage behind branches -->
+          <ellipse cx="400" cy="220" rx="280" ry="160" fill="#2d5a27" opacity="0.85" filter="url(#glow-filter)" />
+          <circle cx="250" cy="200" r="110" fill="#1e461a" opacity="0.9" filter="url(#glow-filter)" />
+          <circle cx="550" cy="200" r="110" fill="#1e461a" opacity="0.9" filter="url(#glow-filter)" />
+          <circle cx="400" cy="120" r="100" fill="#387a2c" opacity="0.8" filter="url(#glow-filter)" />
+
+          <!-- Trunk & Major Branches -->
+          <path d="M 370,560 Q 375,440 380,380 T 360,280 C 330,280 250,290 200,240 Q 280,240 375,320 T 395,200 C 370,180 320,160 280,120 Q 340,120 395,170 T 405,100 T 415,170 C 470,120 530,120 590,120 Q 550,160 500,180 T 505,320 C 600,240 680,240 600,240 C 550,290 470,280 440,380 T 430,560 Z" fill="url(#bark-grad)" stroke="#2b1a13" stroke-width="4.5" />
+          
+          <!-- Sub branches for hanging ornaments -->
+          <path d="M 200,240 Q 170,230 150,240" fill="none" stroke="#4e3629" stroke-width="4" stroke-linecap="round" />
+          <path d="M 280,120 Q 260,150 250,180" fill="none" stroke="#4e3629" stroke-width="4" stroke-linecap="round" />
+          <path d="M 320,160 Q 325,140 330,150" fill="none" stroke="#4e3629" stroke-width="3" stroke-linecap="round" />
+          <path d="M 395,200 Q 395,230 400,260" fill="none" stroke="#4e3629" stroke-width="3" stroke-linecap="round" />
+          <path d="M 500,180 Q 480,160 470,150" fill="none" stroke="#4e3629" stroke-width="3.5" stroke-linecap="round" />
+          <path d="M 550,160 Q 550,170 550,180" fill="none" stroke="#4e3629" stroke-width="3" stroke-linecap="round" />
+          <path d="M 600,240 Q 630,230 650,240" fill="none" stroke="#4e3629" stroke-width="4" stroke-linecap="round" />
+          <path d="M 405,100 Q 400,90 400,100" fill="none" stroke="#4e3629" stroke-width="3.5" stroke-linecap="round" />
+
+          <!-- Hanging Vines/Strings -->
+          <line x1="150" y1="240" x2="150" y2="280" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="250" y1="180" x2="250" y2="220" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="330" y1="150" x2="330" y2="190" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="400" y1="260" x2="400" y2="300" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="470" y1="150" x2="470" y2="190" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="550" y1="180" x2="550" y2="220" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="650" y1="240" x2="650" y2="280" stroke="#7c5d3f" stroke-width="2.5" />
+          <line x1="400" y1="100" x2="400" y2="140" stroke="#7c5d3f" stroke-width="2.5" />
+        </svg>
+
+        <!-- Hanging Medallion Badges (Absolutely Positioned relative to tree wrapper) -->
+        <!-- Badge 1: Panda Protector -->
+        <div id="badge-panda" class="medallion-badge locked-badge" style="left: 150px; top: 280px;" data-title="Panda Protector" data-desc="Awarded for gathering 20 juicy bamboo stalks and receiving a warm hug from Baby Panda! 🐼🎋" data-icon="🐼">
+          <div class="medallion-inner">
+            <span class="badge-icon">🐼</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 2: Gorilla Warrior -->
+        <div id="badge-gorilla" class="medallion-badge locked-badge" style="left: 250px; top: 220px;" data-title="Gorilla Warrior" data-desc="Awarded for climbing to the summit of Gorilla Mountain and thumping your chest with the giant gatekeeper! 🦍⛰️" data-icon="🦍">
+          <div class="medallion-inner">
+            <span class="badge-icon">🦍</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 3: Eruma Maadu Champion -->
+        <div id="badge-buffalo" class="medallion-badge locked-badge" style="left: 330px; top: 190px;" data-title="Eruma Maadu Champion" data-desc="Awarded for clearing all obstacles in the Buffalo Village Race and reaching the giant birthday cake! 🐃🎂" data-icon="🐃">
+          <div class="medallion-inner">
+            <span class="badge-icon">🐃</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 4: Best Friend -->
+        <div id="badge-friend" class="medallion-badge locked-badge" style="left: 400px; top: 300px;" data-title="Best Friend" data-desc="Awarded for exploring all 6 warm friendship memories suspended on ropes in the golden hour garden! ❤️🌸" data-icon="❤️">
+          <div class="medallion-inner">
+            <span class="badge-icon">❤️</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 5: Goluk Boluk Supreme -->
+        <div id="badge-goluk" class="medallion-badge locked-badge" style="left: 470px; top: 190px;" data-title="Goluk Boluk Supreme" data-desc="Awarded for feeding 20 scrumptious treats to Goluk Boluk in one single session! 🍔👑" data-icon="🍔">
+          <div class="medallion-inner">
+            <span class="badge-icon">🍔</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 6: Snack Collector -->
+        <div id="badge-snack" class="medallion-badge locked-badge" style="left: 550px; top: 220px;" data-title="Snack Collector" data-desc="Awarded for catching 10 or more falling pizzas, burgers, or ice creams in the playroom! 🍕🍩" data-icon="🍕">
+          <div class="medallion-inner">
+            <span class="badge-icon">🍕</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 7: Birthday Legend -->
+        <div id="badge-legend" class="medallion-badge locked-badge" style="left: 650px; top: 280px;" data-title="Birthday Legend" data-desc="Awarded for finding the password portal, proving you are Rejo, and unlocking the magical birthday clearing! 🌟🎉" data-icon="🌟">
+          <div class="medallion-inner">
+            <span class="badge-icon">🌟</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+        <!-- Badge 8: Drama King -->
+        <div id="badge-drama" class="medallion-badge locked-badge" style="left: 400px; top: 140px;" data-title="Drama King" data-desc="Awarded for triggering the crying parade of characters or entering wrong birthdays on the wailing password portal! 🎭😭" data-icon="🎭">
+          <div class="medallion-inner">
+            <span class="badge-icon">🎭</span>
+            <span class="badge-lock-char">?</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Exit Button to Playhouse -->
+      <div id="achievements-return-sign" class="wooden-sign-container visible-sign-btn" style="position: absolute; bottom: 35px; left: calc(50% - 130px); width: 260px; z-index: 100;">
+        <div class="wooden-board" style="padding: 8px; transform: rotate(1deg); background: linear-gradient(135deg, #a67c52 0%, #7c5d3f 100%);">
+          <div class="wood-rings"></div>
+          <button id="achievements-back-btn" class="wooden-sign-btn">
+            <span class="btn-leaf">🌿</span>
+            <span class="btn-text">Return to Playhouse</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MEDALLION DETAIL MODAL POPUP -->
+    <div id="medallion-modal" class="medallion-modal-overlay hidden">
+      <div class="medallion-modal-card">
+        <div class="wood-rings"></div>
+        <button id="medallion-modal-close" class="close-leaf-btn">🌿 Close Plaque</button>
+        
+        <div class="medallion-modal-header">
+          <div class="medallion-modal-glow-badge" id="modal-glow-badge">💮</div>
+          <h3 id="modal-badge-title">BADGE NAME</h3>
+        </div>
+        
+        <p id="modal-badge-desc" class="medallion-modal-desc">
+          Funny description
+        </p>
+        
+        <div class="medallion-modal-footer">
+          <span class="badge-status-stamp" id="modal-badge-status">UNLOCKED 💮</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script src="script.js?v=1.0.7"></script>
 </body>
 </html>

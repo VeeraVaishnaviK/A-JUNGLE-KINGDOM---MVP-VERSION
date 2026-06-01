@@ -4685,6 +4685,289 @@ body {
 }
 
 /* ==========================================================================
+   SCENE 10: ACHIEVEMENT TREE (Chapter 5)
+   ========================================================================== */
+
+#scene-achievements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  overflow: hidden;
+  background-color: #0b0c16;
+}
+
+.achievements-fixed-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_achievement_tree_bg.png') !important;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.achievements-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(200, 220, 255, 0.1) 0%, rgba(10, 12, 22, 0.5) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.achievements-grid-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.tree-canvas-wrapper {
+  position: relative;
+  width: 800px;
+  height: 560px;
+  z-index: 10;
+}
+
+.magical-tree-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  filter: drop-shadow(0 8px 16px rgba(10,8,6,0.3));
+}
+
+/* Medallion Badges Base Styles */
+.medallion-badge {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  margin-left: -33px; /* Center horizontally relative to coordinate */
+  margin-top: 0px;   /* Hangs straight down from the coordinate */
+  z-index: 20;
+  cursor: pointer;
+  transform-origin: top center;
+  animation: badgeSway 6s ease-in-out infinite alternate;
+}
+
+/* Add slight variations to swaying delays to feel organic */
+.medallion-badge:nth-child(even) {
+  animation-duration: 5.2s;
+  animation-delay: -1.2s;
+}
+.medallion-badge:nth-child(3n) {
+  animation-duration: 6.8s;
+  animation-delay: -0.4s;
+}
+.medallion-badge:nth-child(4n) {
+  animation-duration: 4.5s;
+  animation-delay: -2.1s;
+}
+
+@keyframes badgeSway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.medallion-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.2rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  position: relative;
+  border: 4px solid #543f2a;
+}
+
+/* Locked Medallion State */
+.medallion-badge.locked-badge .medallion-inner {
+  background: linear-gradient(135deg, #7c7c7c 0%, #4e4e4e 100%);
+  border-color: #3b3b3b;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.medallion-badge.locked-badge .badge-icon {
+  filter: grayscale(1) opacity(0.25);
+}
+
+.medallion-badge.locked-badge .badge-lock-char {
+  position: absolute;
+  font-family: var(--font-bubbly);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #c0c0c0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  display: block;
+}
+
+/* Unlocked Medallion State */
+.medallion-badge.unlocked-badge .medallion-inner {
+  background: linear-gradient(135deg, #ffd54f 0%, #ffb300 100%);
+  border-color: #ff8f00;
+  box-shadow: 0 0 15px rgba(255, 179, 0, 0.7), 0 6px 12px rgba(0,0,0,0.3);
+  animation: goldPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes goldPulse {
+  0% { box-shadow: 0 0 10px rgba(255, 179, 0, 0.5), 0 4px 8px rgba(0,0,0,0.3); }
+  100% { box-shadow: 0 0 25px rgba(255, 179, 0, 0.95), 0 8px 16px rgba(0,0,0,0.4); }
+}
+
+.medallion-badge.unlocked-badge .badge-icon {
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.medallion-badge.unlocked-badge .badge-lock-char {
+  display: none;
+}
+
+/* Medallion Hover Effects */
+.medallion-badge:hover {
+  animation-play-state: paused;
+  z-index: 30;
+}
+
+.medallion-badge:hover .medallion-inner {
+  transform: scale(1.18) rotate(3deg);
+  box-shadow: 0 0 30px rgba(255, 207, 84, 0.95), 0 12px 24px rgba(0,0,0,0.4);
+}
+
+.medallion-badge.locked-badge:hover .medallion-inner {
+  border-color: #555;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+  transform: scale(1.12);
+}
+
+/* Badge clicking/floating animation active */
+.medallion-badge.badge-spin-fly {
+  animation: none !important;
+  z-index: 100;
+  transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.medallion-badge.badge-spin-fly .medallion-inner {
+  transform: translateY(-80px) scale(1.4) rotate(720deg) !important;
+  box-shadow: 0 0 40px rgba(255, 207, 84, 1), 0 20px 40px rgba(0,0,0,0.5) !important;
+}
+
+/* Medallion Details Plaque Modal */
+.medallion-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 8, 18, 0.65);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease-out;
+}
+
+.medallion-modal-overlay.active-modal {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.medallion-modal-card {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #fffcf2 100%);
+  border: 5.5px solid var(--color-wood-light);
+  border-radius: 18px;
+  padding: 26px 32px;
+  width: 390px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+  animation: woodWiggle 5s ease-in-out infinite alternate;
+}
+
+.medallion-modal-overlay.active-modal .medallion-modal-card {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.medallion-modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.medallion-modal-glow-badge {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 8px rgba(255,179,0,0.4));
+  animation: floatMote 3s ease-in-out infinite alternate;
+}
+
+#modal-badge-title {
+  font-family: var(--font-bubbly);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0 #fff;
+  margin-top: 5px;
+}
+
+.medallion-modal-desc {
+  font-family: var(--font-storybook);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--color-text-brown);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.medallion-modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.badge-status-stamp {
+  font-family: var(--font-bubbly);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 5px 16px;
+  border-radius: 8px;
+  border: 2.5px solid #2d5a27;
+  color: #2d5a27;
+  background: #e8f5e9;
+  transform: rotate(-3deg);
+}
+
+.badge-status-stamp.locked-stamp {
+  border-color: #7c7c7c;
+  color: #7c7c7c;
+  background: #f5f5f5;
+  transform: rotate(2deg);
+}
+
+/* ==========================================================================
    MOBILE VIEWPORTS OVERRIDES FOR GHIBLI PLAYHOUSE & GAMES
    ========================================================================== */
 
@@ -4851,6 +5134,69 @@ body {
     font-size: 0.88rem;
     padding: 8px 18px;
     border-width: 2.5px;
+  }
+
+  /* Dual signs rack mobile query overrides */
+  .playhouse-nav-rack {
+    flex-direction: column !important;
+    gap: 8px !important;
+    bottom: 12px !important;
+    align-items: center;
+  }
+
+  #playhouse-return-sign,
+  #playhouse-tree-sign {
+    width: 190px !important;
+    position: static !important;
+    margin: 0 !important;
+  }
+
+  #playhouse-return-sign .wooden-sign-btn,
+  #playhouse-tree-sign .wooden-sign-btn {
+    font-size: 0.78rem !important;
+    padding: 6px 10px !important;
+  }
+
+  /* Achievement Tree Mobile scaling overrides */
+  #achievements-hub {
+    overflow: hidden;
+  }
+
+  .tree-canvas-wrapper {
+    transform: scale(0.48);
+    transform-origin: center center;
+    margin-top: -85px;
+    margin-bottom: -50px;
+  }
+
+  #achievements-return-sign {
+    width: 200px !important;
+    bottom: 25px !important;
+    left: calc(50% - 100px) !important;
+  }
+
+  #achievements-return-sign .wooden-sign-btn {
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
+  }
+
+  .medallion-modal-card {
+    width: 290px;
+    padding: 18px 20px;
+    border-width: 4px;
+  }
+
+  #modal-badge-title {
+    font-size: 1.1rem;
+  }
+
+  .medallion-modal-desc {
+    font-size: 0.78rem;
+    margin-bottom: 12px;
+  }
+
+  .medallion-modal-glow-badge {
+    font-size: 2.8rem;
   }
 }
 

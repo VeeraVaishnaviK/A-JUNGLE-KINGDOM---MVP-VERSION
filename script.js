@@ -282,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function triggerIncorrectSequence() {
+    window.triggeredDrama = true;
     attemptsRemaining--;
     attemptCounter.textContent = attemptsRemaining;
 
@@ -578,6 +579,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let surpriseNoClicked = false;
 
   surpriseNoBtn.addEventListener("click", () => {
+    window.triggeredDrama = true;
     if (surpriseNoClicked) return;
     surpriseNoClicked = true;
 
@@ -885,7 +887,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const celebrateBtn = document.getElementById("celebrate-btn");
 
     const memoryTriggers = document.querySelectorAll(".memory-trigger");
-    const viewedMemories = new Set();
+    const viewedMemories = window.friendshipViewedMemories || new Set();
+    window.friendshipViewedMemories = viewedMemories;
 
     // Map memory types to full handwritten story narratives and custom vector SVG doodles
     const memoryData = {
@@ -1539,6 +1542,37 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // Go to Achievement Tree click handler
+    const gotoTreeBtn = document.getElementById("playhouse-goto-tree-btn");
+    const sceneGames = document.getElementById("scene-games");
+    const sceneAchievements = document.getElementById("scene-achievements");
+
+    if (gotoTreeBtn) {
+      gotoTreeBtn.addEventListener("click", () => {
+        playClack();
+        triggerPetalConfetti(60);
+
+        setTimeout(() => {
+          sceneGames.classList.remove("active-scene");
+          sceneGames.style.opacity = 0;
+
+          setTimeout(() => {
+            sceneGames.classList.add("hidden");
+
+            sceneAchievements.classList.remove("hidden");
+            sceneAchievements.offsetHeight; // force reflow
+            sceneAchievements.style.opacity = 1;
+            sceneAchievements.classList.add("active-scene");
+
+            // Initialize Achievement Tree
+            if (window.initAchievementsSystem) {
+              window.initAchievementsSystem();
+            }
+          }, 1000);
+        }, 800);
+      });
+    }
+
     // Bind Hub selectors to trigger Game frames
     if (selectG1) {
       selectG1.addEventListener("click", () => {
@@ -1697,6 +1731,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 450);
 
       game1Score++;
+      window.game1Score = game1Score;
       updateG1Score();
 
       if (game1Score >= 20) {
@@ -1847,6 +1882,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => { el.remove(); }, 300);
 
         game2Score++;
+        window.game2Score = game2Score;
         updateG2Score();
 
         if (game2Score >= 20) {
@@ -2073,6 +2109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!o.cleared && o.x < buffaloLeft) {
           o.cleared = true;
           obstaclesCleared++;
+          window.game3Score = obstaclesCleared;
           updateG3Score();
         }
 
@@ -2198,6 +2235,179 @@ document.addEventListener("DOMContentLoaded", () => {
       if (bufRig) bufRig.classList.remove("trotting");
       const canvas = document.getElementById("g3-canvas-area");
       if (canvas) canvas.classList.remove("racing-active");
+    }
+  }
+
+  // ==========================================================================
+  // --- SCENE 10: CHAPTER 5: ACHIEVEMENT TREE MECHANICS ---
+  // ==========================================================================
+  window.initAchievementsSystem = function() {
+    const sceneAchievements = document.getElementById("scene-achievements");
+    const sceneGames = document.getElementById("scene-games");
+    const achievementsBackBtn = document.getElementById("achievements-back-btn");
+
+    const medallionModal = document.getElementById("medallion-modal");
+    const modalClose = document.getElementById("medallion-modal-close");
+    const modalGlowBadge = document.getElementById("modal-glow-badge");
+    const modalTitle = document.getElementById("modal-badge-title");
+    const modalDesc = document.getElementById("modal-badge-desc");
+    const modalStatus = document.getElementById("modal-badge-status");
+
+    // Initialize or update global achievements state
+    if (!window.achievementsState) {
+      window.achievementsState = {
+        panda: false,
+        gorilla: true, // Auto unlocked since they reached the peak to play games
+        buffalo: false,
+        friend: false,
+        goluk: false,
+        snack: false,
+        legend: true,  // Auto unlocked since they unlocked the password and clearing
+        drama: false
+      };
+    }
+
+    // Real-time dynamic game validations
+    if (window.game2Score >= 20) window.achievementsState.panda = true;
+    if (window.game3Score >= 15) window.achievementsState.buffalo = true;
+    if (window.friendshipViewedMemories && window.friendshipViewedMemories.size >= 6) {
+      window.achievementsState.friend = true;
+    }
+    if (window.game1Score >= 20) window.achievementsState.goluk = true;
+    if (window.game1Score >= 10) window.achievementsState.snack = true;
+    if (window.triggeredDrama) window.achievementsState.drama = true;
+
+    // Apply locked/unlocked classes to DOM medallion fruits
+    const badges = document.querySelectorAll(".medallion-badge");
+    badges.forEach(badge => {
+      const id = badge.id.replace("badge-", "");
+      const isUnlocked = window.achievementsState[id];
+
+      if (isUnlocked) {
+        badge.classList.remove("locked-badge");
+        badge.classList.add("unlocked-badge");
+      } else {
+        badge.classList.remove("unlocked-badge");
+        badge.classList.add("locked-badge");
+      }
+    });
+
+    // Medallion Click Handlers (cloned to refresh event listeners clean)
+    badges.forEach(badge => {
+      const newBadge = badge.cloneNode(true);
+      badge.parentNode.replaceChild(newBadge, badge);
+
+      newBadge.addEventListener("click", () => {
+        const id = newBadge.id.replace("badge-", "");
+        const isUnlocked = window.achievementsState[id];
+        const title = newBadge.getAttribute("data-title");
+        const desc = newBadge.getAttribute("data-desc");
+        const emoji = newBadge.getAttribute("data-icon");
+
+        playClack();
+
+        // Organic Ghibli wobbly spin/fly transition
+        newBadge.classList.add("badge-spin-fly");
+
+        setTimeout(() => {
+          // Open details wood modal
+          modalTitle.textContent = title;
+          modalDesc.innerHTML = desc;
+          modalGlowBadge.textContent = isUnlocked ? emoji : "🔒";
+
+          if (isUnlocked) {
+            modalStatus.textContent = "UNLOCKED 💮";
+            modalStatus.className = "badge-status-stamp";
+            playWin();
+          } else {
+            modalStatus.textContent = "LOCKED 🔒";
+            modalStatus.className = "badge-status-stamp locked-stamp";
+            playLose();
+          }
+
+          medallionModal.classList.remove("hidden");
+          setTimeout(() => {
+            medallionModal.classList.add("active-modal");
+          }, 50);
+
+        }, 400);
+
+        // Reset badge spin position
+        setTimeout(() => {
+          newBadge.classList.remove("badge-spin-fly");
+        }, 1200);
+      });
+    });
+
+    // Close wood modal
+    if (modalClose) {
+      modalClose.addEventListener("click", () => {
+        playClack();
+        medallionModal.classList.remove("active-modal");
+        setTimeout(() => {
+          medallionModal.classList.add("hidden");
+        }, 400);
+      });
+    }
+
+    // Return to Playhouse sign click
+    if (achievementsBackBtn) {
+      achievementsBackBtn.addEventListener("click", () => {
+        playClack();
+        triggerPetalConfetti(60);
+
+        setTimeout(() => {
+          sceneAchievements.classList.remove("active-scene");
+          sceneAchievements.style.opacity = 0;
+
+          setTimeout(() => {
+            sceneAchievements.classList.add("hidden");
+
+            sceneGames.classList.remove("hidden");
+            sceneGames.offsetHeight; // force reflow
+            sceneGames.style.opacity = 1;
+            sceneGames.classList.add("active-scene");
+          }, 1000);
+        }, 800);
+      });
+    }
+
+    // Spawn floating amber/lime forest fireflies
+    spawnTreeFireflies();
+  };
+
+  function spawnTreeFireflies() {
+    const hub = document.getElementById("achievements-hub");
+    if (!hub) return;
+
+    const existing = hub.querySelectorAll(".tree-firefly");
+    existing.forEach(f => f.remove());
+
+    const colors = ["rgba(255,235,59,0.7)", "rgba(139,195,74,0.6)", "rgba(255,207,84,0.65)"];
+
+    for (let i = 0; i < 22; i++) {
+      const f = document.createElement("div");
+      f.classList.add("tree-firefly");
+      f.style.position = "absolute";
+      f.style.width = `${4 + Math.random() * 4}px`;
+      f.style.height = f.style.width;
+      f.style.borderRadius = "50%";
+      f.style.background = colors[Math.floor(Math.random() * colors.length)];
+      f.style.pointerEvents = "none";
+      f.style.zIndex = "8";
+      
+      const x = Math.random() * 100;
+      const y = 15 + Math.random() * 70;
+      f.style.left = `${x}vw`;
+      f.style.top = `${y}vh`;
+
+      const delay = Math.random() * -10;
+      const duration = 8 + Math.random() * 8;
+      f.style.animation = `ghibliFloatLocked ${duration}s ease-in-out ${delay}s infinite alternate`;
+      f.style.filter = "blur(1px)";
+      f.style.boxShadow = `0 0 8px ${f.style.background}`;
+
+      hub.appendChild(f);
     }
   }
 
