@@ -1660,8 +1660,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Fly the food directly into mouth
         el.classList.add("food-fly-mouth");
-        el.style.left = "390px";
-        el.style.top = "410px";
+        if (boy) {
+          const targetLeft = boy.offsetLeft + (boy.offsetWidth / 2) - 25; // 25 is half of 50px food width
+          const targetTop = boy.offsetTop + 45; // mouth is around 45px down from the top of the boy
+          el.style.left = `${targetLeft}px`;
+          el.style.top = `${targetTop}px`;
+        } else {
+          el.style.left = "390px";
+          el.style.top = "410px";
+        }
         el.style.transform = "scale(0.2) rotate(360deg)";
         el.style.opacity = "0.2";
 
