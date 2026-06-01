@@ -2590,88 +2590,144 @@
             <div class="hug-video-fg">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" class="ghibli-hug-svg">
                 <defs>
-                  <linearGradient id="boySweaterGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#8caa46"/>
-                    <stop offset="100%" stop-color="#467a35"/>
+                  <!-- Ghibli skin tone gradient (peachy, soft highlight) -->
+                  <linearGradient id="skinBoy" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#fff5eb"/>
+                    <stop offset="70%" stop-color="#ffe3cf"/>
+                    <stop offset="100%" stop-color="#ffd0b3"/>
                   </linearGradient>
-                  <linearGradient id="girlDressGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#ff7b7b"/>
-                    <stop offset="100%" stop-color="#e53935"/>
+                  <linearGradient id="skinGirl" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fffbf7"/>
+                    <stop offset="70%" stop-color="#ffe8dc"/>
+                    <stop offset="100%" stop-color="#ffd5c2"/>
                   </linearGradient>
+                  
+                  <!-- Cozy Forest Green Sweater for the Boy -->
+                  <linearGradient id="sweaterGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#738f4d"/>
+                    <stop offset="40%" stop-color="#557033"/>
+                    <stop offset="100%" stop-color="#3d5225"/>
+                  </linearGradient>
+                  
+                  <!-- Warm Ghibli Red Pinafore Dress for the Girl -->
+                  <linearGradient id="dressGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ff7575"/>
+                    <stop offset="50%" stop-color="#e34848"/>
+                    <stop offset="100%" stop-color="#b82a2a"/>
+                  </linearGradient>
+
+                  <!-- Rich Ghibli Hair (soft chestnut brown) -->
                   <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#5d4037"/>
-                    <stop offset="100%" stop-color="#3e2723"/>
+                    <stop offset="0%" stop-color="#694f3d"/>
+                    <stop offset="60%" stop-color="#523c2e"/>
+                    <stop offset="100%" stop-color="#36251b"/>
                   </linearGradient>
-                  <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#fff0e0"/>
-                    <stop offset="100%" stop-color="#ffd8b3"/>
+
+                  <!-- Shadow overlay for skin -->
+                  <linearGradient id="skinShadow" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="transparent"/>
+                    <stop offset="80%" stop-color="rgba(197, 137, 105, 0.15)"/>
+                    <stop offset="100%" stop-color="rgba(197, 137, 105, 0.3)"/>
                   </linearGradient>
-                  <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
-                    <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
-                  </filter>
+
                   <filter id="blushBlur">
-                    <feGaussianBlur stdDeviation="2"/>
+                    <feGaussianBlur stdDeviation="3.5"/>
+                  </filter>
+                  
+                  <filter id="ghibliShadow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#140f0a" flood-opacity="0.25"/>
                   </filter>
                 </defs>
 
                 <!-- The Hugging Couple Group (sways wobblying together) -->
-                <g class="couple-sway" filter="url(#softShadow)">
+                <g class="couple-sway" filter="url(#ghibliShadow)">
                   
-                  <!-- 1. GIRL'S CASCADING BACK HAIR -->
-                  <path class="girl-back-hair" d="M 155,70 C 145,100 135,120 138,150 C 140,165 170,165 175,150 C 180,120 185,100 175,70 Z" fill="url(#hairGrad)" />
-
-                  <!-- 2. BOY'S BACK HAIR -->
-                  <path class="boy-back-hair" d="M 90,65 C 80,85 75,110 82,130 C 85,135 105,135 102,120 C 100,105 105,85 110,65 Z" fill="url(#hairGrad)" />
-
-                  <!-- 3. BOY'S BODY / SWEATER -->
-                  <path class="boy-body" d="M 85,130 C 70,135 60,150 60,180 L 140,180 C 135,155 125,135 105,130 Z" fill="url(#boySweaterGrad)" stroke="#273f1b" stroke-width="3" stroke-linecap="round" />
-
-                  <!-- 4. GIRL'S BODY / DRESS -->
-                  <path class="girl-body" d="M 140,130 C 120,135 115,155 110,180 L 195,180 C 195,150 180,135 160,130 Z" fill="url(#girlDressGrad)" stroke="#5f1515" stroke-width="3" stroke-linecap="round" />
-
-                  <!-- 5. BOY'S HEAD -->
-                  <path class="boy-head" d="M 88,110 C 88,85 102,70 120,74 C 138,78 142,95 138,115 C 134,130 115,132 100,125 C 90,120 88,115 88,110 Z" fill="url(#skinGrad)" stroke="#3e2723" stroke-width="3" stroke-linecap="round" />
-
-                  <!-- Boy's blushing cheek -->
-                  <ellipse cx="104" cy="106" rx="10" ry="7" fill="#ff8a80" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse" />
-
-                  <!-- Boy's Eye (closed happy arc) -->
-                  <path d="M 108,94 C 110,91 114,91 116,94" fill="none" stroke="#3e2723" stroke-width="3.5" stroke-linecap="round" />
+                  <!-- ==========================================
+                       1. BACK HAIR LAYERS & PIGTAILS (Girl)
+                       ========================================== -->
+                  <!-- Girl's Left Low Pigtail -->
+                  <g class="girl-left-pigtail">
+                    <path d="M 172,98 C 185,92 202,96 205,108 C 208,122 192,130 180,122 C 172,116 170,105 172,98 Z" fill="url(#hairGrad)" stroke="#2b1c14" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M 173,98 C 171,94 178,92 179,96 C 180,100 174,102 173,98 Z" fill="#e34848" stroke="#2b1c14" stroke-width="1.5"/>
+                  </g>
                   
-                  <!-- Boy's Smile -->
-                  <path d="M 118,106 C 116,112 110,112 108,108" fill="none" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
-
-                  <!-- Boy's front hair (bangs) -->
-                  <path class="boy-front-hair" d="M 86,100 C 84,90 90,75 105,70 C 120,65 138,72 138,72 C 138,72 132,82 125,82 C 118,82 114,88 110,88 C 104,88 98,96 98,96 C 98,96 94,92 86,100 Z" fill="url(#hairGrad)" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
-
-                  <!-- 6. GIRL'S HEAD -->
-                  <path class="girl-head" d="M 132,108 C 128,95 130,80 145,72 C 160,64 178,74 180,95 C 182,112 170,128 152,126 C 140,125 134,118 132,108 Z" fill="url(#skinGrad)" stroke="#3e2723" stroke-width="3" stroke-linecap="round" />
-
-                  <!-- Girl's blushing cheek -->
-                  <ellipse cx="160" cy="100" rx="10" ry="7" fill="#ff8a80" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse" />
-
-                  <!-- Girl's Eye (closed happy arc) -->
-                  <path d="M 148,90 C 150,87 154,87 156,90" fill="none" stroke="#3e2723" stroke-width="3.5" stroke-linecap="round" />
-
-                  <!-- Girl's Smile -->
-                  <path d="M 142,100 C 145,104 150,104 152,101" fill="none" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
-
-                  <!-- Girl's front hair -->
-                  <path class="girl-front-hair" d="M 132,95 C 132,85 138,72 152,68 C 166,64 182,75 182,85 C 182,85 178,92 170,92 C 162,92 158,98 152,98 C 146,98 140,102 140,102 Z" fill="url(#hairGrad)" stroke="#3e2723" stroke-width="2.5" stroke-linecap="round" />
-
-                  <!-- Cute Red Hair Ribbon on Girl -->
-                  <g class="girl-ribbon" transform="translate(172, 72) rotate(15)">
-                    <path d="M -8,-6 C -12,-15 -2,-18 0,-8 C 2,-18 12,-15 8,-6 C 4,2 -4,2 -8,-6 Z" fill="#ff3d00" stroke="#3e2723" stroke-width="1.5" />
-                    <circle cx="0" cy="-6" r="3" fill="#ffe082" stroke="#3e2723" stroke-width="1.5" />
+                  <!-- Girl's Right Low Pigtail (peeking from behind back) -->
+                  <g class="girl-right-pigtail">
+                    <path d="M 132,108 C 120,102 108,106 105,116 C 102,126 114,134 125,128 C 132,122 134,114 132,108 Z" fill="url(#hairGrad)" stroke="#2b1c14" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M 131,108 C 133,104 126,102 125,106 C 124,110 130,112 131,108 Z" fill="#e34848" stroke="#2b1c14" stroke-width="1.5"/>
                   </g>
 
-                  <!-- 7. BOY'S HUGGING ARM -->
-                  <path class="boy-arm" d="M 80,140 C 95,140 120,135 145,142 C 152,144 158,150 156,156 C 154,162 145,160 135,158 C 115,154 95,156 82,160 Z" fill="url(#boySweaterGrad)" stroke="#273f1b" stroke-width="3" stroke-linecap="round" />
-                  <circle cx="152" cy="152" r="5" fill="#ffd8b3" stroke="#3e2723" stroke-width="2.5" />
+                  <!-- Boy's back hair strands -->
+                  <path class="boy-back-hair" d="M 85,85 C 72,102 76,128 92,138 C 96,141 106,134 100,124 C 95,114 98,96 102,85 Z" fill="url(#hairGrad)" stroke="#2b1c14" stroke-width="2"/>
 
-                  <!-- 8. GIRL'S HUGGING ARM -->
-                  <path class="girl-arm" d="M 170,140 C 150,132 120,122 104,124 C 98,125 94,130 96,136 C 98,142 106,142 115,140 C 130,138 155,146 165,152 Z" fill="url(#girlDressGrad)" stroke="#5f1515" stroke-width="3" stroke-linecap="round" />
-                  <circle cx="100" cy="128" r="5" fill="#ffd8b3" stroke="#3e2723" stroke-width="2.5" />
+                  <!-- ==========================================
+                       2. BODIES & CLOTHING LAYERS
+                       ========================================== -->
+                  <!-- Boy's Chubby Body (Green Sweater) -->
+                  <g class="boy-body-group">
+                    <path d="M 90,130 C 72,134 52,148 48,180 L 140,180 C 136,155 125,134 108,130 Z" fill="url(#sweaterGrad)" stroke="#202e11" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M 68,148 C 62,154 60,165 58,178" fill="none" stroke="#2b3d17" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 124,146 C 128,153 130,165 132,178" fill="none" stroke="#2b3d17" stroke-width="2" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- Girl's Chubby Body (Red Dress) -->
+                  <g class="girl-body-group">
+                    <path d="M 140,130 C 145,124 165,124 170,130 Z" fill="#fffbf7" stroke="#2b1c14" stroke-width="2.5"/>
+                    <path d="M 142,130 C 122,134 116,152 110,180 L 198,180 C 196,152 182,134 162,130 Z" fill="url(#dressGrad)" stroke="#521515" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M 126,148 C 122,156 120,166 118,178" fill="none" stroke="#661c1c" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M 180,146 C 184,154 186,166 188,178" fill="none" stroke="#661c1c" stroke-width="2.5" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- ==========================================
+                       3. BOY'S HEAD & FACE
+                       ========================================== -->
+                  <g class="boy-head-group">
+                    <path d="M 88,110 C 86,92 98,72 120,74 C 136,76 142,92 138,112 C 135,126 122,129 105,125 C 92,122 88,116 88,110 Z" fill="url(#skinBoy)" stroke="#4d3319" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M 90,92 C 92,86 106,78 122,80 C 134,81 138,88 138,88 C 134,84 120,80 106,84 C 96,87 91,92 90,92 Z" fill="rgba(197, 137, 105, 0.2)"/>
+                    <path d="M 88,96 C 82,96 82,106 88,104 Z" fill="url(#skinBoy)" stroke="#4d3319" stroke-width="2.5"/>
+                    <ellipse cx="106" cy="108" rx="12" ry="8" fill="#ff7070" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse"/>
+                    <path d="M 108,95 C 111,92 116,92 119,95" fill="none" stroke="#4d3319" stroke-width="3.5" stroke-linecap="round" class="boy-eye"/>
+                    <path d="M 119,95 L 121,97" fill="none" stroke="#4d3319" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 125,100 L 127,103 L 125,103" fill="none" stroke="#4d3319" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M 115,110 C 112,113 108,112 106,109" fill="none" stroke="#4d3319" stroke-width="2.5" stroke-linecap="round"/>
+                    <path class="boy-front-hair" d="M 86,96 C 82,85 88,72 105,68 C 122,64 139,70 139,70 C 139,70 132,78 124,78 C 116,78 112,84 108,84 C 102,84 96,92 96,92 Z" fill="url(#hairGrad)" stroke="#2b1c14" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M 102,72 C 108,68 120,68 128,71" fill="none" stroke="rgba(255, 235, 204, 0.15)" stroke-width="3" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- ==========================================
+                       4. GIRL'S HEAD & FACE
+                       ========================================== -->
+                  <g class="girl-head-group">
+                    <path d="M 132,108 C 126,94 132,78 148,72 C 164,66 178,76 180,96 C 182,112 170,126 154,125 C 140,124 134,118 132,108 Z" fill="url(#skinGirl)" stroke="#4d3319" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M 178,98 C 184,98 184,106 178,105 Z" fill="url(#skinGirl)" stroke="#4d3319" stroke-width="2.5"/>
+                    <ellipse cx="160" cy="102" rx="12" ry="8" fill="#ff7070" opacity="0.65" filter="url(#blushBlur)" class="blush-pulse"/>
+                    <path d="M 148,91 C 151,88 156,88 159,91" fill="none" stroke="#4d3319" stroke-width="3.5" stroke-linecap="round" class="girl-eye"/>
+                    <path d="M 148,91 L 146,93" fill="none" stroke="#4d3319" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 143,101 C 146,105 151,104 153,101" fill="none" stroke="#4d3319" stroke-width="3" stroke-linecap="round"/>
+                    <path class="girl-front-hair" d="M 132,92 C 130,82 138,70 152,66 C 166,62 181,72 181,82 C 181,82 176,88 168,88 C 160,88 156,94 150,94 C 144,94 138,98 138,98 Z" fill="url(#hairGrad)" stroke="#2b1c14" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M 146,70 C 154,66 166,66 172,70" fill="none" stroke="rgba(255, 235, 204, 0.15)" stroke-width="3" stroke-linecap="round"/>
+                  </g>
+
+                  <!-- ==========================================
+                       5. ARMS & HANDS (THE EMBRACE)
+                       ========================================== -->
+                  <!-- Boy's Cozy Hugging Arm -->
+                  <g class="boy-arm-group">
+                    <path class="boy-arm" d="M 78,142 C 92,142 118,136 146,143 C 154,145 160,150 158,157 C 155,163 146,161 136,159 C 114,155 94,157 80,161 Z" fill="url(#sweaterGrad)" stroke="#202e11" stroke-width="3" stroke-linejoin="round"/>
+                    <g class="boy-hand" transform="translate(152, 150)">
+                      <circle cx="2" cy="2" r="5.5" fill="url(#skinBoy)" stroke="#4d3319" stroke-width="2.5"/>
+                      <circle cx="-1" cy="4" r="4" fill="url(#skinBoy)" stroke="#4d3319" stroke-width="2"/>
+                    </g>
+                  </g>
+
+                  <!-- Girl's Cozy Hugging Arm -->
+                  <g class="girl-arm-group">
+                    <path class="girl-arm" d="M 172,138 C 152,131 122,121 106,123 C 98,124 94,129 96,136 C 98,142 106,142 115,140 C 130,138 156,146 166,152 Z" fill="url(#dressGrad)" stroke="#521515" stroke-width="3" stroke-linejoin="round"/>
+                    <g class="girl-hand" transform="translate(100, 126)">
+                      <circle cx="0" cy="2" r="5.5" fill="url(#skinGirl)" stroke="#4d3319" stroke-width="2.5"/>
+                      <circle cx="3" cy="4" r="4" fill="url(#skinGirl)" stroke="#4d3319" stroke-width="2"/>
+                    </g>
+                  </g>
 
                 </g>
               </svg>

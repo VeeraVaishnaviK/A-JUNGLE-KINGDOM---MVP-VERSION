@@ -5290,6 +5290,27 @@ body {
   transform-origin: 152px 126px;
 }
 
+/* Girl's pigtail flutters */
+@keyframes pigtailLeftFlutter {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(6deg) translateY(-1px); }
+  100% { transform: rotate(0deg); }
+}
+.girl-left-pigtail {
+  animation: pigtailLeftFlutter 3.2s ease-in-out infinite;
+  transform-origin: 173px 98px;
+}
+
+@keyframes pigtailRightFlutter {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-6deg) translateY(-1px); }
+  100% { transform: rotate(0deg); }
+}
+.girl-right-pigtail {
+  animation: pigtailRightFlutter 3.4s ease-in-out infinite;
+  transform-origin: 131px 108px;
+}
+
 .hug-hearts-float {
   position: absolute;
   top: 0;
