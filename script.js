@@ -2685,11 +2685,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!panda || !gorilla || !buffalo || !boy) return;
 
-    // Reset positions and elements
+    // Reset positions and elements with clean responsive percentage bases
     panda.style.transition = "none";
     gorilla.style.transition = "none";
-    panda.style.left = "40px";
-    gorilla.style.left = "110px";
+    panda.style.left = "8%";
+    gorilla.style.left = "22%";
     panda.textContent = "🐼";
     gorilla.textContent = "🦍";
     buffalo.textContent = "🐃";
@@ -2700,34 +2700,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Skit Loop Trigger
     finalSkitTimeout = setTimeout(() => {
-      // 1. Panda steals cake and runs!
+      // 1. Panda steals cake and runs past center!
       panda.textContent = "🐼🎂"; // carrying cake!
       table.textContent = "";    // empty table!
       
-      panda.style.transition = "left 3s linear";
-      panda.style.left = "380px"; // runs right!
+      panda.style.transition = "left 3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      panda.style.left = "65%"; // runs to 65% width
 
       setTimeout(() => {
-        // 2. Gorilla is angry and chases panda!
+        // 2. Gorilla gets angry and chases panda!
         gorilla.textContent = "🦍💢";
-        gorilla.style.transition = "left 2.5s linear";
-        gorilla.style.left = "350px"; 
+        gorilla.style.transition = "left 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+        gorilla.style.left = "55%"; // chases right behind panda
 
-        // Buffalo thumps chest wobbly!
+        // Buffalo thumps/dances in wobbly jig!
         buffalo.classList.add("buffalo-jig");
 
         setTimeout(() => {
-          // 3. Boy gets a piece and chews happily!
+          // 3. Boy chews cake slice happily!
           boy.textContent = "👦🍰";
           boy.classList.add("boy-happy-wiggle");
 
           // 4. Panda and Gorilla run off-screen together
-          panda.style.transition = "left 1.5s ease-in";
-          panda.style.left = "850px";
+          panda.style.transition = "left 1.8s ease-in";
+          panda.style.left = "135%";
 
           setTimeout(() => {
-            gorilla.style.transition = "left 1.5s ease-in";
-            gorilla.style.left = "850px";
+            gorilla.style.transition = "left 1.8s ease-in";
+            gorilla.style.left = "135%";
+
 
             // Restart skit sequence loop after 5 seconds of peace
             setTimeout(runJungleSkit, 5000);
