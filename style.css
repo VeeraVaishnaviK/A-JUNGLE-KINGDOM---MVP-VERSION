@@ -203,6 +203,8 @@ body {
   width: 90%;
   max-width: 600px;
   margin-top: 15px;
+  margin-left: auto !important;
+  margin-right: auto !important;
   z-index: 10;
   filter: drop-shadow(0 12px 20px rgba(70, 52, 35, 0.18));
   animation: softBobScroll 4s ease-in-out infinite alternate;
@@ -1487,7 +1489,7 @@ body {
   box-shadow: var(--soft-shadow);
 }
 
-.page-left {
+.page-side.page-left {
   left: 0;
   border-right: none;
   border-radius: 12px 0 0 12px;
@@ -1497,7 +1499,7 @@ body {
   justify-content: center;
 }
 
-.page-right {
+.page-side.page-right {
   right: 0;
   border-left: none;
   border-radius: 0 12px 12px 0;
@@ -1512,7 +1514,7 @@ body {
   transition: transform 1.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-.page-turn-active .page-right {
+.page-turn-active .page-side.page-right {
   transform: rotateY(0deg); /* Swings open like a real book */
 }
 
@@ -2171,6 +2173,19 @@ body {
   transform: scale(1.1) rotate(2deg);
 }
 
+.polaroid-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.polaroid-item:hover .polaroid-picture img {
+  transform: scale(1.08) rotate(1deg);
+}
+
+
 /* Luggage Caption Tags */
 .luggage-tag {
   position: absolute;
@@ -2310,7 +2325,7 @@ body {
   transform-style: preserve-3d !important;
 }
 
-#nursery-book-page .page-right {
+#nursery-book-page .page-side.page-right {
   padding: 12px 14px !important;
   display: flex !important;
   align-items: center !important;
@@ -2339,7 +2354,7 @@ body {
 }
 
 /* Swings open like a real book, translateZ fixes WebKit depth rendering bugs */
-#scene-baby-rejo .page-turn-active .page-right {
+#scene-baby-rejo .page-turn-active .page-side.page-right {
   transform: rotateY(0deg) translateZ(0.5px) !important;
 }
 
@@ -2400,7 +2415,7 @@ body {
     left: calc(50% - 165px) !important; /* Recenter mobile card */
     top: 13% !important;
   }
-  #nursery-book-page .page-right {
+  #nursery-book-page .page-side.page-right {
     padding: 8px 10px !important;
   }
   #nursery-book-page .nursery-intro-text {
@@ -2732,7 +2747,7 @@ body {
 /* 9. Winding Mountain Checkpoints */
 .mountain-checkpoint {
   position: absolute;
-  width: 146px;
+  width: 190px;
   z-index: 15;
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.28), opacity 0.6s ease-out;
 }
@@ -2769,10 +2784,10 @@ body {
 
 .mountain-checkpoint .polaroid-frame {
   background: var(--color-paper-light);
-  border: 4.5px solid var(--color-cream);
-  border-radius: 12px;
-  padding: 8px 8px 24px 8px;
-  box-shadow: 0 10px 22px rgba(80, 55, 35, 0.2);
+  border: 5.5px solid var(--color-cream);
+  border-radius: 14px;
+  padding: 10px 10px 28px 10px;
+  box-shadow: 0 12px 28px rgba(80, 55, 35, 0.22);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -2782,9 +2797,9 @@ body {
 
 .mountain-checkpoint .polaroid-picture {
   width: 100%;
-  height: 110px;
+  height: 155px;
   background-color: #faf7f0;
-  border-radius: 6px;
+  border-radius: 8px;
   border: 2px solid #ebdcb9;
   box-shadow: inset 0 2px 5px rgba(90, 66, 45, 0.08);
   position: relative;
@@ -2794,21 +2809,33 @@ body {
   justify-content: center;
 }
 
+.mountain-checkpoint .polaroid-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
 .mountain-checkpoint .chk-label {
   font-family: var(--font-bubbly);
-  font-size: 0.65rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--color-text-brown);
   text-shadow: 1px 1px 0 #fff;
   text-align: center;
-  margin-top: 6px;
-  line-height: 1.1;
+  margin-top: 8px;
+  line-height: 1.2;
 }
 
 .mountain-checkpoint:hover .polaroid-frame {
   transform: scale(1.08) rotate(0deg) !important;
   z-index: 50;
-  box-shadow: 0 15px 30px rgba(80, 55, 35, 0.3);
+  box-shadow: 0 18px 36px rgba(80, 55, 35, 0.32);
+}
+
+.mountain-checkpoint:hover .polaroid-picture img {
+  transform: scale(1.08) rotate(1deg);
 }
 
 /* 10. Plump Ghibli Achievement Wood Stamps */
@@ -2903,22 +2930,22 @@ body {
   }
 
   .mountain-checkpoint {
-    width: 90px;
+    width: 125px;
   }
   
   .mountain-checkpoint .polaroid-frame {
-    padding: 5px 5px 14px 5px;
+    padding: 6px 6px 18px 6px;
     border-width: 3px;
     border-radius: 8px;
   }
   
   .mountain-checkpoint .polaroid-picture {
-    height: 70px;
+    height: 100px;
   }
   
   .mountain-checkpoint .chk-label {
-    font-size: 0.45rem;
-    margin-top: 3px;
+    font-size: 0.62rem;
+    margin-top: 4px;
   }
   
   .ink-stamp {
@@ -3175,6 +3202,33 @@ body {
   justify-content: center;
 }
 
+.hanging-polaroid .polaroid-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.hanging-polaroid:hover .polaroid-picture img {
+  transform: scale(1.08) rotate(1.2deg);
+}
+
+.doodle-container img.modal-big-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3.5px solid var(--color-wood-light);
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(80, 55, 35, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.doodle-container img.modal-big-photo:hover {
+  transform: scale(1.04);
+}
+
 .hanging-polaroid:hover .polaroid-frame {
   box-shadow: 0 18px 36px rgba(80, 55, 35, 0.32);
 }
@@ -3212,8 +3266,8 @@ body {
 
 .memory-book-card {
   position: relative;
-  width: 640px;
-  height: 390px;
+  width: 720px;
+  height: 450px;
   transform-style: preserve-3d;
   perspective: 1500px;
   display: flex;
@@ -3238,7 +3292,7 @@ body {
   box-shadow: inset 0 0 25px rgba(93, 70, 48, 0.08);
 }
 
-.page-left {
+.book-page.page-left {
   border-right: none;
   border-radius: 16px 0 0 16px;
   background: linear-gradient(to right, #eeddbd 0%, var(--color-paper-light) 12%);
@@ -3247,7 +3301,12 @@ body {
   justify-content: center;
 }
 
-.page-right {
+.book-page.page-left .page-parchment {
+  justify-content: center;
+  align-items: center;
+}
+
+.book-page.page-right {
   border-left: none;
   border-radius: 0 16px 16px 0;
   background: linear-gradient(to left, #eeddbd 0%, var(--color-paper-light) 12%);
@@ -3303,8 +3362,8 @@ body {
 }
 
 .doodle-container {
-  width: 170px;
-  height: 170px;
+  width: 260px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3332,13 +3391,22 @@ body {
 
 .memory-caption-content {
   font-family: var(--font-storybook);
-  font-size: 1.16rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--color-text-brown);
   text-shadow: 1px 1px 0px rgba(255,255,255,0.7);
-  line-height: 1.48;
+  line-height: 1.45;
   text-align: center;
   margin: auto 0;
+}
+
+.memory-caption-content em {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: #b75c3d;
+  font-style: italic;
+  font-weight: 700;
 }
 
 .memory-footer-sig {
@@ -3665,7 +3733,7 @@ body {
     width: 100%;
   }
   
-  .page-left {
+  .book-page.page-left {
     height: 44%;
     border-right: 7px solid var(--color-wood-light);
     border-bottom: none;
@@ -3673,7 +3741,7 @@ body {
     background: linear-gradient(to bottom, #eeddbd 0%, var(--color-paper-light) 12%);
   }
   
-  .page-right {
+  .book-page.page-right {
     height: 56%;
     border-left: 7px solid var(--color-wood-light);
     border-top: none;
@@ -3683,8 +3751,8 @@ body {
   }
   
   .doodle-container {
-    width: 110px;
-    height: 110px;
+    width: 145px;
+    height: 145px;
   }
   
   .decor-stamp {
@@ -3710,6 +3778,10 @@ body {
   .memory-caption-content {
     font-size: 0.8rem;
     line-height: 1.4;
+  }
+  .memory-caption-content em {
+    font-size: 0.74rem;
+    margin-top: 6px;
   }
   
   .memory-footer-sig {
@@ -3773,7 +3845,29 @@ body {
 }
 
 /* Warning / Secret Signboard in Chapter 3 */
+.warning-wood-sign {
+  position: relative !important;
+  bottom: auto !important;
+  left: auto !important;
+  top: auto !important;
+  width: 250px !important;
+  height: auto !important;
+  margin: 25px auto 60px auto !important;
+  z-index: 85 !important;
+  animation: none !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.warning-wood-sign .vine {
+  display: none !important;
+}
+
 .warning-wood-sign .wooden-board {
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
   background: linear-gradient(135deg, #a63a2b 0%, #7c2b20 100%) !important;
   border-color: #5c1b12 !important;
   box-shadow: 0 8px 16px rgba(92, 27, 18, 0.25) !important;
@@ -3819,7 +3913,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('assets/ghibli_detective_office_bg.png') !important;
+  background-image: url('assets/detective_office_bg_new.png') !important;
   background-size: cover;
   background-position: center center;
   z-index: 1;
@@ -3845,6 +3939,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 5;
+  background-image: none !important;
 }
 
 /* Wall Cork Board */
@@ -4045,17 +4140,11 @@ body {
 /* Mobile Media Queries for Scene 8 */
 @media (max-width: 600px) {
   .detective-corkboard {
-    width: 140px;
-    height: 98px;
-    top: 14%;
-    left: 4%;
+    display: none !important;
   }
 
   .detective-cabinet {
-    width: 76px;
-    height: 130px;
-    bottom: 80px;
-    right: 4%;
+    display: none !important;
   }
 
   .detective-center-wrapper {
@@ -5425,6 +5514,199 @@ body {
   8% { opacity: 0.95; }
   92% { opacity: 0.95; }
   100% { transform: translateY(-15vh) translateX(var(--sway)) scale(1.1); opacity: 0; }
+}
+/* ==========================================================================
+   PRE-FINALE CINEMATIC SEQUENCE (Chapter 6 Bridge Cinema)
+   ========================================================================== */
+
+#scene-cinema {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 12;
+  overflow: hidden;
+  background-color: #03040a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.cinema-fixed-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/ghibli_lantern_river_bg.png') !important;
+  background-size: cover;
+  background-position: center center;
+  z-index: 1;
+  pointer-events: none;
+  animation: zoomBg 28s ease-in-out infinite alternate;
+}
+
+@keyframes zoomBg {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
+
+.cinema-river-shimmer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(255, 235, 180, 0.1) 0%, transparent 100%);
+  mix-blend-mode: color-dodge;
+  pointer-events: none;
+  z-index: 2;
+  animation: riverShimmer 8s ease-in-out infinite alternate;
+}
+
+.cinema-moonlight-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(220, 235, 255, 0.15) 0%, rgba(3, 4, 10, 0.65) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.cinema-box {
+  background: linear-gradient(135deg, var(--color-paper-light) 0%, #fffef6 100%);
+  border: 6px solid var(--color-wood-light);
+  border-radius: 24px;
+  padding: 20px;
+  width: 600px;
+  text-align: center;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+  transform: rotate(0.4deg);
+  animation: woodWiggle 5s ease-in-out infinite alternate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.cinema-video-frame {
+  position: relative;
+  width: 100%;
+  height: 330px;
+  border: 4.5px solid var(--color-wood-dark);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.95), 0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: rotate(-0.2deg);
+}
+
+.cinema-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cinema-particle-flare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  mix-blend-mode: screen;
+}
+
+.cinema-subtitles {
+  width: 100%;
+  margin-top: 18px;
+  min-height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cinema-sub-line {
+  font-family: var(--font-storybook);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-text-brown);
+  text-shadow: 1px 1px 0px #fff;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: none;
+}
+
+.cinema-sub-line.visible-sub {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cinema-flash-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 100;
+  transition: opacity 2.8s ease-in-out;
+}
+
+.cinema-flash-overlay.flashing {
+  opacity: 1;
+}
+
+/* Floating sparkles triggered at hug */
+.cinema-sparkle {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+  font-size: 1.5rem;
+  animation: cinemaSparkleAnim 2s ease-out forwards;
+}
+
+@keyframes cinemaSparkleAnim {
+  0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.95; }
+  100% { transform: translate(var(--dx), var(--dy)) scale(var(--scale)) rotate(var(--rot)); opacity: 0; }
+}
+
+/* Mobile optimizations for Cinema Scene */
+@media (max-width: 600px) {
+  #scene-cinema {
+    padding: 12px;
+  }
+  
+  .cinema-box {
+    width: 310px;
+    padding: 12px;
+    border-width: 4px;
+    border-radius: 16px;
+  }
+  
+  .cinema-video-frame {
+    height: 180px;
+    border-width: 3px;
+    border-radius: 10px;
+  }
+  
+  .cinema-sub-line {
+    font-size: 0.92rem;
+  }
 }
 
 /* ==========================================================================

@@ -2,7 +2,7 @@
    Studio Ghibli Opening, Password, & Gorilla Scene Script — Story Coordinator
    ========================================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+const initAllGhibliJungle = () => {
   // ==========================================================================
   // --- DOM Element Selectors (Shared & Scene 1) ---
   // ==========================================================================
@@ -876,6 +876,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- SCENE 7: CHAPTER 3: FRIENDSHIP FOREST MECHANICS ---
   // ==========================================================================
   function initFriendshipForest() {
+    if (window.friendshipForestInitialized) return;
+    window.friendshipForestInitialized = true;
+
     const memoryModal = document.getElementById("memory-card-modal");
     const modalDoodle = document.getElementById("modal-doodle");
     const modalCaption = document.getElementById("modal-caption-text");
@@ -890,89 +893,39 @@ document.addEventListener("DOMContentLoaded", () => {
     const viewedMemories = window.friendshipViewedMemories || new Set();
     window.friendshipViewedMemories = viewedMemories;
 
-    // Map memory types to full handwritten story narratives and custom vector SVG doodles
+    // Map memory types to full handwritten story narratives and original jpegs display tags
     const memoryData = {
-      study: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <rect x="25" y="80" width="70" height="15" rx="3" fill="#a67c52" stroke="#5d4037" stroke-width="2" />
-          <rect x="35" y="48" width="22" height="32" fill="#b3e5fc" stroke="#5d4037" stroke-width="1.8" rx="2" transform="rotate(-15 46 64)" />
-          <rect x="62" y="48" width="22" height="32" fill="#ffab91" stroke="#5d4037" stroke-width="1.8" rx="2" transform="rotate(12 73 64)" />
-          <line x1="28" y1="40" x2="92" y2="104" stroke="#ff5252" stroke-width="6" stroke-linecap="round" />
-          <line x1="92" y1="40" x2="28" y2="104" stroke="#ff5252" stroke-width="6" stroke-linecap="round" />
-          <circle cx="60" cy="72" r="3.5" fill="#ffd15c" />
-        </svg>`,
-        caption: "The Day We Planned To Study And Did Absolutely Nothing 📚❌<br><br>Parchment records reveal that we gathered five massive textbooks, booted up two laptops, opened empty files... and spent the next seven hours debating what species of panda was the roundest and ordering delivery food. Zero pages of study were completed, but a record level of Ghibli forest laughter was achieved!"
+      first_selfie: {
+        doodle: `<img src="assets/rs9.jpeg" class="modal-big-photo" alt="Our 1st Selfie" />`,
+        caption: "<strong>Our Very First Selfie 📸❤️</strong><br><br>The historical archive where it all began—our very first selfie together! Looking back, we were a little shy but had the warmest smiles, entirely unaware of the beautiful, chaotic, and magical journey of friendship that lay ahead of us. This simple picture holds the spark of a thousand memories.<br><br><em>\"Every beautiful story has a small, simple beginning.\"</em>"
       },
-      crime: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <circle cx="42" cy="70" r="14" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
-          <circle cx="78" cy="70" r="14" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
-          <circle cx="42" cy="50" r="10" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
-          <circle cx="78" cy="50" r="10" fill="url(#panda-body-grad)" stroke="#36291b" stroke-width="1.5" />
-          <circle cx="37" cy="42" r="4.5" fill="#36291b" />
-          <circle cx="83" cy="42" r="4.5" fill="#36291b" />
-          <circle cx="47" cy="42" r="4.5" fill="#36291b" />
-          <circle cx="73" cy="42" r="4.5" fill="#36291b" />
-          <path d="M 48,58 Q 60,45 72,58" fill="none" stroke="#36291b" stroke-width="4.5" stroke-linecap="round" />
-          <circle cx="60" cy="48" r="4.5" fill="#ff7e42" />
-        </svg>`,
-        caption: "Partners In Crime 🤝<br><br>An official entry log of infinite forest chaos! From laughing at screen stickers in the middle of extremely quiet rooms to coordinating classified birthday operations, we have proven that whenever two round pandas unite, absolute mischief is inevitable. The kingdom wouldn't be half as cozy without our shared chaos!"
+      pondy: {
+        doodle: `<img src="assets/rs4.jpeg" class="modal-big-photo" alt="Pondy Trip" />`,
+        caption: "<strong>Pondy Trip (Boat Ride) ⛵🌊</strong><br><br>The serene boat ride during our memorable trip to Pondicherry. Drifting along the calm waters, wind in our hair, and endless banter under the golden sun. The ocean felt vast that day, but our shared laughter made it feel like our own cozy little harbor.<br><br><em>\"A good friend is like a calm harbor in a vast, stormy sea.\"</em>"
       },
-      grass: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <path d="M 15,95 C 40,80 80,80 105,95 Z" fill="#8caa46" stroke="#2d5a27" stroke-width="2" />
-          <path d="M 45,95 L 60,65 L 75,95 Z" fill="#ffcf54" stroke="#5d4630" stroke-width="1.5" />
-          <path d="M 60,95 L 60,78" stroke="#5d4630" stroke-width="2.5" />
-          <path d="M 28,88 Q 23,76 18,88 M 28,88 Q 28,74 28,88 M 28,88 Q 33,76 38,88" fill="none" stroke="#2d5a27" stroke-width="2.2" stroke-linecap="round" />
-          <path d="M 88,88 Q 83,76 78,88 M 88,88 Q 88,74 88,88 M 88,88 Q 93,76 98,88" fill="none" stroke="#2d5a27" stroke-width="2.2" stroke-linecap="round" />
-          <circle cx="60" cy="38" r="10" fill="#ffd15c" opacity="0.3" filter="blur(2px)" />
-          <circle cx="60" cy="38" r="6" fill="#ffd15c" />
-        </svg>`,
-        caption: "Evidence We Occasionally Touch Grass 🌿<br><br>Yes, traveler, it actually happened! This circular drawing serves as concrete historical proof that we occasionally exit the cozy treehouse, close our screen portals, and venture out into the actual sunlit green forest of the kingdom. Fresh grass was touched, forest air was breathed, and normal human coordinates were temporarily restored!"
+      delhi: {
+        doodle: `<img src="assets/rs5.jpeg" class="modal-big-photo" alt="Delhi Trip" />`,
+        caption: "<strong>Delhi Trip Flight Together ✈️☁️</strong><br><br>Our first flight together on our grand Delhi adventure! Tucked into our tiny airplane seats, looking out of the window at the fluffy sea of clouds, and giggling nervously during takeoff. Soaring high above, we realized our friendship was embarking on its highest flight.<br><br><em>\"It doesn't matter where you're going, it's who you travel with.\"</em>"
       },
-      memes: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <rect x="34" y="44" width="52" height="52" rx="6" fill="#37474f" stroke="#1c272c" stroke-width="2" />
-          <rect x="44" y="44" width="32" height="18" fill="#eceff1" rx="1.5" />
-          <rect x="46" y="72" width="28" height="24" fill="#ffffff" rx="1.5" />
-          <rect x="66" y="76" width="6" height="15" fill="#37474f" />
-          <circle cx="28" cy="38" r="10" fill="#1c272c" />
-          <circle cx="92" cy="38" r="10" fill="#1c272c" />
-          <circle cx="28" cy="38" r="5" fill="#ff8a80" />
-          <circle cx="92" cy="38" r="5" fill="#ff8a80" />
-          <circle cx="50" cy="53" r="2.5" fill="#ff7e42" />
-          <circle cx="70" cy="53" r="2.5" fill="#ff7e42" />
-        </svg>`,
-        caption: "FBI would need 3 hard drives to store our memes 💾<br><br>A massive digital vault of round panda stickers, hilarious screenshot captures, quivering faces, and inside jokes. The federal agencies are absolutely baffled by the sheer gigabyte volume of our daily humor transmission. Storing this level of comedic gold is a grand achievement!"
+      pongal: {
+        doodle: `<img src="assets/rs3.jpeg" class="modal-big-photo" alt="Pongal Celeb" />`,
+        caption: "<strong>Pongal Celebration 🌾✨</strong><br><br>Celebrating the beautiful Pongal festival together in vibrant traditional gear, surrounded by warm smiles and sweet sugarcane. Laughing over the boiling milk and sharing the sweet pot, it was a day filled with gratitude, warmth, and joint blessings.<br><br><em>\"Some friendships are like sweet Pongal—warm, nourishing, and bringing joy to the heart.\"</em>"
       },
-      food: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <circle cx="60" cy="60" r="38" fill="#ffe0b2" stroke="#5d4037" stroke-width="2" />
-          <rect x="75" y="65" width="22" height="7" rx="2" fill="#5d4037" transform="rotate(30 86 68)" />
-          <circle cx="56" cy="56" r="22" fill="#37474f" stroke="#1c272c" stroke-width="2" />
-          <circle cx="56" cy="56" r="9" fill="#ffffff" />
-          <circle cx="56" cy="56" r="4.5" fill="#ffb300" />
-          <path d="M 46,25 Q 48,15 50,25" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
-          <path d="M 58,22 Q 60,12 62,22" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
-          <path d="M 68,26 Q 70,16 72,26" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
-        </svg>`,
-        caption: "Midnight Kitchen Raids & Culinary Experiments 🍕🍳<br><br>The official records of the culinary department of our cozy treehouse! Together we have orchestrated top-secret, midnight kitchen operations, raiding the snack vault, combining random ingredients, and calling it 'gourmet dining.' Some creations were legendary; others are classified, but the memories are delicious!"
+      cafe: {
+        doodle: `<img src="assets/rs6.jpeg" class="modal-big-photo" alt="Cafe Selfie" />`,
+        caption: "<strong>Cafe Mirror Selfie ☕🤳</strong><br><br>Snapping a silly mirror selfie at our favorite cozy cafe. Surrounded by the rich aroma of fresh coffee and sweet pastries, we spent hours talking about everything and nothing. These simple cafe mirror clicks capture the essence of our everyday fun.<br><br><em>\"A selfie is just a moment, but a coffee date with a best friend is a lifelong memory.\"</em>"
       },
-      journey: {
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <path d="M 40,85 L 45,102 L 75,102 L 80,85 Z" fill="#b0855a" stroke="#5d4037" stroke-width="2" />
-          <rect x="36" y="80" width="48" height="6" rx="1.5" fill="#a1887f" stroke="#5d4037" stroke-width="1.8" />
-          <path d="M 60,80 Q 50,45 42,50" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
-          <path d="M 60,80 Q 60,35 60,40" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
-          <path d="M 60,80 Q 70,45 78,50" fill="none" stroke="#699238" stroke-width="2.5" stroke-linecap="round" />
-          <circle cx="42" cy="48" r="6" fill="#ff8a80" />
-          <circle cx="42" cy="48" r="2.5" fill="#ffd15c" />
-          <circle cx="60" cy="36" r="7" fill="#ffa4d4" />
-          <circle cx="60" cy="36" r="3" fill="#ffffff" />
-          <circle cx="78" cy="48" r="6" fill="#ffcd5c" />
-          <circle cx="78" cy="48" r="2.5" fill="#ffffff" />
-        </svg>`,
-        caption: "The Endless Laughter Journey (Next 20 Years!) 🌸✨<br><br>A look into the scroll of the future! As you step into your 20s, know that the kingdom is ready for twice the memes, thrice the chaos, and infinite shared moments. Through study skips, grass touching, and snack raids, this friendship forest will only grow taller and bloom brighter! Happy Birthday, Rejo! 🎋🧸"
+      candid: {
+        doodle: `<img src="assets/rs7.jpeg" class="modal-big-photo" alt="Candid Pic" />`,
+        caption: "<strong>A Pure Candid Moment 🍃✨</strong><br><br>A beautiful candid photo capturing a moment of pure, unscripted happiness. Unaware of the camera, just laughing from the bottom of our hearts. It's the silent, unposed moments like these that show the true comfort and comfort of our bond.<br><br><em>\"The most beautiful moments are the ones we never planned to capture.\"</em>"
+      },
+      hospital: {
+        doodle: `<img src="assets/rs8.jpeg" class="modal-big-photo" alt="Hospital Care" />`,
+        caption: "<strong>Hospital Care & Shield ❤️🏥</strong><br><br>When times got tough and health failed, you stood by me like a protective shield. Hospitalized and weak, you were the one who stayed, cared for me, and brought light to the gloomy ward. Your care and dedication proved that you are more than a friend—you are family.<br><br><em>\"A friend is someone who walks in when the rest of the world walks out.\"</em>"
+      },
+      growing: {
+        doodle: `<img src="assets/rs10.jpeg" class="modal-big-photo" alt="Growing Together" />`,
+        caption: "<strong>Growing Side by Side 🌳🌸</strong><br><br>From silly childlike teenagers to walking together into our twenties. We've weathered storms, celebrated milestones, and grown side-by-side. Watching each other evolve while keeping our bond completely unchanged is the ultimate blessing.<br><br><em>\"Growing apart doesn't change the fact that for a long time we grew side by side.\"</em>"
       }
     };
 
@@ -1009,83 +962,75 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1600);
     }
 
-    // 1. Bind Click listeners on each photo frame trigger
-    memoryTriggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const memoryType = trigger.getAttribute("data-memory");
-        const data = memoryData[memoryType];
+    // 1. Expose robust global APIs for inline HTML click triggers (infallible navigation)
+    window.showMemoryModal = function(memoryType) {
+      const data = memoryData[memoryType];
+      if (data) {
+        // Trigger petal splash
+        triggerPetalConfetti(20);
 
-        if (data) {
-          // Trigger petal splash
-          triggerPetalConfetti(20);
+        // Populate worn paper story modal elements
+        modalDoodle.innerHTML = data.doodle;
+        modalCaption.innerHTML = data.caption;
 
-          // Populate worn paper story modal elements
-          modalDoodle.innerHTML = data.doodle;
-          modalCaption.innerHTML = data.caption;
+        // Slide and flip modal open
+        memoryModal.classList.remove("hidden-modal");
+        memoryModal.offsetHeight; // trigger reflow
+        memoryModal.classList.add("visible-modal");
 
-          // Slide and flip modal open
-          memoryModal.classList.remove("hidden-modal");
-          memoryModal.offsetHeight; // trigger reflow
-          memoryModal.classList.add("visible-modal");
+        // Add to viewed memory checklist
+        const originalSize = viewedMemories.size;
+        viewedMemories.add(memoryType);
 
-          // Add to viewed memory checklist
-          const originalSize = viewedMemories.size;
-          viewedMemories.add(memoryType);
-
-          // If a new memory was explored, update progress count!
-          if (viewedMemories.size > originalSize && viewedMemories.size < 6) {
-            const btnText = celebrateBtn.querySelector(".btn-text");
-            if (btnText) {
-              btnText.textContent = `Explore 6 Memories! (${viewedMemories.size}/6)`;
-            }
-          }
-
-          // Once all 6 stories have been explored, unlock the dedicated closing signboards!
-          if (viewedMemories.size === 6 && originalSize < 6) {
-            // Unlock!
-            setTimeout(() => {
-              // Confetti unlock blast
-              triggerPetalConfetti(60);
-
-              // Update button classes
-              closingSign.classList.remove("locked-state");
-              closingSign.classList.add("unlocked-state");
-
-              // Update button text and icon
-              const btnLeaf = celebrateBtn.querySelector(".btn-leaf");
-              const btnText = celebrateBtn.querySelector(".btn-text");
-              if (btnLeaf) btnLeaf.textContent = "🌿";
-              if (btnText) btnText.textContent = "Celebrate Rejo's Birthday! 🎂🎉";
-
-              // Fade in emotional signature plaque
-              closingText.classList.remove("hidden-closing");
-              closingText.classList.add("visible-closing");
-
-              // Start magical sparkling interval
-              if (sparkleInterval) clearInterval(sparkleInterval);
-              sparkleInterval = setInterval(spawnSparkle, 550);
-
-            }, 800);
+        // If a new memory was explored, update progress count!
+        if (viewedMemories.size > originalSize && viewedMemories.size < 8) {
+          const btnText = celebrateBtn.querySelector(".btn-text");
+          if (btnText) {
+            btnText.textContent = `Explore 8 Memories! (${viewedMemories.size}/8)`;
           }
         }
-      });
-    });
 
-    // 2. Modal Closing Handlers
-    function closeModal() {
+        // Once all 8 stories have been explored, unlock the dedicated closing signboards!
+        if (viewedMemories.size === 8 && originalSize < 8) {
+          // Unlock!
+          setTimeout(() => {
+            // Confetti unlock blast
+            triggerPetalConfetti(60);
+
+            // Update button classes
+            closingSign.classList.remove("locked-state");
+            closingSign.classList.add("unlocked-state");
+
+            // Update button text and icon
+            const btnLeaf = celebrateBtn.querySelector(".btn-leaf");
+            const btnText = celebrateBtn.querySelector(".btn-text");
+            if (btnLeaf) btnLeaf.textContent = "🌿";
+            if (btnText) btnText.textContent = "Celebrate Rejo's Birthday! 🎂🎉";
+
+            // Fade in emotional signature plaque
+            closingText.classList.remove("hidden-closing");
+            closingText.classList.add("visible-closing");
+
+            // Start magical sparkling interval
+            if (sparkleInterval) clearInterval(sparkleInterval);
+            sparkleInterval = setInterval(spawnSparkle, 550);
+
+          }, 800);
+        }
+      }
+    };
+
+    window.closeMemoryModal = function() {
       memoryModal.classList.remove("visible-modal");
       setTimeout(() => {
         memoryModal.classList.add("hidden-modal");
       }, 500); // match transition
-    }
-
-    modalCloseBtn.addEventListener("click", closeModal);
-    modalOverlay.addEventListener("click", closeModal);
+    };
 
     // 3. Wires final celebratory complete button signboard
     let isWarningFlashed = false;
     celebrateBtn.addEventListener("click", () => {
-      if (viewedMemories.size < 6) {
+      if (viewedMemories.size < 8) {
         // Locked warning interaction
         if (isWarningFlashed) return;
         isWarningFlashed = true;
@@ -1097,12 +1042,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const prevLeaf = btnLeaf ? btnLeaf.textContent : "🔒";
 
         if (btnLeaf) btnLeaf.textContent = "⚠️";
-        if (btnText) btnText.textContent = "Click all 6 Polaroids! 🎋";
+        if (btnText) btnText.textContent = "Click all 8 Polaroids! 🎋";
 
         setTimeout(() => {
           closingSign.classList.remove("locked-shake");
           if (btnLeaf) btnLeaf.textContent = prevLeaf;
-          if (btnText) btnText.textContent = `Explore 6 Memories! (${viewedMemories.size}/6)`;
+          if (btnText) btnText.textContent = `Explore 8 Memories! (${viewedMemories.size}/8)`;
           isWarningFlashed = false;
         }, 1500);
 
@@ -1226,63 +1171,25 @@ document.addEventListener("DOMContentLoaded", () => {
       goluk: {
         title: "CASE REPORT #041",
         stats: "🍕 FOOD CRIMES DIVISION",
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <circle cx="60" cy="60" r="48" fill="#ffe0b2" stroke="#5d4037" stroke-width="2.5" />
-          <path d="M 60,60 L 60,16 A 44,44 0 0,1 104,60 Z" fill="#ffb74d" stroke="#5d4037" stroke-width="1.8" />
-          <path d="M 60,60 L 104,60 A 44,44 0 0,1 60,104 Z" fill="#ffb74d" stroke="#5d4037" stroke-width="1.8" />
-          <path d="M 60,60 L 60,104 A 44,44 0 0,1 16,60 Z" fill="#ffb74d" stroke="#5d4037" stroke-width="1.8" />
-          <path d="M 60,60 L 16,60 A 44,44 0 0,1 60,16 Z" fill="#fff9c4" opacity="0.3" stroke="#5d4037" stroke-dasharray="3,3" stroke-width="1.5" />
-          <circle cx="80" cy="40" r="4.5" fill="#e53935" />
-          <circle cx="80" cy="80" r="4.5" fill="#e53935" />
-          <circle cx="40" cy="80" r="4.5" fill="#e53935" />
-          <path d="M 45,30 Q 48,20 50,30" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
-          <path d="M 70,30 Q 73,20 75,30" fill="none" stroke="#cfd8dc" stroke-width="2" stroke-linecap="round" />
-        </svg>`,
+        doodle: `<img src="assets/goluk_case.jpeg" class="modal-big-photo" alt="Food Crimes" />`,
         caption: `"ACCUSED OF SNACK HOMICIDE!"<br><br>Detailed case reports suggest the subject ordered a massive double-cheese pizza under the pretense of 'sharing with friends.' Upon arrival at the cozy treehouse kitchen, the subject barricaded the door and systematically consumed all 8 slices, leaving only crumbs and empty promises of calorie tracking.`
       },
       eruma: {
         title: "CASE REPORT #099",
         stats: "😴 SLEEP INSURGENCY DEPT",
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <ellipse cx="60" cy="65" rx="35" ry="25" fill="#b0bec5" stroke="#37474f" stroke-width="2.5" />
-          <path d="M 30,52 Q 15,35 32,45" fill="none" stroke="#eceff1" stroke-width="6.5" stroke-linecap="round" />
-          <path d="M 90,52 Q 105,35 88,45" fill="none" stroke="#eceff1" stroke-width="6.5" stroke-linecap="round" />
-          <path d="M 42,65 Q 48,70 50,65" fill="none" stroke="#37474f" stroke-width="2.5" stroke-linecap="round" />
-          <path d="M 70,65 Q 72,70 78,65" fill="none" stroke="#37474f" stroke-width="2.5" stroke-linecap="round" />
-          <ellipse cx="60" cy="74" rx="16" ry="10" fill="#cfd8dc" stroke="#37474f" stroke-width="1.5" />
-          <circle cx="53" cy="74" r="2.5" fill="#37474f" />
-          <circle cx="67" cy="74" r="2.5" fill="#37474f" />
-          <text x="80" y="38" font-family="Fredoka One, cursive" font-size="14" fill="#37474f" font-weight="bold">Z</text>
-          <text x="92" y="26" font-family="Fredoka One, cursive" font-size="10" fill="#37474f" font-weight="bold">z</text>
-        </svg>`,
+        doodle: `<img src="assets/eruma_case.jpeg" class="modal-big-photo" alt="Sleep Crimes" />`,
         caption: `"CHAMPION SLEEPER ACQUITTED!"<br><br>The eruma maadu (water buffalo) files indicate extreme levels of horizontal hibernation. The suspect is documented sleeping through multiple alarm systems, Ghibli forest thunder storms, and heavy tea kettle whistlings. Sleep level: Over 9000. Guilty of professional sleeping!`
       },
       memes: {
         title: "CASE REPORT #404",
         stats: "🗂️ DIGITAL CONTRABAND",
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <rect x="25" y="25" width="70" height="70" rx="8" fill="#37474f" stroke="#263238" stroke-width="3" />
-          <rect x="38" y="25" width="44" height="26" fill="#eceff1" rx="2" />
-          <rect x="42" y="58" width="36" height="37" fill="#ffffff" rx="2" stroke="#263238" stroke-width="1.5" />
-          <line x1="46" y1="66" x2="74" y2="66" stroke="#b0bec5" stroke-width="1.8" />
-          <line x1="46" y1="74" x2="74" y2="74" stroke="#b0bec5" stroke-width="1.8" />
-          <circle cx="30" cy="20" r="9" fill="#263238" />
-          <circle cx="90" cy="20" r="9" fill="#263238" />
-          <circle cx="48" cy="46" r="3" fill="#ff8a80" />
-          <circle cx="72" cy="46" r="3" fill="#ff8a80" />
-        </svg>`,
+        doodle: `<img src="assets/meme_case.jpeg" class="modal-big-photo" alt="Meme Crimes" />`,
         caption: `"UNAUTHORIZED MEME ACCUMULATION!"<br><br>Raids on the suspect's device cache uncovered a colossal, top-secret hoard of round panda reactions stickers, fuzzy soot sprite expressions, and extremely chaotic chats screenshots. The volume of reaction hoarding exceeds regional safety limits, posing a hazard of extreme laughter.`
       },
       suspicious: {
         title: "CASE REPORT #777",
         stats: "⚠️ DANGEROUS CUTE FORCE",
-        doodle: `<svg viewBox="0 0 120 120" width="100%" height="100%">
-          <path d="M 60,20 Q 60,50 90,50 Q 60,50 60,80 Q 60,50 30,50 Q 60,50 60,20 Z" fill="#ffd15c" stroke="#5d4037" stroke-width="2" />
-          <path d="M 90,75 Q 90,90 105,90 Q 90,90 90,105 Q 90,90 75,90 Q 90,90 90,75 Z" fill="#ffa4d4" stroke="#5d4037" stroke-width="1.5" />
-          <path d="M 30,75 Q 30,85 40,85 Q 30,85 30,95 Q 30,85 20,85 Q 30,85 30,75 Z" fill="#b3e5fc" stroke="#5d4037" stroke-width="1.2" />
-          <circle cx="78" cy="30" r="2.5" fill="#ffd15c" />
-          <circle cx="42" cy="32" r="2.5" fill="#ffa4d4" />
-        </svg>`,
+        doodle: `<img src="assets/suspicious_case.jpeg" class="modal-big-photo" alt="Cute Crimes" />`,
         caption: `"CRITICAL GHIBLI VIBE OVERLOAD!"<br><br>The detective agency reports abnormally high frequencies of warm feelings, cozy wiggles, and cute panda hugs emanating from the suspect. High-intensity smiles and extreme Ghibli storybook appreciation are verified. The suspect is ordered to proceed directly to cake eating!`
       }
     };
@@ -1576,6 +1483,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Go to Final Chapter (Scene 11) click handler
     const gotoFinalBtn = document.getElementById("playhouse-goto-final-btn");
     const sceneFinal = document.getElementById("scene-final");
+    const sceneCinema = document.getElementById("scene-cinema");
 
     if (gotoFinalBtn) {
       gotoFinalBtn.addEventListener("click", () => {
@@ -1589,14 +1497,30 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             sceneGames.classList.add("hidden");
 
-            sceneFinal.classList.remove("hidden");
-            sceneFinal.offsetHeight; // force reflow
-            sceneFinal.style.opacity = 1;
-            sceneFinal.classList.add("active-scene");
+            if (!window.cinemaViewed) {
+              // First viewing: Trigger cinematic pre-finale bridge video!
+              if (sceneCinema) {
+                sceneCinema.classList.remove("hidden");
+                sceneCinema.offsetHeight; // force reflow
+                sceneCinema.style.opacity = 1;
+                sceneCinema.classList.add("active-scene");
 
-            // Initialize Final Ending Chapter
-            if (window.initFinalEndingSystem) {
-              window.initFinalEndingSystem();
+                if (window.initCinematicSequence) {
+                  window.initCinematicSequence();
+                }
+              }
+            } else {
+              // Substantive viewing: Direct to celebration plaque!
+              if (sceneFinal) {
+                sceneFinal.classList.remove("hidden");
+                sceneFinal.offsetHeight; // force reflow
+                sceneFinal.style.opacity = 1;
+                sceneFinal.classList.add("active-scene");
+
+                if (window.initFinalEndingSystem) {
+                  window.initFinalEndingSystem();
+                }
+              }
             }
           }, 1000);
         }, 800);
@@ -2300,7 +2224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Real-time dynamic game validations
     if (window.game2Score >= 20) window.achievementsState.panda = true;
     if (window.game3Score >= 15) window.achievementsState.buffalo = true;
-    if (window.friendshipViewedMemories && window.friendshipViewedMemories.size >= 6) {
+    if (window.friendshipViewedMemories && window.friendshipViewedMemories.size >= 8) {
       window.achievementsState.friend = true;
     }
     if (window.game1Score >= 20) window.achievementsState.goluk = true;
@@ -2442,6 +2366,390 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================================================
+  // --- PRE-FINALE CINEMATIC SEQUENCE ---
+  // ==========================================================================
+  window.cinemaViewed = false;
+  window.cinemaTimeouts = null;
+
+  let cinemaAudioInterval = null;
+  let cinemaGainNode = null;
+  let cinemaOscillators = [];
+  let cinemaFireflyInterval = null;
+  let cinemaLanternInterval = null;
+
+  function playCinemaSoundtrack() {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      
+      cinemaGainNode = ctx.createGain();
+      cinemaGainNode.gain.setValueAtTime(0.02, ctx.currentTime);
+      cinemaGainNode.connect(ctx.destination);
+      
+      // Beautiful chord progression (Fmaj7 - G - Em7 - Am7)
+      const chords = [
+        [174.61, 220.00, 261.63, 329.63, 440.00], // Fmaj7
+        [196.00, 246.94, 293.66, 392.00, 493.88], // G
+        [164.81, 196.00, 246.94, 293.66, 392.00], // Em7
+        [220.00, 261.63, 329.63, 392.00, 523.25]  // Am7
+      ];
+      
+      let noteIndex = 0;
+      let chordIndex = 0;
+      let startTime = Date.now();
+      
+      cinemaAudioInterval = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        
+        let volume = 0.03;
+        if (elapsed < 10) {
+          volume = 0.03 + (elapsed / 10) * 0.12;
+        } else if (elapsed < 15.5) {
+          volume = 0.15 - ((elapsed - 10) / 5.5) * 0.07;
+        } else {
+          volume = Math.max(0.001, 0.08 - ((elapsed - 15.5) / 3) * 0.08);
+        }
+        
+        cinemaGainNode.gain.setValueAtTime(volume, ctx.currentTime);
+        
+        const chord = chords[chordIndex];
+        let noteFreq = chord[noteIndex % chord.length];
+        
+        if (elapsed >= 10 && elapsed < 14) {
+          if (noteIndex % 2 === 0) {
+            noteFreq = noteFreq * 2;
+          }
+        }
+        
+        playPianoNote(ctx, cinemaGainNode, noteFreq);
+        
+        noteIndex++;
+        if (noteIndex % 8 === 0) {
+          chordIndex = (chordIndex + 1) % chords.length;
+        }
+      }, 200);
+    } catch (e) {
+      console.log("Cinema soundtrack error:", e);
+    }
+  }
+
+  function playPianoNote(ctx, destinationGain, freq) {
+    try {
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const noteGain = ctx.createGain();
+      
+      osc1.type = "sine";
+      osc2.type = "triangle";
+      
+      osc1.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc2.frequency.setValueAtTime(freq * 1.002, ctx.currentTime);
+      
+      noteGain.gain.setValueAtTime(0, ctx.currentTime);
+      noteGain.gain.linearRampToValueAtTime(0.35, ctx.currentTime + 0.01);
+      noteGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+      
+      osc1.connect(noteGain);
+      osc2.connect(noteGain);
+      noteGain.connect(destinationGain);
+      
+      osc1.start(ctx.currentTime);
+      osc2.start(ctx.currentTime);
+      
+      osc1.stop(ctx.currentTime + 1.3);
+      osc2.stop(ctx.currentTime + 1.3);
+      
+      cinemaOscillators.push(osc1, osc2);
+      if (cinemaOscillators.length > 50) {
+        cinemaOscillators.shift();
+        cinemaOscillators.shift();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function stopCinemaSoundtrack() {
+    if (cinemaAudioInterval) {
+      clearInterval(cinemaAudioInterval);
+      cinemaAudioInterval = null;
+    }
+    if (cinemaGainNode) {
+      try {
+        const ctx = getAudioContext();
+        cinemaGainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+      } catch (e) {}
+    }
+    cinemaOscillators.forEach(osc => {
+      try { osc.stop(); } catch (e) {}
+    });
+    cinemaOscillators = [];
+  }
+
+  function spawnCinemaFireflies() {
+    const container = document.getElementById("cinema-fireflies-container");
+    if (!container) return;
+    container.innerHTML = "";
+    
+    for (let i = 0; i < 20; i++) {
+      createCinemaFirefly(container, true);
+    }
+    
+    cinemaFireflyInterval = setInterval(() => {
+      createCinemaFirefly(container, false);
+    }, 400);
+  }
+
+  function createCinemaFirefly(container, initial) {
+    if (container.children.length > 40) {
+      container.children[0].remove();
+    }
+    const f = document.createElement("div");
+    f.style.position = "absolute";
+    f.style.width = `${3 + Math.random() * 4}px`;
+    f.style.height = f.style.width;
+    f.style.borderRadius = "50%";
+    f.style.background = "rgba(255, 235, 120, 0.8)";
+    f.style.pointerEvents = "none";
+    f.style.filter = "blur(0.5px)";
+    f.style.boxShadow = "0 0 6px rgba(255, 235, 120, 0.9)";
+    
+    const left = Math.random() * 100;
+    const top = initial ? (20 + Math.random() * 60) : 90;
+    
+    f.style.left = `${left}%`;
+    f.style.top = `${top}%`;
+    
+    const duration = 6 + Math.random() * 6;
+    const drift = -30 - Math.random() * 40;
+    
+    f.animate([
+      { transform: 'translate(0, 0) scale(1)', opacity: 0 },
+      { opacity: 0.8, offset: 0.2 },
+      { opacity: 0.8, offset: 0.8 },
+      { transform: `translate(${(Math.random() - 0.5) * 40}px, ${drift}vh) scale(1)`, opacity: 0 }
+    ], {
+      duration: duration * 1000,
+      easing: 'ease-in-out',
+      fill: 'forwards'
+    });
+    
+    container.appendChild(f);
+  }
+
+  function spawnCinemaSkyLanterns() {
+    const container = document.getElementById("cinema-lanterns-container");
+    if (!container) return;
+    container.innerHTML = "";
+    
+    for (let i = 0; i < 6; i++) {
+      createCinemaLantern(container, true);
+    }
+    
+    cinemaLanternInterval = setInterval(() => {
+      createCinemaLantern(container, false);
+    }, 2800);
+  }
+
+  function createCinemaLantern(container, initial) {
+    if (container.children.length > 15) {
+      container.children[0].remove();
+    }
+    
+    const l = document.createElement("div");
+    l.classList.add("cinema-sky-lantern");
+    l.style.position = "absolute";
+    l.style.width = `${14 + Math.random() * 12}px`;
+    l.style.height = `${22 + Math.random() * 14}px`;
+    l.style.background = "linear-gradient(to top, rgba(255,100,50,0.95), rgba(255,210,120,0.95))";
+    l.style.borderRadius = "8px 8px 3px 3px";
+    l.style.boxShadow = "0 0 12px rgba(255,140,50,0.8)";
+    l.style.pointerEvents = "none";
+    l.style.zIndex = "4";
+    l.style.opacity = "0";
+    
+    const glow = document.createElement("div");
+    glow.style.position = "absolute";
+    glow.style.bottom = "2px";
+    glow.style.left = "25%";
+    glow.style.width = "50%";
+    glow.style.height = "30%";
+    glow.style.background = "#fffb8f";
+    glow.style.borderRadius = "50%";
+    glow.style.filter = "blur(1.5px)";
+    l.appendChild(glow);
+    
+    const left = Math.random() * 90 + 5;
+    const top = initial ? (10 + Math.random() * 60) : 95;
+    
+    l.style.left = `${left}%`;
+    l.style.top = `${top}%`;
+    
+    const duration = 12 + Math.random() * 10;
+    const driftX = (Math.random() - 0.3) * 150;
+    
+    l.animate([
+      { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: 0 },
+      { opacity: 0.9, offset: 0.15 },
+      { opacity: 0.9, offset: 0.8 },
+      { transform: `translate(${driftX}px, -110vh) scale(0.85) rotate(${(Math.random() - 0.5) * 20}deg)`, opacity: 0 }
+    ], {
+      duration: duration * 1000,
+      easing: 'ease-in-out',
+      fill: 'forwards'
+    });
+    
+    container.appendChild(l);
+  }
+
+  function amplifyCinemaGlow() {
+    const lanterns = document.querySelectorAll("#cinema-lanterns-container .cinema-sky-lantern");
+    lanterns.forEach(l => {
+      l.style.transition = "box-shadow 1.5s ease, transform 1.5s ease, filter 1.5s ease";
+      l.style.boxShadow = "0 0 24px rgba(255, 180, 50, 0.95), 0 0 45px rgba(255, 220, 100, 0.8)";
+      l.style.transform = "scale(1.25)";
+    });
+    
+    const fireflies = document.querySelectorAll("#cinema-fireflies-container div");
+    fireflies.forEach(f => {
+      f.style.transition = "box-shadow 1.5s ease, transform 1.5s ease, background 1.5s ease";
+      f.style.boxShadow = "0 0 15px rgba(255, 235, 120, 1), 0 0 25px rgba(255, 255, 250, 0.95)";
+      f.style.background = "rgba(255, 255, 255, 0.95)";
+      f.style.transform = "scale(1.5)";
+    });
+  }
+
+  function spawnClimaxSparkles() {
+    const frame = document.getElementById("cinema-particle-flare");
+    if (!frame) return;
+    
+    const particlePool = ["✨", "🌟", "💖", "🌸", "💕", "💛", "💫", "✨", "⭐"];
+    const totalParticles = 75;
+    
+    for (let i = 0; i < totalParticles; i++) {
+      setTimeout(() => {
+        const p = document.createElement("div");
+        p.classList.add("cinema-sparkle");
+        p.textContent = particlePool[Math.floor(Math.random() * particlePool.length)];
+        
+        p.style.left = `${40 + Math.random() * 20}%`;
+        p.style.top = `${40 + Math.random() * 20}%`;
+        
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 100 + Math.random() * 250;
+        const dx = Math.cos(angle) * radius;
+        const dy = Math.sin(angle) * radius;
+        
+        p.style.setProperty("--dx", `${dx}px`);
+        p.style.setProperty("--dy", `${dy}px`);
+        p.style.setProperty("--scale", `${0.6 + Math.random() * 1.0}`);
+        p.style.setProperty("--rot", `${Math.random() * 360}deg`);
+        
+        frame.appendChild(p);
+        
+        setTimeout(() => {
+          p.remove();
+        }, 2100);
+      }, i * 25);
+    }
+  }
+
+  window.initCinematicSequence = function() {
+    const video = document.getElementById("cinema-video");
+    const flashOverlay = document.getElementById("cinema-flash-overlay");
+    const sub1 = document.getElementById("cinema-line-1");
+    const sub2 = document.getElementById("cinema-line-2");
+    const sub3 = document.getElementById("cinema-line-3");
+    const sceneCinema = document.getElementById("scene-cinema");
+    const sceneFinal = document.getElementById("scene-final");
+    
+    if (flashOverlay) {
+      flashOverlay.classList.remove("flashing");
+    }
+    if (sub1) sub1.classList.remove("visible-sub");
+    if (sub2) sub2.classList.remove("visible-sub");
+    if (sub3) sub3.classList.remove("visible-sub");
+    
+    spawnCinemaFireflies();
+    spawnCinemaSkyLanterns();
+    
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(err => {
+        console.log("Video play failed or interrupted:", err);
+      });
+    }
+    
+    playCinemaSoundtrack();
+    
+    const t1 = setTimeout(() => {
+      if (sub1) sub1.classList.add("visible-sub");
+    }, 1800);
+    
+    const t2 = setTimeout(() => {
+      if (sub1) sub1.classList.remove("visible-sub");
+    }, 5400);
+    
+    const t3 = setTimeout(() => {
+      if (sub2) sub2.classList.add("visible-sub");
+    }, 6200);
+    
+    const t4 = setTimeout(() => {
+      if (sub2) sub2.classList.remove("visible-sub");
+    }, 9600);
+    
+    const t5 = setTimeout(() => {
+      spawnClimaxSparkles();
+      amplifyCinemaGlow();
+    }, 10000);
+    
+    const t6 = setTimeout(() => {
+      if (sub3) sub3.classList.add("visible-sub");
+    }, 10400);
+    
+    const t7 = setTimeout(() => {
+      if (sub3) sub3.classList.remove("visible-sub");
+    }, 15000);
+    
+    const t8 = setTimeout(() => {
+      if (flashOverlay) {
+        flashOverlay.classList.add("flashing");
+      }
+    }, 15500);
+    
+    const t9 = setTimeout(() => {
+      window.cinemaViewed = true;
+      
+      stopCinemaSoundtrack();
+      if (cinemaFireflyInterval) clearInterval(cinemaFireflyInterval);
+      if (cinemaLanternInterval) clearInterval(cinemaLanternInterval);
+      
+      if (sceneCinema) {
+        sceneCinema.classList.remove("active-scene");
+        sceneCinema.style.opacity = 0;
+        sceneCinema.classList.add("hidden");
+      }
+      
+      if (sceneFinal) {
+        sceneFinal.classList.remove("hidden");
+        sceneFinal.offsetHeight;
+        sceneFinal.style.opacity = 1;
+        sceneFinal.classList.add("active-scene");
+        
+        if (window.initFinalEndingSystem) {
+          window.initFinalEndingSystem();
+        }
+      }
+    }, 18500);
+    
+    window.cinemaTimeouts = [t1, t2, t3, t4, t5, t6, t7, t8, t9];
+  };
+
+  // ==========================================================================
   // --- SCENE 11: FINAL CHAPTER: LANTERN FESTIVAL Ending ---
   // ==========================================================================
   let finalLanternInterval = null;
@@ -2522,6 +2830,22 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(finalLanternInterval);
         clearInterval(finalFireflyInterval);
         clearTimeout(finalSkitTimeout);
+
+        // Reset and stop pre-finale cinema states
+        window.cinemaViewed = false;
+        if (window.cinemaTimeouts) {
+          window.cinemaTimeouts.forEach(t => clearTimeout(t));
+          window.cinemaTimeouts = null;
+        }
+        stopCinemaSoundtrack();
+        if (cinemaFireflyInterval) {
+          clearInterval(cinemaFireflyInterval);
+          cinemaFireflyInterval = null;
+        }
+        if (cinemaLanternInterval) {
+          clearInterval(cinemaLanternInterval);
+          cinemaLanternInterval = null;
+        }
 
         setTimeout(() => {
           // Fade final scene out
@@ -2771,6 +3095,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 350);
   }
 
-});
+  // Initialize Chapter 3 immediately on DOM load to ensure Polaroids are interactive
+  initFriendshipForest();
+
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initAllGhibliJungle);
+} else {
+  initAllGhibliJungle();
+}
 
 
